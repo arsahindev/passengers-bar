@@ -1,5 +1,9 @@
 ---
-import PassengersPage from '../../components/PassengersPage.astro';
-export function getStaticPaths(){return ['sr','en'].map(locale=>({params:{locale}}));}
+import PassengersPage from "../../components/PassengersPage.astro";
+
+export function getStaticPaths() {
+  return ["sr", "en"].map((locale) => ({ params: { locale } }));
+}
 ---
-<PassengersPage locale={Astro.params.locale}/>
+
+<PassengersPage locale={Astro.params.locale} />

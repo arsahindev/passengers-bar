@@ -1,63 +1,1256 @@
 ---
-import { Image } from 'astro:assets';
-import { settings } from '../content/settings';
-import logo from '../assets/passengers/logo.png';
-import hero from '../assets/passengers/hero.jpg';
-import room1 from '../assets/passengers/space-1.jpg';
-import room2 from '../assets/passengers/space-2.jpg';
-import room3 from '../assets/passengers/space-3.jpg';
-import food1 from '../assets/passengers/food-1.jpg';
-import food2 from '../assets/passengers/food-2.jpg';
-import breakfastEN from '../assets/passengers/breakfast-en.png';
-import breakfastSR from '../assets/passengers/breakfast-sr.jpg';
-import offersEN from '../assets/passengers/offers-en.png';
-import offersSR from '../assets/passengers/offers-sr.jpg';
-const {locale='en'}=Astro.props;
-const sr=locale==='sr';const tx=(a:string,b:string)=>sr?a:b;
-const gallery=[room1,room2,room3,food1,food2];
-const menu='https://www.passengersbar.com/en/_files/ugd/cdbde1_2585be397e9c473aa54af15f4857d2b6.pdf';
-const map='https://www.google.com/maps/search/?api=1&query='+encodeURIComponent('Passengers Bar Simina 5 Belgrade');
+import { Image } from "astro:assets";
+import { settings } from "../content/settings";
+import logo from "../assets/passengers/logo.png";
+import hero from "../assets/passengers/hero.jpg";
+import room1 from "../assets/passengers/space-1.jpg";
+import room2 from "../assets/passengers/space-2.jpg";
+import room3 from "../assets/passengers/space-3.jpg";
+import food1 from "../assets/passengers/food-1.jpg";
+import food2 from "../assets/passengers/food-2.jpg";
+import breakfastEN from "../assets/passengers/breakfast-en.png";
+import breakfastSR from "../assets/passengers/breakfast-sr.jpg";
+import offersEN from "../assets/passengers/offers-en.png";
+import offersSR from "../assets/passengers/offers-sr.jpg";
+
+const { locale = "en" } = Astro.props;
+const sr = locale === "sr";
+const tx = (serbian: string, english: string) => (sr ? serbian : english);
+
+const gallery = [room1, room2, room3, food1, food2];
+const menu =
+  "https://www.passengersbar.com/en/_files/ugd/cdbde1_2585be397e9c473aa54af15f4857d2b6.pdf";
+const map =
+  "https://www.google.com/maps/search/?api=1&query=" +
+  encodeURIComponent("Passengers Bar Simina 5 Belgrade");
 ---
-<!doctype html><html lang={sr?'sr-Latn':'en'}><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><meta name="robots" content="noindex,nofollow"/><meta name="theme-color" content="#53272e"/><title>{tx('Passengers Bar — predlog sajta','Passengers Bar — website concept')}</title><meta name="description" content={tx('Privatni pregled predloga sajta. Nije zvanični sajt i ne prima rezervacije.','Private website concept. Not the official site; no reservations are sent.')} /></head>
-<body data-locale={locale}>
-<div class="preview-banner">{tx('PREDLOG ZA PREGLED VLASNIKA · Rezervacije se ne šalju.','OWNER REVIEW CONCEPT · Reservations are not sent.')} <a href="https://www.passengersbar.com/en">{tx('Zvanični sajt ↗','Official website ↗')}</a></div>
-<a class="skip" href="#main">{tx('Pređi na sadržaj','Skip to content')}</a>
-<header><a class="wordmark" href="#main"><Image src={logo} width={66} height={66} alt="Passengers Bar"/><span>PASSENGERS<small>BAR · DORĆOL</small></span></a><nav aria-label={tx('Glavna navigacija','Main navigation')}><a href="#story">{tx('Naše mesto','Our place')}</a><a href="#menu">{tx('Meni','Menu')}</a><a href="#celebrate">{tx('Proslave','Celebrations')}</a><a class="language" href={'/'+(sr?'en':'sr')+'/'}>{sr?'EN':'SR'}</a><a class="btn small" href="#reserve">{tx('Rezervacije','Reservations')} ↗</a></nav></header>
-<main id="main">
-<section class="hero"><Image src={hero} width={1600} format="webp" alt={tx('Bašta Passengers Bara, fotografija sa postojećeg sajta','Passengers Bar garden, photograph from the existing website')} loading="eager" fetchpriority="high"/><div class="hero-shade"></div><div class="hero-copy"><p class="eyebrow">SIMINA 5 · DORĆOL · BEOGRAD</p><h1>{tx('Vaše mesto.','Your kind')}<br/><em>{tx('U srcu Dorćola.','of place.')}</em></h1><p>{tx('Jutarnja kafa. Dugi ručkovi. Večeri koje ne planirate.','Morning coffee. Long lunches. Evenings you didn’t plan.')}</p><div class="actions"><a class="btn cream" href="#reserve">{tx('Pronađite svoje mesto','Find your table')} ↗</a><a href="#tour" class="text-link">{tx('Pogledajte prostor','Explore the space')} ↓</a></div></div><div class="hero-bottom"><span>{tx('HRANA · PIĆE · DOBRO DRUŠTVO','FOOD · DRINKS · GOOD COMPANY')}</span><a href={map} target="_blank" rel="noopener noreferrer">{tx('Put do nas','Get directions')} ↗</a></div></section>
-<section id="story" class="section story"><div><p class="eyebrow">{tx('MALO DALJE OD ŽURBE','A LITTLE AWAY FROM THE RUSH')}</p><h2>{tx('U centru grada.','Right in the city.')}<br/><em>{tx('U svom ritmu.','At your own pace.')}</em></h2></div><div><p class="lead">{tx('Na uglu Simine i Višnjićeve, Passengers spaja druženje, hranu i baštu u kojoj se ostaje malo duže.','On the corner of Simina and Višnjićeva, Passengers brings together food, conversation and a garden made for staying a little longer.')}</p><p>{tx('Svratite na kafu, okupite prijatelje za ručak ili nam se javite da zajedno osmislimo proslavu.','Drop in for coffee, gather your friends for lunch, or talk to us about your next celebration.')}</p><a class="underlined" href="#gallery">{tx('Zavirite unutra','Take a look around')} ↗</a></div></section>
-<section class="section gallery-section" id="gallery"><div class="section-head"><div><p class="eyebrow">{tx('MESTO I TRENUTAK','THE PLACE. THE MOMENT.')}</p><h2>{tx('Osetite Passengers.','A taste of Passengers.')}</h2></div><div class="gallery-controls"><button type="button" data-gallery-prev aria-label={tx('Prethodna fotografija','Previous photograph')}>←</button><button type="button" data-gallery-next aria-label={tx('Sledeća fotografija','Next photograph')}>→</button></div></div><div class="gallery" tabindex="0" aria-label={tx('Galerija fotografija','Photo gallery')}>{gallery.map((img,i)=><figure><Image src={img} width={850} format="webp" loading="lazy" alt={tx(i<3?'Ambijent Passengers Bara':'Hrana u Passengers Baru',i<3?'The setting at Passengers Bar':'Food at Passengers Bar')}/><figcaption>{String(i+1).padStart(2,'0')} / 05 · {tx(i<3?'Naš prostor':'Sa našeg stola',i<3?'Our space':'From our table')}</figcaption></figure>)}</div><p class="review-note">{tx('Fotografije sa postojećeg sajta Passengers Bara. Nisu portfolio radovi Space360.','Photographs from Passengers Bar’s existing website. These are not Space360 portfolio photographs.')}</p></section>
-<section class="menu-band" id="menu"><div><p class="eyebrow">{tx('DOBRO JUTRO. DOBAR APETIT.','GOOD MORNINGS. GOOD APPETITES.')}</p><h2>{tx('Za svaki deo dana.','Something for every part of the day.')}</h2><p>{tx('Pogledajte meni sa postojećeg sajta, pa izaberite svoj sledeći razlog za dolazak.','Browse the menu from the current website and find your next reason to visit.')}</p><a class="btn cream" href={menu} target="_blank" rel="noopener noreferrer">{tx('Otvorite meni · PDF','Open menu · PDF')} ↗</a><p class="review-note">{tx('Vlasnik treba da potvrdi aktuelni meni i cene.','Owner to confirm the current menu and prices.')}</p></div><Image src={food1} width={850} format="webp" loading="lazy" alt={tx('Jelo sa postojećeg sajta Passengers Bara','A dish from Passengers Bar’s existing website')}/></section>
-<section class="section celebrations" id="celebrate"><div class="celebrate-photo"><Image src={room2} width={850} format="webp" loading="lazy" alt={tx('Ambijent sa postojećeg sajta','Setting from the existing website')}/></div><div><p class="eyebrow">{tx('VAŠ POVOD. NAŠ PROSTOR.','YOUR OCCASION. OUR PLACE.')}</p><h2>{tx('Okupite','Bring everyone')}<br/><em>{tx('svoje ljude.','together.')}</em></h2><p>{tx('Rođendan, privatno okupljanje ili poslovni događaj. Recite nam šta planirate i kakav ambijent želite.','A birthday, a private gathering or a work event. Tell us what you’re planning and the atmosphere you have in mind.')}</p><div class="facts"><span>{tx('Privatni događaji','Private events')}</span><span>{tx('Prostor uz baštu','Garden-side setting')}</span><span>{tx('Dogovor prema povodu','Plans tailored to the occasion')}</span></div><a class="btn" href="#reserve" data-event-link>{tx('Upit za proslavu','Plan a celebration')} ↗</a></div></section>
-<section class="tour-section" id="tour"><div class="section-head"><div><p class="eyebrow">360° · {tx('ISTRAŽITE PROSTOR','EXPLORE THE SPACE')}</p><h2>{tx('Ovde bi bila vaša','Your virtual tour')}<br/><em>{tx('virtuelna tura.','would live here.')}</em></h2></div><p>{tx('Gosti bi mogli da pogledaju raspored i izaberu ambijent pre nego što vas kontaktiraju.','Guests could explore the layout and atmosphere before getting in touch.')}</p></div><div class="example-label">{tx('PRIMER: demonstracioni stan Space360 — ovo nije Passengers Bar.','EXAMPLE: Space360 demonstration apartment — this is not Passengers Bar.')}</div><details class="tour-loader"><summary>{tx('Otvorite interaktivni primer ture','Open the interactive tour example')} ↗</summary><iframe src={settings.demoEmbedUrl} title={tx('Primer ture stana — nije Passengers Bar','Example apartment tour — not Passengers Bar')} loading="lazy" allow="autoplay; fullscreen; gyroscope; accelerometer; xr-spatial-tracking" allowfullscreen></iframe></details></section>
-<section class="section promotions" id="offers"><div class="section-head"><div><p class="eyebrow">{tx('SA STRANICE AKTUELNO','FROM THE EVENTS PAGE')}</p><h2>{tx('Mali razlozi za dolazak.','A few more reasons to visit.')}</h2></div><p class="review-note">{tx('Postojeće promocije prikazane radi pregleda dizajna. Aktuelnost i uslove potvrđuje vlasnik pre objave.','Existing promotions shown for design review. The owner must confirm validity and terms before launch.')}</p></div><div class="poster-grid"><figure><Image src={sr?breakfastSR:breakfastEN} width={1100} format="webp" loading="lazy" alt={tx('Doručak: uz doplatu od 250 RSD kafa i ceđeni miks uz bilo koji doručak. Ponuda za potvrdu.','Breakfast: add coffee and freshly squeezed mixed juice for RSD 250. Offer subject to confirmation.')}/><figcaption>{tx('Doručak · postojeći vizual','Breakfast · English artwork adaptation')}</figcaption></figure><figure><Image src={sr?offersSR:offersEN} width={1100} format="webp" loading="lazy" alt={tx('Akcije: 4+1 burger gratis; nedelja–četvrtak 25% na određena pića; uz ručak 14–16h jedno piće po izboru. Uslovi za potvrdu.','Offers: buy four burgers, get one free; Sunday–Thursday 25% off selected drinks; lunch 14–16 includes a drink from the listed selection. Terms subject to confirmation.')}/><figcaption>{tx('Akcije · postojeći vizual','Offers · English artwork adaptation')}</figcaption></figure></div></section>
-<section class="reserve-section" id="reserve"><div><p class="eyebrow">{tx('NAPRAVITE PLAN','MAKE A PLAN')}</p><h2>{tx('Vidimo se','See you')}<br/><em>{tx('za stolom.','at the table.')}</em></h2><p>{tx('Pošaljite željeni datum i broj gostiju. Tim proverava dostupnost i javlja vam se da potvrdi rezervaciju.','Tell us your preferred date and party size. The team checks availability and gets back to you to confirm.')}</p><p class="preview-note">{tx('PREGLED: unesite izmišljene podatke. Ovaj obrazac samo prikazuje postupak; ništa se ne šalje niti rezerviše.','PREVIEW: use fictional details. This form demonstrates the process only; nothing is sent or booked.')}</p></div>
-<div><form id="reservation-demo" data-reservation-form novalidate><fieldset><legend>{tx('Vaš upit','Your request')}</legend><label>{tx('Ime','Name')}<input name="name" required maxlength="80" autocomplete="off"/></label><label>Email<input name="email" type="email" required maxlength="120" autocomplete="off"/></label><label>{tx('Broj gostiju','Number of guests')}<input name="guests" type="number" min="1" max="100" required inputmode="numeric"/></label><label>{tx('Povod','Occasion')}<select name="occasion"><option value="table">{tx('Sto','Table')}</option><option value="celebration">{tx('Proslava / događaj','Celebration / event')}</option></select></label><label>{tx('Željeni datum','Preferred date')}<input name="date" type="date" required/></label><label>{tx('Željeno vreme','Preferred time')}<input name="time" type="time" required/></label><label class="full">{tx('Napomena (opciono)','Note (optional)')}<textarea name="notes" rows="2" maxlength="600"></textarea></label></fieldset><button class="btn cream" type="submit">{tx('Isprobajte slanje upita','Try the request flow')} ↗</button><p class="fine">{tx('Nema automatske potvrde, naplate ni obećanja dostupnosti.','No automatic confirmation, payment or availability promise.')}</p></form><div class="request-result" hidden aria-live="polite"><h3>{tx('Pregled upita za tim','Request preview for staff')}</h3><p data-request-summary></p><p data-request-state>{tx('Na čekanju — osoblje proverava raspoloživost.','Pending — staff checks availability.')}</p><div class="actions"><button class="btn cream" type="button" data-confirm-demo>{tx('Simuliraj potvrdu','Simulate confirmation')}</button><button class="btn cream" type="button" data-decline-demo>{tx('Simuliraj drugi termin','Simulate alternative time')}</button></div><p class="fine">{tx('Simulacija u ovom prozoru. Nema baze gostiju, slanja emaila ni evidencije stolova.','Simulation in this window. No guest database, email delivery or table inventory.')}</p></div><noscript>{tx('Ovaj pregled zahteva JavaScript. Za stvarne upite koristite zvanični sajt.','This preview needs JavaScript. Use the official website for real enquiries.')}</noscript></div></section>
-<section class="section visit" id="visit"><div><p class="eyebrow">{tx('DORĆOL VAS ČEKA','DORĆOL IS CALLING')}</p><h2>Simina 5.<br/><em>{tx('Svratite.','Come by.')}</em></h2><p>Simina 5, Beograd</p><p>{tx('Pon–čet','Mon–Thu')} 08:30–00:00<br/>{tx('Pet–sub','Fri–Sat')} 08:30–01:00<br/>{tx('Nedelja','Sunday')} 09:00–00:00</p><p class="review-note">{tx('Radno vreme sa postojećeg sajta; potvrditi pre objave.','Hours from the current website; confirm before launch.')}</p><div class="actions"><a class="btn" href={map} target="_blank" rel="noopener noreferrer">Google Maps ↗</a><a class="underlined" href="https://www.instagram.com/passengers_bar/" target="_blank" rel="noopener noreferrer">Instagram ↗</a></div></div><div class="location-card"><span class="compass" aria-hidden="true">↗</span><p class="eyebrow">SIMINA × VIŠNJIĆEVA</p><h3>{tx('Na uglu.','On the corner.')}<br/>{tx('U komšiluku.','In the neighbourhood.')}</h3><a href={map} target="_blank" rel="noopener noreferrer">{tx('Otvorite tačnu lokaciju u Google Maps','Open the location in Google Maps')} ↗</a></div></section>
-</main><footer><div class="wordmark">PASSENGERS <small>BAR · DORĆOL</small></div><p>{tx('Koncept za pregled vlasnika, nije zvanični sajt.','Owner-review concept, not the official website.')}<br/><a href={settings.origin+'/'+locale+'/'}>Space360</a> · {tx('Izrada predloga','Concept design')}</p></footer>
-<script>
- const sr=document.body.dataset.locale==='sr';
- const track=document.querySelector<HTMLElement>('.gallery');
- const move=(direction:number)=>track?.scrollBy({left:direction*(track.querySelector('figure')?.getBoundingClientRect().width||300)+direction*20,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});
- document.querySelector('[data-gallery-prev]')?.addEventListener('click',()=>move(-1));
- document.querySelector('[data-gallery-next]')?.addEventListener('click',()=>move(1));
- const form=document.querySelector<HTMLFormElement>('[data-reservation-form]')!;
- const date=form.querySelector<HTMLInputElement>('[name="date"]')!;
- const today=()=>new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Belgrade',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());date.min=today();
- document.querySelector('[data-event-link]')?.addEventListener('click',()=>{form.querySelector<HTMLSelectElement>('[name="occasion"]')!.value='celebration';});
- form.addEventListener('submit',event=>{event.preventDefault();date.min=today();if(!form.reportValidity())return;
-  const d=new FormData(form);const stamp=String(d.get('date'))+'T'+String(d.get('time'));
-  const now=new Intl.DateTimeFormat('sv-SE',{timeZone:'Europe/Belgrade',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false}).format(new Date()).replace(' ','T');
-  date.setCustomValidity(stamp<=now?(sr?'Izaberite budući datum i vreme.':'Choose a future date and time.'):'');if(!form.reportValidity())return;
-  document.querySelector<HTMLElement>('.request-result')!.hidden=false;
-  document.querySelector('[data-request-summary]')!.textContent=[d.get('name'),d.get('email'),d.get('guests')+(sr?' gostiju':' guests'),d.get('date'),d.get('time')+' Europe/Belgrade',d.get('occasion')==='celebration'?(sr?'Proslava':'Celebration'):(sr?'Sto':'Table'),d.get('notes')].filter(Boolean).join(' · ');
-  document.querySelector('[data-request-state]')!.textContent=sr?'SIMULACIJA: na čekanju. Upit nije poslat.':'SIMULATION: pending. No request has been sent.';
- });
- form.addEventListener('input',()=>{date.setCustomValidity('');document.querySelector<HTMLElement>('.request-result')!.hidden=true;});
- document.querySelector('[data-confirm-demo]')?.addEventListener('click',()=>{document.querySelector('[data-request-state]')!.textContent=sr?'SIMULACIJA: osoblje je potvrdilo termin. Nema stvarne rezervacije niti poslatog emaila.':'SIMULATION: staff confirmed the time. No actual reservation or email was created.';});
- document.querySelector('[data-decline-demo]')?.addEventListener('click',()=>{document.querySelector('[data-request-state]')!.textContent=sr?'SIMULACIJA: osoblje predlaže drugi termin i čeka odgovor gosta.':'SIMULATION: staff proposes another time and waits for the guest to reply.';});
-</script>
-<style is:global>
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap');
-*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:110px}body{margin:0;background:#f7f4ee;color:#2f2e28;font:16px/1.6 'DM Sans',sans-serif}a{color:inherit;text-decoration:none}button,input,select,textarea{font:inherit}button,a,input,select,textarea{-webkit-tap-highlight-color:transparent}button{cursor:pointer}img{display:block;max-width:100%}h1,h2,h3,p,figure{margin:0}h1,h2,h3{font-family:'Playfair Display',Georgia,serif;font-weight:500;line-height:1.06}h2{font-size:clamp(2.5rem,4vw,4.2rem);letter-spacing:-.045em}h3{font-size:2rem}p+p{margin-top:18px}em{font-weight:500}a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #d98b56;outline-offset:5px}.skip{position:absolute;left:10px;top:-80px;background:white;padding:10px;z-index:100}.skip:focus{top:0}.preview-banner{background:#3b4a3d;color:#fff;font-size:11px;text-align:center;letter-spacing:.06em;padding:10px}.preview-banner a{text-decoration:underline;margin-left:14px}header{display:flex;align-items:center;justify-content:space-between;padding:16px 5%;gap:24px;background:#f7f4ee}.wordmark{display:flex;align-items:center;gap:14px;font-size:19px;letter-spacing:.15em;font-weight:700}.wordmark small{display:block;font-size:9px;letter-spacing:.22em}nav{display:flex;align-items:center;gap:28px;font-size:13px}nav>a:not(.btn):hover{text-decoration:underline}.language{font-weight:700}.btn{display:inline-flex;align-items:center;justify-content:center;gap:25px;border:1px solid #53272e;background:#53272e;color:white;padding:15px 24px;border-radius:2px;font-size:13px;font-weight:600}.btn:hover{filter:brightness(1.13)}.btn.small{padding:12px 18px}.btn.cream{background:#f7f4ee;border-color:#f7f4ee;color:#422730}.hero{height:min(770px,80vh);min-height:540px;position:relative;background:#382e28;color:white}.hero>img{width:100%;height:100%;object-fit:cover;object-position:center}.hero-shade{position:absolute;inset:0;background:linear-gradient(90deg,#101910bb 0%,#10191055 58%,#10191022)}.hero-copy{position:absolute;left:8%;top:15%;max-width:770px}.eyebrow{font-size:10px;font-weight:700;letter-spacing:.22em;margin-bottom:25px}.hero h1{font-size:clamp(4.7rem,8vw,8.5rem);letter-spacing:-.045em}.hero-copy>p:not(.eyebrow){margin-top:25px}.actions{display:flex;gap:25px;align-items:center;flex-wrap:wrap;margin-top:30px}.text-link,.underlined{text-decoration:underline;text-underline-offset:6px;font-size:13px}.hero-bottom{position:absolute;bottom:30px;left:8%;right:8%;display:flex;justify-content:space-between;font-size:10px;letter-spacing:.12em}.section{max-width:1400px;margin:auto;padding:95px 8%}.story,.celebrations,.visit{display:grid;grid-template-columns:1fr 1fr;gap:90px;align-items:center}.story .lead{font-size:20px;line-height:1.65}.story .underlined{display:inline-block;margin-top:24px}.section-head{display:flex;align-items:end;justify-content:space-between;gap:45px;margin-bottom:35px}.section-head>p{max-width:340px}.gallery-section{padding-top:10px}.gallery-controls{display:flex;gap:10px}.gallery-controls button{border:1px solid #b5b4a8;border-radius:50%;width:44px;height:44px;background:transparent;font-size:22px}.gallery{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:15px}.gallery figure{flex:0 0 42%;scroll-snap-align:start}.gallery img{width:100%;height:380px;object-fit:cover}.gallery figcaption{font-size:10px;letter-spacing:.15em;margin-top:15px}.review-note{font-size:11px;opacity:.75;margin-top:18px!important;line-height:1.7}.menu-band{display:grid;grid-template-columns:1fr 1fr;background:#53272e;color:#f7f4ee}.menu-band>div{padding:85px 16%}.menu-band>img{height:100%;width:100%;object-fit:cover;max-height:660px}.menu-band p:not(.eyebrow){margin-top:24px}.menu-band .btn{margin-top:25px}.celebrate-photo img{height:570px;width:100%;object-fit:cover}.celebrations h2+p{margin-top:25px}.facts{display:flex;flex-wrap:wrap;gap:10px;margin:25px 0 30px}.facts span{border:1px solid #d5d0c4;padding:8px 12px;font-size:11px}.tour-section{padding:85px 8%;background:#e8ecdf}.tour-section .section-head{max-width:1150px;margin-inline:auto}.example-label{max-width:1150px;margin:30px auto 0;padding:12px 18px;background:#fff2c5;font-size:12px;font-weight:600}.tour-loader{max-width:1150px;margin:auto;background:#20382d;color:white}.tour-loader summary{cursor:pointer;padding:40px;font-family:'Playfair Display',Georgia,serif;font-size:30px;list-style-position:inside}.tour-loader iframe{display:block;width:100%;height:540px;border:0}.poster-grid{display:grid;grid-template-columns:1fr 1fr;gap:30px}.poster-grid img{width:100%;height:auto}.poster-grid figcaption{font-size:11px;margin-top:12px}.reserve-section{display:grid;grid-template-columns:1fr 1fr;gap:80px;padding:90px 8%;background:#3b4a3d;color:#fff}.reserve-section>div>p{max-width:400px;margin-top:30px}.preview-note{border-left:2px solid #d7d6a8;padding-left:18px;font-size:12px;color:#e5e4cf}fieldset{border:0;padding:0;margin:0;display:grid;grid-template-columns:1fr 1fr;gap:18px}legend{font-size:15px;font-weight:600;margin-bottom:25px}label{font-size:12px}input,select,textarea{margin-top:8px;width:100%;min-width:0;border:1px solid #869083;background:#f7f4ee;color:#2f2e28;border-radius:2px;padding:10px;min-height:45px}.full{grid-column:1/-1}form .btn{width:100%;margin-top:25px}.fine{font-size:11px;color:#d2d9cd;margin-top:15px!important}.request-result{border:1px solid #92a18c;padding:25px;margin-top:20px;overflow-wrap:anywhere}.request-result h3{font-size:25px}.request-result p{margin-top:18px}.request-result .btn{padding:12px;font-size:11px}.location-card{background:#e5e1d6;min-height:390px;padding:45px;position:relative;display:flex;flex-direction:column;justify-content:end}.compass{position:absolute;top:20px;right:35px;font-size:95px;color:#53272e;font-family:Georgia,serif}.location-card h3{font-size:40px}.location-card a{margin-top:28px;font-size:12px;text-decoration:underline}.visit h2+p{margin-top:25px}footer{padding:40px 8%;border-top:1px solid #d9d4c9;display:flex;justify-content:space-between;align-items:center}footer p{text-align:right;font-size:11px}footer a{text-decoration:underline}[hidden]{display:none!important}@media(max-width:760px){html{scroll-padding-top:20px}.preview-banner{font-size:9px;padding:9px 15px}header{padding:15px 6%;flex-wrap:wrap;gap:10px}.wordmark{font-size:15px}.wordmark img{width:46px;height:46px}nav{width:100%;gap:17px;font-size:11px;justify-content:space-between}nav .btn.small{padding:8px}nav>a:first-child{display:none}.hero{min-height:580px;height:73vh}.hero-copy{left:7%;right:7%;top:10%}.hero h1{font-size:3.8rem}.hero-copy>p:not(.eyebrow){font-size:14px;max-width:270px}.hero-bottom{left:7%;right:7%;font-size:8px}.section{padding:55px 7%}.story,.celebrations,.visit,.reserve-section,.menu-band{grid-template-columns:1fr;gap:30px}.story .lead{font-size:18px}.section-head{align-items:start;gap:20px}.section-head>p{max-width:none}.gallery-section .section-head h2{font-size:2.6rem}.gallery-controls{align-self:end}.gallery-controls button{width:35px;height:35px}.gallery figure{flex-basis:85%}.gallery img{height:330px}.menu-band>div{padding:50px 7%}.menu-band>img{height:320px}.celebrate-photo img{height:390px}.tour-section{padding:55px 7%}.tour-section .section-head,.promotions .section-head{display:block}.tour-loader summary{padding:30px 20px;font-size:25px}.tour-loader iframe{height:460px}.poster-grid{grid-template-columns:1fr}.reserve-section{padding:55px 7%}.reserve-section h2{font-size:3.5rem}.reserve-section>div>p{margin-top:20px}.location-card{min-height:320px;padding:30px}footer{align-items:start;gap:20px;padding:30px 7%}.wordmark small{font-size:8px}.eyebrow{font-size:9px;margin-bottom:20px}.actions{gap:20px}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
-</style></body></html>
+
+<!doctype html>
+<html lang={sr ? "sr-Latn" : "en"}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex,nofollow" />
+    <meta name="theme-color" content="#53272e" />
+    <title>
+      {tx("Passengers Bar — predlog sajta", "Passengers Bar — website concept")}
+    </title>
+    <meta
+      name="description"
+      content={tx(
+        "Privatni pregled predloga sajta. Nije zvanični sajt i ne prima rezervacije.",
+        "Private website concept. Not the official site; no reservations are sent.",
+      )}
+    />
+  </head>
+  <body data-locale={locale}>
+    <div class="preview-banner">
+      {tx(
+        "PREDLOG ZA PREGLED VLASNIKA · Rezervacije se ne šalju.",
+        "OWNER REVIEW CONCEPT · Reservations are not sent.",
+      )}
+      <a href="https://www.passengersbar.com/en">{tx("Zvanični sajt ↗", "Official website ↗")}</a>
+    </div>
+    <a class="skip" href="#main">
+      {tx("Pređi na sadržaj", "Skip to content")}
+    </a>
+    <header>
+      <a class="wordmark" href="#main">
+        <Image src={logo} width={66} height={66} alt="Passengers Bar" />
+        <span>
+          PASSENGERS<small>BAR · DORĆOL</small>
+        </span>
+      </a>
+      <nav aria-label={tx("Glavna navigacija", "Main navigation")}>
+        <a href="#story">{tx("Naše mesto", "Our place")}</a>
+        <a href="#menu">{tx("Meni", "Menu")}</a>
+        <a href="#celebrate">{tx("Proslave", "Celebrations")}</a>
+        <a class="language" href={"/" + (sr ? "en" : "sr") + "/"}>
+          {sr ? "EN" : "SR"}
+        </a>
+        <a class="btn small" href="#reserve">
+          {tx("Rezervacije", "Reservations")}↗
+        </a>
+      </nav>
+    </header>
+    <main id="main">
+      <section class="hero">
+        <Image
+          src={hero}
+          width={1600}
+          format="webp"
+          alt={tx(
+            "Bašta Passengers Bara, fotografija sa postojećeg sajta",
+            "Passengers Bar garden, photograph from the existing website",
+          )}
+          loading="eager"
+          fetchpriority="high"
+        />
+        <div class="hero-shade"></div>
+        <div class="hero-copy">
+          <p class="eyebrow">SIMINA 5 · DORĆOL · BEOGRAD</p>
+          <h1>
+            {tx("Vaše mesto.", "Your kind")}
+            <br />
+            <em>{tx("U srcu Dorćola.", "of place.")}</em>
+          </h1>
+          <p>
+            {tx(
+              "Jutarnja kafa. Dugi ručkovi. Večeri koje ne planirate.",
+              "Morning coffee. Long lunches. Evenings you didn’t plan.",
+            )}
+          </p>
+          <div class="actions">
+            <a class="btn cream" href="#reserve">
+              {tx("Pronađite svoje mesto", "Find your table")}↗
+            </a>
+            <a href="#tour" class="text-link">
+              {tx("Pogledajte prostor", "Explore the space")}↓
+            </a>
+          </div>
+        </div>
+        <div class="hero-bottom">
+          <span>{tx("HRANA · PIĆE · DOBRO DRUŠTVO", "FOOD · DRINKS · GOOD COMPANY")}</span>
+          <a href={map} target="_blank" rel="noopener noreferrer">
+            {tx("Put do nas", "Get directions")}↗
+          </a>
+        </div>
+      </section>
+      <section id="story" class="section story">
+        <div>
+          <p class="eyebrow">{tx("MALO DALJE OD ŽURBE", "A LITTLE AWAY FROM THE RUSH")}</p>
+          <h2>
+            {tx("U centru grada.", "Right in the city.")}
+            <br />
+            <em>{tx("U svom ritmu.", "At your own pace.")}</em>
+          </h2>
+        </div>
+        <div>
+          <p class="lead">
+            {tx(
+              "Na uglu Simine i Višnjićeve, Passengers spaja druženje, hranu i baštu u kojoj se ostaje malo duže.",
+              "On the corner of Simina and Višnjićeva, Passengers brings together food, conversation and a garden made for staying a little longer.",
+            )}
+          </p>
+          <p>
+            {tx(
+              "Svratite na kafu, okupite prijatelje za ručak ili nam se javite da zajedno osmislimo proslavu.",
+              "Drop in for coffee, gather your friends for lunch, or talk to us about your next celebration.",
+            )}
+          </p>
+          <a class="underlined" href="#gallery">
+            {tx("Zavirite unutra", "Take a look around")}↗
+          </a>
+        </div>
+      </section>
+      <section class="section gallery-section" id="gallery">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">{tx("MESTO I TRENUTAK", "THE PLACE. THE MOMENT.")}</p>
+            <h2>{tx("Osetite Passengers.", "A taste of Passengers.")}</h2>
+          </div>
+          <div class="gallery-controls">
+            <button
+              type="button"
+              data-gallery-prev
+              aria-label={tx("Prethodna fotografija", "Previous photograph")}
+            >
+              ←
+            </button>
+            <button
+              type="button"
+              data-gallery-next
+              aria-label={tx("Sledeća fotografija", "Next photograph")}
+            >
+              →
+            </button>
+          </div>
+        </div>
+        <div class="gallery" tabindex="0" aria-label={tx("Galerija fotografija", "Photo gallery")}>
+          {gallery.map((img, i) => (
+            <figure>
+              <>
+                <Image
+                  src={img}
+                  width={850}
+                  format="webp"
+                  loading="lazy"
+                  alt={tx(
+                    i < 3 ? "Ambijent Passengers Bara" : "Hrana u Passengers Baru",
+                    i < 3 ? "The setting at Passengers Bar" : "Food at Passengers Bar",
+                  )}
+                />
+                <figcaption>
+                  {String(i + 1).padStart(2, "0")} / 05 ·{" "}
+                  {tx(
+                    i < 3 ? "Naš prostor" : "Sa našeg stola",
+                    i < 3 ? "Our space" : "From our table",
+                  )}
+                </figcaption>
+              </>
+            </figure>
+          ))}
+        </div>
+        <p class="review-note">
+          {tx(
+            "Fotografije sa postojećeg sajta Passengers Bara. Nisu portfolio radovi Space360.",
+            "Photographs from Passengers Bar’s existing website. These are not Space360 portfolio photographs.",
+          )}
+        </p>
+      </section>
+      <section class="menu-band" id="menu">
+        <div>
+          <p class="eyebrow">
+            {tx("DOBRO JUTRO. DOBAR APETIT.", "GOOD MORNINGS. GOOD APPETITES.")}
+          </p>
+          <h2>{tx("Za svaki deo dana.", "Something for every part of the day.")}</h2>
+          <p>
+            {tx(
+              "Pogledajte meni sa postojećeg sajta, pa izaberite svoj sledeći razlog za dolazak.",
+              "Browse the menu from the current website and find your next reason to visit.",
+            )}
+          </p>
+          <a class="btn cream" href={menu} target="_blank" rel="noopener noreferrer">
+            {tx("Otvorite meni · PDF", "Open menu · PDF")}↗
+          </a>
+          <p class="review-note">
+            {tx(
+              "Vlasnik treba da potvrdi aktuelni meni i cene.",
+              "Owner to confirm the current menu and prices.",
+            )}
+          </p>
+        </div>
+        <Image
+          src={food1}
+          width={850}
+          format="webp"
+          loading="lazy"
+          alt={tx(
+            "Jelo sa postojećeg sajta Passengers Bara",
+            "A dish from Passengers Bar’s existing website",
+          )}
+        />
+      </section>
+      <section class="section celebrations" id="celebrate">
+        <div class="celebrate-photo">
+          <Image
+            src={room2}
+            width={850}
+            format="webp"
+            loading="lazy"
+            alt={tx("Ambijent sa postojećeg sajta", "Setting from the existing website")}
+          />
+        </div>
+        <div>
+          <p class="eyebrow">{tx("VAŠ POVOD. NAŠ PROSTOR.", "YOUR OCCASION. OUR PLACE.")}</p>
+          <h2>
+            {tx("Okupite", "Bring everyone")}
+            <br />
+            <em>{tx("svoje ljude.", "together.")}</em>
+          </h2>
+          <p>
+            {tx(
+              "Rođendan, privatno okupljanje ili poslovni događaj. Recite nam šta planirate i kakav ambijent želite.",
+              "A birthday, a private gathering or a work event. Tell us what you’re planning and the atmosphere you have in mind.",
+            )}
+          </p>
+          <div class="facts">
+            <span>{tx("Privatni događaji", "Private events")}</span>
+            <span>{tx("Prostor uz baštu", "Garden-side setting")}</span>
+            <span>{tx("Dogovor prema povodu", "Plans tailored to the occasion")}</span>
+          </div>
+          <a class="btn" href="#reserve" data-event-link>
+            {tx("Upit za proslavu", "Plan a celebration")}↗
+          </a>
+        </div>
+      </section>
+      <section class="tour-section" id="tour">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">360° ·{tx("ISTRAŽITE PROSTOR", "EXPLORE THE SPACE")}</p>
+            <h2>
+              {tx("Ovde bi bila vaša", "Your virtual tour")}
+              <br />
+              <em>{tx("virtuelna tura.", "would live here.")}</em>
+            </h2>
+          </div>
+          <p>
+            {tx(
+              "Gosti bi mogli da pogledaju raspored i izaberu ambijent pre nego što vas kontaktiraju.",
+              "Guests could explore the layout and atmosphere before getting in touch.",
+            )}
+          </p>
+        </div>
+        <div class="example-label">
+          {tx(
+            "PRIMER: demonstracioni stan Space360 — ovo nije Passengers Bar.",
+            "EXAMPLE: Space360 demonstration apartment — this is not Passengers Bar.",
+          )}
+        </div>
+        <details class="tour-loader">
+          <summary>
+            {tx("Otvorite interaktivni primer ture", "Open the interactive tour example")}↗
+          </summary>
+          <iframe
+            src={settings.demoEmbedUrl}
+            title={tx(
+              "Primer ture stana — nije Passengers Bar",
+              "Example apartment tour — not Passengers Bar",
+            )}
+            loading="lazy"
+            allow="autoplay; fullscreen; gyroscope; accelerometer; xr-spatial-tracking"
+            allowfullscreen
+          >
+          </iframe>
+        </details>
+      </section>
+      <section class="section promotions" id="offers">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">{tx("SA STRANICE AKTUELNO", "FROM THE EVENTS PAGE")}</p>
+            <h2>{tx("Mali razlozi za dolazak.", "A few more reasons to visit.")}</h2>
+          </div>
+          <p class="review-note">
+            {tx(
+              "Postojeće promocije prikazane radi pregleda dizajna. Aktuelnost i uslove potvrđuje vlasnik pre objave.",
+              "Existing promotions shown for design review. The owner must confirm validity and terms before launch.",
+            )}
+          </p>
+        </div>
+        <div class="poster-grid">
+          <figure>
+            <Image
+              src={sr ? breakfastSR : breakfastEN}
+              width={1100}
+              format="webp"
+              loading="lazy"
+              alt={tx(
+                "Doručak: uz doplatu od 250 RSD kafa i ceđeni miks uz bilo koji doručak. Ponuda za potvrdu.",
+                "Breakfast: add coffee and freshly squeezed mixed juice for RSD 250. Offer subject to confirmation.",
+              )}
+            />
+            <figcaption>
+              {tx("Doručak · postojeći vizual", "Breakfast · English artwork adaptation")}
+            </figcaption>
+          </figure>
+          <figure>
+            <Image
+              src={sr ? offersSR : offersEN}
+              width={1100}
+              format="webp"
+              loading="lazy"
+              alt={tx(
+                "Akcije: 4+1 burger gratis; nedelja–četvrtak 25% na određena pića; uz ručak 14–16h jedno piće po izboru. Uslovi za potvrdu.",
+                "Offers: buy four burgers, get one free; Sunday–Thursday 25% off selected drinks; lunch 14–16 includes a drink from the listed selection. Terms subject to confirmation.",
+              )}
+            />
+            <figcaption>
+              {tx("Akcije · postojeći vizual", "Offers · English artwork adaptation")}
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+      <section class="reserve-section" id="reserve">
+        <div>
+          <p class="eyebrow">{tx("NAPRAVITE PLAN", "MAKE A PLAN")}</p>
+          <h2>
+            {tx("Vidimo se", "See you")}
+            <br />
+            <em>{tx("za stolom.", "at the table.")}</em>
+          </h2>
+          <p>
+            {tx(
+              "Pošaljite željeni datum i broj gostiju. Tim proverava dostupnost i javlja vam se da potvrdi rezervaciju.",
+              "Tell us your preferred date and party size. The team checks availability and gets back to you to confirm.",
+            )}
+          </p>
+          <p class="preview-note">
+            {tx(
+              "PREGLED: unesite izmišljene podatke. Ovaj obrazac samo prikazuje postupak; ništa se ne šalje niti rezerviše.",
+              "PREVIEW: use fictional details. This form demonstrates the process only; nothing is sent or booked.",
+            )}
+          </p>
+        </div>
+        <div>
+          <form id="reservation-demo" data-reservation-form novalidate>
+            <fieldset>
+              <legend>{tx("Vaš upit", "Your request")}</legend>
+              <label>
+                {tx("Ime", "Name")}
+                <input name="name" required maxlength="80" autocomplete="off" />
+              </label>
+              <label>
+                Email
+                <input name="email" type="email" required maxlength="120" autocomplete="off" />
+              </label>
+              <label>
+                {tx("Broj gostiju", "Number of guests")}
+                <input name="guests" type="number" min="1" max="100" required inputmode="numeric" />
+              </label>
+              <label>
+                {tx("Povod", "Occasion")}
+                <select name="occasion">
+                  <option value="table">{tx("Sto", "Table")}</option>
+                  <option value="celebration">
+                    {tx("Proslava / događaj", "Celebration / event")}
+                  </option>
+                </select>
+              </label>
+              <label>
+                {tx("Željeni datum", "Preferred date")}
+                <input name="date" type="date" required />
+              </label>
+              <label>
+                {tx("Željeno vreme", "Preferred time")}
+                <input name="time" type="time" required />
+              </label>
+              <label class="full">
+                {tx("Napomena (opciono)", "Note (optional)")}
+                <textarea name="notes" rows="2" maxlength="600"></textarea>
+              </label>
+            </fieldset>
+            <button class="btn cream" type="submit">
+              {tx("Isprobajte slanje upita", "Try the request flow")}↗
+            </button>
+            <p class="fine">
+              {tx(
+                "Nema automatske potvrde, naplate ni obećanja dostupnosti.",
+                "No automatic confirmation, payment or availability promise.",
+              )}
+            </p>
+          </form>
+          <div class="request-result" hidden aria-live="polite">
+            <h3>{tx("Pregled upita za tim", "Request preview for staff")}</h3>
+            <p data-request-summary></p>
+            <p data-request-state>
+              {tx(
+                "Na čekanju — osoblje proverava raspoloživost.",
+                "Pending — staff checks availability.",
+              )}
+            </p>
+            <div class="actions">
+              <button class="btn cream" type="button" data-confirm-demo>
+                {tx("Simuliraj potvrdu", "Simulate confirmation")}
+              </button>
+              <button class="btn cream" type="button" data-decline-demo>
+                {tx("Simuliraj drugi termin", "Simulate alternative time")}
+              </button>
+            </div>
+            <p class="fine">
+              {tx(
+                "Simulacija u ovom prozoru. Nema baze gostiju, slanja emaila ni evidencije stolova.",
+                "Simulation in this window. No guest database, email delivery or table inventory.",
+              )}
+            </p>
+          </div>
+          <noscript>
+            {tx(
+              "Ovaj pregled zahteva JavaScript. Za stvarne upite koristite zvanični sajt.",
+              "This preview needs JavaScript. Use the official website for real enquiries.",
+            )}
+          </noscript>
+        </div>
+      </section>
+      <section class="section visit" id="visit">
+        <div>
+          <p class="eyebrow">{tx("DORĆOL VAS ČEKA", "DORĆOL IS CALLING")}</p>
+          <h2>
+            Simina 5.
+            <br />
+            <em>{tx("Svratite.", "Come by.")}</em>
+          </h2>
+          <p>Simina 5, Beograd</p>
+          <p>
+            {tx("Pon–čet", "Mon–Thu")}08:30–00:00
+            <br />
+            {tx("Pet–sub", "Fri–Sat")}08:30–01:00
+            <br />
+            {tx("Nedelja", "Sunday")}09:00–00:00
+          </p>
+          <p class="review-note">
+            {tx(
+              "Radno vreme sa postojećeg sajta; potvrditi pre objave.",
+              "Hours from the current website; confirm before launch.",
+            )}
+          </p>
+          <div class="actions">
+            <a class="btn" href={map} target="_blank" rel="noopener noreferrer">
+              Google Maps ↗
+            </a>
+            <a
+              class="underlined"
+              href="https://www.instagram.com/passengers_bar/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Instagram ↗
+            </a>
+          </div>
+        </div>
+        <div class="location-card">
+          <span class="compass" aria-hidden="true">
+            ↗
+          </span>
+          <p class="eyebrow">SIMINA × VIŠNJIĆEVA</p>
+          <h3>
+            {tx("Na uglu.", "On the corner.")}
+            <br />
+            {tx("U komšiluku.", "In the neighbourhood.")}
+          </h3>
+          <a href={map} target="_blank" rel="noopener noreferrer">
+            {tx("Otvorite tačnu lokaciju u Google Maps", "Open the location in Google Maps")}↗
+          </a>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <div class="wordmark">
+        PASSENGERS<small>BAR · DORĆOL</small>
+      </div>
+      <p>
+        {tx(
+          "Koncept za pregled vlasnika, nije zvanični sajt.",
+          "Owner-review concept, not the official website.",
+        )}
+        <br />
+        <a href={settings.origin + "/" + locale + "/"}>Space360</a>·
+        {tx("Izrada predloga", "Concept design")}
+      </p>
+    </footer>
+    <script>
+      const sr = document.body.dataset.locale === "sr";
+      const track = document.querySelector<HTMLElement>(".gallery");
+      const move = (direction: number) =>
+        track?.scrollBy({
+          left:
+            direction * (track.querySelector("figure")?.getBoundingClientRect().width || 300) +
+            direction * 20,
+          behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth",
+        });
+      document.querySelector("[data-gallery-prev]")?.addEventListener("click", () => move(-1));
+      document.querySelector("[data-gallery-next]")?.addEventListener("click", () => move(1));
+      const form = document.querySelector<HTMLFormElement>("[data-reservation-form]")!;
+      const date = form.querySelector<HTMLInputElement>('[name="date"]')!;
+      const today = () =>
+        new Intl.DateTimeFormat("en-CA", {
+          timeZone: "Europe/Belgrade",
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit",
+        }).format(new Date());
+      date.min = today();
+      document.querySelector("[data-event-link]")?.addEventListener("click", () => {
+        form.querySelector<HTMLSelectElement>('[name="occasion"]')!.value = "celebration";
+      });
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        date.min = today();
+        if (!form.reportValidity()) return;
+        const d = new FormData(form);
+        const stamp = String(d.get("date")) + "T" + String(d.get("time"));
+        const now = new Intl.DateTimeFormat("sv-SE", {
+          timeZone: "Europe/Belgrade",
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit",
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: false,
+        })
+          .format(new Date())
+          .replace(" ", "T");
+        date.setCustomValidity(
+          stamp <= now
+            ? sr
+              ? "Izaberite budući datum i vreme."
+              : "Choose a future date and time."
+            : "",
+        );
+        if (!form.reportValidity()) return;
+        document.querySelector<HTMLElement>(".request-result")!.hidden = false;
+        document.querySelector("[data-request-summary]")!.textContent = [
+          d.get("name"),
+          d.get("email"),
+          d.get("guests") + (sr ? " gostiju" : " guests"),
+          d.get("date"),
+          d.get("time") + " Europe/Belgrade",
+          d.get("occasion") === "celebration"
+            ? sr
+              ? "Proslava"
+              : "Celebration"
+            : sr
+              ? "Sto"
+              : "Table",
+          d.get("notes"),
+        ]
+          .filter(Boolean)
+          .join(" · ");
+        document.querySelector("[data-request-state]")!.textContent = sr
+          ? "SIMULACIJA: na čekanju. Upit nije poslat."
+          : "SIMULATION: pending. No request has been sent.";
+      });
+      form.addEventListener("input", () => {
+        date.setCustomValidity("");
+        document.querySelector<HTMLElement>(".request-result")!.hidden = true;
+      });
+      document.querySelector("[data-confirm-demo]")?.addEventListener("click", () => {
+        document.querySelector("[data-request-state]")!.textContent = sr
+          ? "SIMULACIJA: osoblje je potvrdilo termin. Nema stvarne rezervacije niti poslatog emaila."
+          : "SIMULATION: staff confirmed the time. No actual reservation or email was created.";
+      });
+      document.querySelector("[data-decline-demo]")?.addEventListener("click", () => {
+        document.querySelector("[data-request-state]")!.textContent = sr
+          ? "SIMULACIJA: osoblje predlaže drugi termin i čeka odgovor gosta."
+          : "SIMULATION: staff proposes another time and waits for the guest to reply.";
+      });
+    </script>
+    <style is:global>
+      @import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap");
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 110px;
+      }
+      body {
+        margin: 0;
+        background: #f7f4ee;
+        color: #2f2e28;
+        font:
+          16px/1.6 "DM Sans",
+          sans-serif;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      button,
+      input,
+      select,
+      textarea {
+        font: inherit;
+      }
+      button,
+      a,
+      input,
+      select,
+      textarea {
+        -webkit-tap-highlight-color: transparent;
+      }
+      button {
+        cursor: pointer;
+      }
+      img {
+        display: block;
+        max-width: 100%;
+      }
+      h1,
+      h2,
+      h3,
+      p,
+      figure {
+        margin: 0;
+      }
+      h1,
+      h2,
+      h3 {
+        font-family: "Playfair Display", Georgia, serif;
+        font-weight: 500;
+        line-height: 1.06;
+      }
+      h2 {
+        font-size: clamp(2.5rem, 4vw, 4.2rem);
+        letter-spacing: -0.045em;
+      }
+      h3 {
+        font-size: 2rem;
+      }
+      p + p {
+        margin-top: 18px;
+      }
+      em {
+        font-weight: 500;
+      }
+      a:focus-visible,
+      button:focus-visible,
+      input:focus-visible,
+      select:focus-visible,
+      textarea:focus-visible {
+        outline: 3px solid #d98b56;
+        outline-offset: 5px;
+      }
+      .skip {
+        position: absolute;
+        left: 10px;
+        top: -80px;
+        background: white;
+        padding: 10px;
+        z-index: 100;
+      }
+      .skip:focus {
+        top: 0;
+      }
+      .preview-banner {
+        background: #3b4a3d;
+        color: #fff;
+        font-size: 11px;
+        text-align: center;
+        letter-spacing: 0.06em;
+        padding: 10px;
+      }
+      .preview-banner a {
+        text-decoration: underline;
+        margin-left: 14px;
+      }
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 16px 5%;
+        gap: 24px;
+        background: #f7f4ee;
+      }
+      .wordmark {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        font-size: 19px;
+        letter-spacing: 0.15em;
+        font-weight: 700;
+      }
+      .wordmark small {
+        display: block;
+        font-size: 9px;
+        letter-spacing: 0.22em;
+      }
+      nav {
+        display: flex;
+        align-items: center;
+        gap: 28px;
+        font-size: 13px;
+      }
+      nav > a:not(.btn):hover {
+        text-decoration: underline;
+      }
+      .language {
+        font-weight: 700;
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 25px;
+        border: 1px solid #53272e;
+        background: #53272e;
+        color: white;
+        padding: 15px 24px;
+        border-radius: 2px;
+        font-size: 13px;
+        font-weight: 600;
+      }
+      .btn:hover {
+        filter: brightness(1.13);
+      }
+      .btn.small {
+        padding: 12px 18px;
+      }
+      .btn.cream {
+        background: #f7f4ee;
+        border-color: #f7f4ee;
+        color: #422730;
+      }
+      .hero {
+        height: min(770px, 80vh);
+        min-height: 540px;
+        position: relative;
+        background: #382e28;
+        color: white;
+      }
+      .hero > img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+      }
+      .hero-shade {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(90deg, #101910bb 0%, #10191055 58%, #10191022);
+      }
+      .hero-copy {
+        position: absolute;
+        left: 8%;
+        top: 15%;
+        max-width: 770px;
+      }
+      .eyebrow {
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.22em;
+        margin-bottom: 25px;
+      }
+      .hero h1 {
+        font-size: clamp(4.7rem, 8vw, 8.5rem);
+        letter-spacing: -0.045em;
+      }
+      .hero-copy > p:not(.eyebrow) {
+        margin-top: 25px;
+      }
+      .actions {
+        display: flex;
+        gap: 25px;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-top: 30px;
+      }
+      .text-link,
+      .underlined {
+        text-decoration: underline;
+        text-underline-offset: 6px;
+        font-size: 13px;
+      }
+      .hero-bottom {
+        position: absolute;
+        bottom: 30px;
+        left: 8%;
+        right: 8%;
+        display: flex;
+        justify-content: space-between;
+        font-size: 10px;
+        letter-spacing: 0.12em;
+      }
+      .section {
+        max-width: 1400px;
+        margin: auto;
+        padding: 95px 8%;
+      }
+      .story,
+      .celebrations,
+      .visit {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 90px;
+        align-items: center;
+      }
+      .story .lead {
+        font-size: 20px;
+        line-height: 1.65;
+      }
+      .story .underlined {
+        display: inline-block;
+        margin-top: 24px;
+      }
+      .section-head {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 45px;
+        margin-bottom: 35px;
+      }
+      .section-head > p {
+        max-width: 340px;
+      }
+      .gallery-section {
+        padding-top: 10px;
+      }
+      .gallery-controls {
+        display: flex;
+        gap: 10px;
+      }
+      .gallery-controls button {
+        border: 1px solid #b5b4a8;
+        border-radius: 50%;
+        width: 44px;
+        height: 44px;
+        background: transparent;
+        font-size: 22px;
+      }
+      .gallery {
+        display: flex;
+        gap: 20px;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        padding-bottom: 15px;
+      }
+      .gallery figure {
+        flex: 0 0 42%;
+        scroll-snap-align: start;
+      }
+      .gallery img {
+        width: 100%;
+        height: 380px;
+        object-fit: cover;
+      }
+      .gallery figcaption {
+        font-size: 10px;
+        letter-spacing: 0.15em;
+        margin-top: 15px;
+      }
+      .review-note {
+        font-size: 11px;
+        opacity: 0.75;
+        margin-top: 18px !important;
+        line-height: 1.7;
+      }
+      .menu-band {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        background: #53272e;
+        color: #f7f4ee;
+      }
+      .menu-band > div {
+        padding: 85px 16%;
+      }
+      .menu-band > img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        max-height: 660px;
+      }
+      .menu-band p:not(.eyebrow) {
+        margin-top: 24px;
+      }
+      .menu-band .btn {
+        margin-top: 25px;
+      }
+      .celebrate-photo img {
+        height: 570px;
+        width: 100%;
+        object-fit: cover;
+      }
+      .celebrations h2 + p {
+        margin-top: 25px;
+      }
+      .facts {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin: 25px 0 30px;
+      }
+      .facts span {
+        border: 1px solid #d5d0c4;
+        padding: 8px 12px;
+        font-size: 11px;
+      }
+      .tour-section {
+        padding: 85px 8%;
+        background: #e8ecdf;
+      }
+      .tour-section .section-head {
+        max-width: 1150px;
+        margin-inline: auto;
+      }
+      .example-label {
+        max-width: 1150px;
+        margin: 30px auto 0;
+        padding: 12px 18px;
+        background: #fff2c5;
+        font-size: 12px;
+        font-weight: 600;
+      }
+      .tour-loader {
+        max-width: 1150px;
+        margin: auto;
+        background: #20382d;
+        color: white;
+      }
+      .tour-loader summary {
+        cursor: pointer;
+        padding: 40px;
+        font-family: "Playfair Display", Georgia, serif;
+        font-size: 30px;
+        list-style-position: inside;
+      }
+      .tour-loader iframe {
+        display: block;
+        width: 100%;
+        height: 540px;
+        border: 0;
+      }
+      .poster-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+      }
+      .poster-grid img {
+        width: 100%;
+        height: auto;
+      }
+      .poster-grid figcaption {
+        font-size: 11px;
+        margin-top: 12px;
+      }
+      .reserve-section {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 80px;
+        padding: 90px 8%;
+        background: #3b4a3d;
+        color: #fff;
+      }
+      .reserve-section > div > p {
+        max-width: 400px;
+        margin-top: 30px;
+      }
+      .preview-note {
+        border-left: 2px solid #d7d6a8;
+        padding-left: 18px;
+        font-size: 12px;
+        color: #e5e4cf;
+      }
+      fieldset {
+        border: 0;
+        padding: 0;
+        margin: 0;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+      }
+      legend {
+        font-size: 15px;
+        font-weight: 600;
+        margin-bottom: 25px;
+      }
+      label {
+        font-size: 12px;
+      }
+      input,
+      select,
+      textarea {
+        margin-top: 8px;
+        width: 100%;
+        min-width: 0;
+        border: 1px solid #869083;
+        background: #f7f4ee;
+        color: #2f2e28;
+        border-radius: 2px;
+        padding: 10px;
+        min-height: 45px;
+      }
+      .full {
+        grid-column: 1/-1;
+      }
+      form .btn {
+        width: 100%;
+        margin-top: 25px;
+      }
+      .fine {
+        font-size: 11px;
+        color: #d2d9cd;
+        margin-top: 15px !important;
+      }
+      .request-result {
+        border: 1px solid #92a18c;
+        padding: 25px;
+        margin-top: 20px;
+        overflow-wrap: anywhere;
+      }
+      .request-result h3 {
+        font-size: 25px;
+      }
+      .request-result p {
+        margin-top: 18px;
+      }
+      .request-result .btn {
+        padding: 12px;
+        font-size: 11px;
+      }
+      .location-card {
+        background: #e5e1d6;
+        min-height: 390px;
+        padding: 45px;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: end;
+      }
+      .compass {
+        position: absolute;
+        top: 20px;
+        right: 35px;
+        font-size: 95px;
+        color: #53272e;
+        font-family: Georgia, serif;
+      }
+      .location-card h3 {
+        font-size: 40px;
+      }
+      .location-card a {
+        margin-top: 28px;
+        font-size: 12px;
+        text-decoration: underline;
+      }
+      .visit h2 + p {
+        margin-top: 25px;
+      }
+      footer {
+        padding: 40px 8%;
+        border-top: 1px solid #d9d4c9;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      footer p {
+        text-align: right;
+        font-size: 11px;
+      }
+      footer a {
+        text-decoration: underline;
+      }
+      [hidden] {
+        display: none !important;
+      }
+      @media (max-width: 760px) {
+        html {
+          scroll-padding-top: 20px;
+        }
+        .preview-banner {
+          font-size: 9px;
+          padding: 9px 15px;
+        }
+        header {
+          padding: 15px 6%;
+          flex-wrap: wrap;
+          gap: 10px;
+        }
+        .wordmark {
+          font-size: 15px;
+        }
+        .wordmark img {
+          width: 46px;
+          height: 46px;
+        }
+        nav {
+          width: 100%;
+          gap: 17px;
+          font-size: 11px;
+          justify-content: space-between;
+        }
+        nav .btn.small {
+          padding: 8px;
+        }
+        nav > a:first-child {
+          display: none;
+        }
+        .hero {
+          min-height: 580px;
+          height: 73vh;
+        }
+        .hero-copy {
+          left: 7%;
+          right: 7%;
+          top: 10%;
+        }
+        .hero h1 {
+          font-size: 3.8rem;
+        }
+        .hero-copy > p:not(.eyebrow) {
+          font-size: 14px;
+          max-width: 270px;
+        }
+        .hero-bottom {
+          left: 7%;
+          right: 7%;
+          font-size: 8px;
+        }
+        .section {
+          padding: 55px 7%;
+        }
+        .story,
+        .celebrations,
+        .visit,
+        .reserve-section,
+        .menu-band {
+          grid-template-columns: 1fr;
+          gap: 30px;
+        }
+        .story .lead {
+          font-size: 18px;
+        }
+        .section-head {
+          align-items: start;
+          gap: 20px;
+        }
+        .section-head > p {
+          max-width: none;
+        }
+        .gallery-section .section-head h2 {
+          font-size: 2.6rem;
+        }
+        .gallery-controls {
+          align-self: end;
+        }
+        .gallery-controls button {
+          width: 35px;
+          height: 35px;
+        }
+        .gallery figure {
+          flex-basis: 85%;
+        }
+        .gallery img {
+          height: 330px;
+        }
+        .menu-band > div {
+          padding: 50px 7%;
+        }
+        .menu-band > img {
+          height: 320px;
+        }
+        .celebrate-photo img {
+          height: 390px;
+        }
+        .tour-section {
+          padding: 55px 7%;
+        }
+        .tour-section .section-head,
+        .promotions .section-head {
+          display: block;
+        }
+        .tour-loader summary {
+          padding: 30px 20px;
+          font-size: 25px;
+        }
+        .tour-loader iframe {
+          height: 460px;
+        }
+        .poster-grid {
+          grid-template-columns: 1fr;
+        }
+        .reserve-section {
+          padding: 55px 7%;
+        }
+        .reserve-section h2 {
+          font-size: 3.5rem;
+        }
+        .reserve-section > div > p {
+          margin-top: 20px;
+        }
+        .location-card {
+          min-height: 320px;
+          padding: 30px;
+        }
+        footer {
+          align-items: start;
+          gap: 20px;
+          padding: 30px 7%;
+        }
+        .wordmark small {
+          font-size: 8px;
+        }
+        .eyebrow {
+          font-size: 9px;
+          margin-bottom: 20px;
+        }
+        .actions {
+          gap: 20px;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+      }
+    </style>
+  </body>
+</html>

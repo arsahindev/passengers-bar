@@ -45,3 +45,7 @@ Before official launch: confirm owner approval, rights to existing photographs/p
 - Tour and attribution settings: `src/content/settings.ts`
 
 Images are existing venue assets plus English poster adaptations, not Space360 portfolio work. No licence to redistribute third-party photographs is implied by this repository.
+
+## Formatting
+
+Prettier with the official Astro plugin is pinned in devDependencies. Run `npm run format`, or `npm run format:check` to verify. The Astro VS Code extension uses the project configuration; format-on-save is enabled for Astro files. `htmlWhitespaceSensitivity: "ignore"` lets adjacent elements be formatted on separate lines. Preserve intentional inline spacing explicitly when needed.
