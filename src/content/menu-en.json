@@ -1,0 +1,214 @@
+{
+  "Starters": [
+    ["Taquitos", "580", "Crispy chicken bites with tortilla and sauce."],
+    ["Homemade nachos", "380", "With ranch sauce."],
+    ["Grilled goat cheese", "590", "With honey and mixed seeds."],
+    ["Mozzarella sticks", "550", ""],
+    ["Breaded olives", "520", "With sesame."],
+    ["Onion rings", "420", ""],
+    ["Handmade nachos", "560", "Guacamole / hummus."],
+    [
+      "Passengers board 1",
+      "2,450",
+      "Ćevapi, sausage, mozzarella sticks, chicken strips, dates with bacon, goat cheese bruschetta and sun-dried tomatoes."
+    ],
+    [
+      "Passengers board 2",
+      "2,100",
+      "Prosciutto and tomato bruschetta, pepper and cream cheese, kulen bruschetta, orzo taquitos, goat cheese with honey, prosciutto, sun-dried tomatoes and homemade herb bread."
+    ],
+    ["Olive selection", "420", ""],
+    ["Garlic butter bread", "560", "Sun-dried tomatoes."],
+    ["Soup of the day", "420", ""]
+  ],
+  "Breakfast": [
+    [
+      "Pass savoury French toast",
+      "660",
+      "Sour cream, mixed leaves, tomato, cured pork loin and mozzarella."
+    ],
+    [
+      "Pesto sandwich",
+      "610",
+      "Grilled marinated chicken with pesto, mozzarella and sun-dried tomatoes on rustic bread."
+    ],
+    [
+      "Rustic prosciutto sandwich",
+      "670",
+      "Ranch sauce, mozzarella, local prosciutto, rocket and roasted cherry tomatoes on rustic bread."
+    ],
+    [
+      "Burger bun breakfast",
+      "640",
+      "A burger bun spread with pesto and garlic butter, two fried eggs, smoked cheese and crispy bacon."
+    ],
+    ["Vegetable omelette", "480", "With mozzarella."],
+    ["Goat cheese omelette", "480", "With spinach."],
+    ["Poached eggs", "560", "On Greek yoghurt with spicy cream."],
+    [
+      "Truffle scrambled eggs",
+      "580",
+      "On rustic bread with guacamole, crispy bacon and mixed leaves."
+    ],
+    ["Fried eggs", "640", "On rustic bread with guacamole, crispy bacon and mixed leaves."],
+    ["Granola mix", "490", "Granola, Greek yoghurt, honey and seasonal fruit."],
+    ["Chia pudding", "480", "With fruit."],
+    ["Rustic salmon toast", "730", "Salmon, cream cheese and leek on rustic bread."],
+    [
+      "Rustic avocado toast",
+      "610",
+      "Avocado, boiled eggs, spring onion, fresh coriander and Greek yoghurt."
+    ],
+    [
+      "Hearty breakfast",
+      "610",
+      "Eggs, sausage, mushrooms, bacon, ajvar, tomato, honey-mustard sauce and Zlatar cheese."
+    ],
+    ["Savoury croissant", "670 / 360", "Scrambled eggs with vegetables."],
+    ["Sweet croissant", "670 / 360", "Cream and forest berries."]
+  ],
+  "Burgers": [
+    [
+      "Bakalin",
+      "920",
+      "Butter, cheddar sauce, ranch, BBQ, mayo, mixed leaves, caramelised onion and crispy onion."
+    ],
+    [
+      "Ljuti knežev",
+      "920",
+      "Butter, smoked cheese, ranch, jalapeño, mixed leaves, crispy onion and tomato."
+    ],
+    [
+      "Ranch domestic",
+      "920",
+      "Butter, cheddar, smoked cheese, ranch, honey-mustard sauce, crispy bacon, crispy onion and pickles."
+    ],
+    ["Tartufata", "920", "Butter, cheddar, truffle mayo, mixed leaves and sun-dried tomatoes."],
+    ["Cheeseburger", "920", "Butter, cheddar, mayo, burger sauce, pickles and mixed leaves."],
+    ["Vegan burger", "920", "Falafel, tahini sauce, mixed leaves and caramelised onion."],
+    ["Double burger", "1,200", ""],
+    ["Fries", "220", ""]
+  ],
+  "Wraps": [
+    [
+      "Crispy cheddar wrap",
+      "840",
+      "Chicken, crispy bacon, cheddar, burger sauce, mixed leaves and crispy onion."
+    ],
+    ["Pass wrap", "810", "Breaded chicken, mozzarella, ranch, mixed leaves and tomato."],
+    [
+      "Falafel wrap",
+      "790",
+      "Falafel, mozzarella, tahini mayo, cucumber, pickles, tomato, mixed leaves and caramelised onion."
+    ],
+    [
+      "Chicken thigh wrap",
+      "820",
+      "Chicken thigh, BBQ, honey mustard, cheddar, smoked cheese, crispy onion and fries."
+    ]
+  ],
+  "Main courses": [
+    [
+      "Homemade sausages",
+      "990",
+      "With kačkavalj cheese, oven-baked potatoes and honey-mustard sauce."
+    ],
+    ["Ćevapi - 5 / 10 pieces", "550 / 940", "Bread, fries, kajmak, ajvar and mixed leaves."],
+    [
+      "Pork knuckle on rustic bread",
+      "1,050",
+      "Melted cheddar, mayo, honey mustard and homemade pickled cabbage."
+    ],
+    ["Chicken in pistachio sauce", "1,230", ""],
+    ["Chicken strips", "960", "With sesame."],
+    ["Falafel bowl", "890", "Falafel with couscous and vegetables, dressing and tahini."],
+    ["Salmon / tuna on rustic bread", "1,350", "Guacamole, sun-dried tomatoes and mint crisps."],
+    ["Salmon / tuna steak", "1,510", "With grilled vegetables."],
+    ["Tuna tartare", "990", "With avocado and mango."],
+    [
+      "Marinated chicken thigh",
+      "1,050",
+      "Mustard, soy sauce, sweet and crushed paprika, with oven-baked potatoes."
+    ],
+    [
+      "Stuffed chicken roll",
+      "1,150",
+      "With prosciutto, smoked cheese and red pepper; mixed leaves with cherry tomatoes and oven-baked potatoes."
+    ]
+  ],
+  "Pasta": [
+    ["Porcini & prosciutto", "1,050", ""],
+    ["Pesto chicken", "1,050", "Grilled cherry tomatoes and garlic oil."],
+    [
+      "Pass Thai",
+      "1,050",
+      "Mixed vegetables (carrot, cabbage, mushrooms and spring onion) in soy sauce."
+    ],
+    ["Curry pasta", "1,050", "Chicken thigh, red onion, pepper and curry."]
+  ],
+  "Salads": [
+    [
+      "Tuna salad",
+      "1,150",
+      "Tuna with white sesame, pumpkin and sunflower seeds, mixed leaves with grilled cherry tomatoes, rocket crisps and flaked almonds."
+    ],
+    [
+      "Chicken & beetroot salad",
+      "880",
+      "Beetroot, Zlatar cheese, pumpkin seeds, sesame, flaxseed, rocket crisps, dressing, marinated chicken and croutons."
+    ],
+    [
+      "Caesar salad",
+      "940",
+      "Mixed leaves with Caesar dressing, marinated chicken, cherry tomatoes, Parmesan and croutons."
+    ],
+    ["Falafel salad", "880", "Mixed leaves, cucumber, tomato and tahini mayo."],
+    ["Salmon salad", "1,150", "Balsamic dressing, avocado, tomato and flaked almonds."]
+  ],
+  "Desserts": [
+    ["Soufflé", "590", "With vanilla ice cream."],
+    ["Tiramisu", "490", ""],
+    ["Lemon tart", "490", ""],
+    ["Traveller’s diary", "490", ""],
+    ["Homestyle pancakes", "440", ""]
+  ],
+  "Extras": [
+    ["Prosciutto", "400", ""],
+    ["Kulen sausage", "300", ""],
+    ["Ajvar", "200", ""],
+    ["Kajmak", "250", ""],
+    ["Sauce", "130", ""],
+    ["Egg", "100", ""]
+  ],
+  "House wine": [
+    ["Urćolino Belineli", "2,350 / 410", ""],
+    ["Bohemio Rosa", "2,350 / 410", ""],
+    ["Astero Rossolini", "2,350 / 410", ""]
+  ],
+  "White wine": [
+    ["Virtus Gewurztraminer", "2,500 / 510", ""],
+    ["Budimir Tamjanika", "2,900 / 510", ""],
+    ["Temet Tri Morave", "3,150 / 590", ""],
+    ["Cosseto Gentile Malvazija", "3,100 / 580", ""],
+    ["Corcova Sauvignon Blanc", "2,450 / 420", ""],
+    ["Tilia Pinot Gris", "2,900 / 510", ""],
+    ["Wine spritzer", "440", ""]
+  ],
+  "Rosé": [
+    ["Chichateau Pink Punk", "2,800 / 490", ""],
+    ["Corcova Rose", "2,600 / 470", ""],
+    ["Ricasoli Albia Rose", "2,950 / 520", ""]
+  ],
+  "Red wine": [
+    ["Podrum Čokot Experiment Prokupac", "2,800 / 490", ""],
+    ["Deuric Probus", "3,100 / 580", ""],
+    ["Vipava Valley Pinot Noir", "3,210 / 555", ""],
+    ["Traško Cabernet Franc 2021", "3,800", ""],
+    ["Corcova Syrah Reserve 2017", "2,900 / 510", ""]
+  ],
+  "Sparkling wine": [
+    ["Le Contesse Prosecco Extra Dry", "760", "0.2 L"],
+    ["Le Contesse Prosecco Extra Dry", "2,600", "0.75 L"],
+    ["Istenič No1", "3,900", "0.75 L"]
+  ]
+}

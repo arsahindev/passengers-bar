@@ -1,0 +1,202 @@
+{
+  "Starters": [
+    ["Takitosi", "580", "Savršeni hrskavi zalogaji: piletina, tortilja, sos."],
+    ["Domaćinski naćosi", "380", "Sa ranch sosom."],
+    ["Grilovani kozji sir", "590", "Sa medom i miksom semenki."],
+    ["Mocarela sticks", "550", ""],
+    ["Pohovane masline", "520", "U susamu."],
+    ["Onion rings", "420", ""],
+    ["Handmade naćosi", "560", "Gvakamole / humus."],
+    [
+      "Passengers daska 1",
+      "2.450",
+      "Ćevapi, kobaja, mozzarella stix, pileći štapići, urma sa slaninom, brusketi kozji sir i sušeni paradajz."
+    ],
+    [
+      "Passengers daska 2",
+      "2.100",
+      "Brusketi pršut i paradajz, paprika i sir, brusketi kulen i krem sir, orzo takitos, kozji sir u medu, pršuta, zapečeni domaći hleb sa začinima."
+    ],
+    ["Selekcija maslina", "420", ""],
+    ["Garlic Butter Bread", "560", "Sušeni paradajz."],
+    ["Potaž dana", "420", ""]
+  ],
+  "Breakfast": [
+    ["Pass prženice", "660", "Pavlaka, miks salata, paradajz, pečenica, mocarela."],
+    [
+      "Pesto sendvič",
+      "610",
+      "Grilovana marinirana piletina sa pesto sosom, mocarelom i sušenim paradajzom na rustik hlebu."
+    ],
+    [
+      "Pršuta rustik sendvič",
+      "670",
+      "Na rustik hlebu uz ranch sos, mocarelu, domaću pršutu, rukolu i zapečeni čeri paradajz."
+    ],
+    [
+      "Burger bun",
+      "640",
+      "Burger zemička premazana pesto sosom i garlic puterom, 2 jajeta na oko, dimljeni sir i hrskava slaninica."
+    ],
+    ["Omlet sa povrćem", "480", "I mocarelom."],
+    ["Omlet kozji sir", "480", "I spanać."],
+    ["Poširana jaja", "560", "Na grčkom jogurtu sa spicy umakom."],
+    [
+      "Tartuf kajgana",
+      "580",
+      "Na rustik hlebu sa gvakamole sosom, hrskavom slaninom uz miks salata."
+    ],
+    [
+      "Jaja na oko",
+      "640",
+      "Jaja na rustik hlebu sa gvakamole sosom, hrskavom slaninom uz miks salata."
+    ],
+    ["Granola miks", "490", "Granola, grčki jogurt, med, sezonsko voće."],
+    ["Chia puding", "480", "Sa voćem."],
+    ["Salmon rustik", "730", "Losos, krem sir i praziluk na rustik hlebu."],
+    ["Avokado rustik", "610", "Avokado, kuvana jaja, mladi luk, svež korijander, grčki jogurt."],
+    [
+      "Jak doručak",
+      "610",
+      "Jaja, kobaja, pečurke, slanina, ajvar, paradajz, senf-med sos, zlatarski sir."
+    ],
+    ["Slani kroasan", "670 / 360", "Kajgana sa povrćem."],
+    ["Slatki kroasan", "670 / 360", "Krem i šumsko voće."]
+  ],
+  "Burgers": [
+    [
+      "Bakalin",
+      "920",
+      "Puter, cheddar sos, ranch sos, BBQ, mayo, miks salata, karamelizovani luk, hrskavi luk."
+    ],
+    [
+      "Ljuti knežev",
+      "920",
+      "Puter, dimljeni sir, ranch sos, jalapeño, miks salata, hrskavi luk, paradajz."
+    ],
+    [
+      "Ranch domestic",
+      "920",
+      "Puter, cheddar, dimljeni sir, ranch sos, senf-med sos, hrskava slaninica, hrskavi luk, kiseli krastavac."
+    ],
+    ["Tartufata", "920", "Puter, cheddar, tartuf mayo, miks salata, sušeni paradajz."],
+    ["Cheeseburger", "920", "Puter, cheddar, mayo, burger sos, kiseli krastavci, miks salata."],
+    ["Vegan burger", "920", "Falafel, tahini sos, miks salata, karamelizovani luk."],
+    ["Double burger", "1.200", ""],
+    ["Pomfrit", "220", ""]
+  ],
+  "Wraps": [
+    [
+      "Hrskavi cheddar",
+      "840",
+      "Piletina, hrskava slanina, cheddar sir, burger sos, miks salata, hrskavi luk."
+    ],
+    ["Pass wrap", "810", "Pohovana piletina, mocarela, ranch sos, miks salata, paradajz."],
+    [
+      "Falafel wrap",
+      "790",
+      "Falafel, mocarela, mayo sa tahinijem, krastavac, kiseli krastavac, paradajz, miks salata, karamelizovani luk."
+    ],
+    [
+      "Batak wrap",
+      "820",
+      "Pileći batak, BBQ, senf med, cheddar sir, dimljeni sir, hrskavi luk, pomfrit."
+    ]
+  ],
+  "Main courses": [
+    ["Domaće kobaje", "990", "Sa kačkavaljem, pekarski krompir i senf-med sos."],
+    ["Ćevapi 5 / 10", "550 / 940", "Hleb, pomfrit, kajmak, ajvar, miks salata."],
+    [
+      "Kolenica na rustik hlebu",
+      "1.050",
+      "Topljeni cheddar sir, mayo, senf med, domaći marinirani kupus."
+    ],
+    ["Piletina u sosu od pistaća", "1.230", ""],
+    ["Pileći štapići", "960", "U susamu."],
+    ["Falafel bowl", "890", "Falafel sa kus-kusom i povrćem, dresing, tahini."],
+    ["Losos / tuna na rustik hlebu", "1.350", "Gvakamole, sušeni paradajz, čips od nane."],
+    ["Losos / tuna steak", "1.510", "Uz grilovano povrće."],
+    ["Tuna tatar", "990", "Sa avokadom i mangom."],
+    [
+      "Marinirani batak",
+      "1.050",
+      "Senf, soja sos, slatka i tucana paprika sa pekarskim krompirom."
+    ],
+    [
+      "Rolovana piletina",
+      "1.150",
+      "Sa pršutom, dimljenim sirom, crvenom paprikom, miks salata sa cherry paradajzom, pekarski krompir."
+    ]
+  ],
+  "Pasta": [
+    ["Vrganj-pršuta", "1.050", ""],
+    ["Pesto piletina", "1.050", "Grilovani cherry paradajz, ulje belog luka."],
+    ["Pass Thai", "1.050", "Miks povrća (šargarepa, kupus, šampinjoni, mladi luk) u soja sosu."],
+    ["Curry pasta", "1.050", "Pileći batak, crveni luk, paprika, kari."]
+  ],
+  "Salads": [
+    [
+      "Tuna salata",
+      "1.150",
+      "Tuna u belom susamu, golice suncokreta, miks salata sa grilovanim cherry paradajzom, čips od rukole i badem listići."
+    ],
+    [
+      "Piletina cvekla salata",
+      "880",
+      "Cvekla, zlatarski sir sa golicom, susam, lan, čips od rukole, dresing, marinirana piletina i krutoni."
+    ],
+    [
+      "Cezar salata",
+      "940",
+      "Miks salata sa cezar dresingom, marinirana piletina, cherry paradajz, parmezan, krutoni."
+    ],
+    ["Falafel salata", "880", "Miks salata, krastavac, paradajz, tahini-mayo."],
+    ["Losos salata", "1.150", "Balzamiko dresing, avokado, paradajz, listići badema."]
+  ],
+  "Desserts": [
+    ["Sufle", "590", "Sa sladoledom od vanile."],
+    ["Tiramisu", "490", ""],
+    ["Lemon tart", "490", ""],
+    ["Putnikov dnevnik", "490", ""],
+    ["Domaćinske palačinke", "440", ""]
+  ],
+  "Extras": [
+    ["Pršuta", "400", ""],
+    ["Kulen", "300", ""],
+    ["Ajvar", "200", ""],
+    ["Kajmak", "250", ""],
+    ["Sos", "130", ""],
+    ["Jaje", "100", ""]
+  ],
+  "House wine": [
+    ["Urćolino Belineli", "2.350 / 410", ""],
+    ["Bohemio Rosa", "2.350 / 410", ""],
+    ["Astero Rossolini", "2.350 / 410", ""]
+  ],
+  "White wine": [
+    ["Virtus Gewurztraminer", "2.500 / 510", ""],
+    ["Budimir Tamjanika", "2.900 / 510", ""],
+    ["Temet Tri Morave", "3.150 / 590", ""],
+    ["Cosseto Gentile Malvazija", "3.100 / 580", ""],
+    ["Corcova Sauvignon Blanc", "2.450 / 420", ""],
+    ["Tilia Pinot Gris", "2.900 / 510", ""],
+    ["Špricer", "440", ""]
+  ],
+  "Rosé": [
+    ["Chichateau Pink Punk", "2.800 / 490", ""],
+    ["Corcova Rose", "2.600 / 470", ""],
+    ["Ricasoli Albia Rose", "2.950 / 520", ""]
+  ],
+  "Red wine": [
+    ["Podrum Čokot Experiment Prokupac", "2.800 / 490", ""],
+    ["Deuric Probus", "3.100 / 580", ""],
+    ["Vipava Valley Pinot Noir", "3.210 / 555", ""],
+    ["Traško Cabernet Franc 2021", "3.800", ""],
+    ["Corcova Syrah Reserve 2017", "2.900 / 510", ""]
+  ],
+  "Sparkling wine": [
+    ["Le Contesse Prosecco Extra Dry", "760", "0,2 L"],
+    ["Le Contesse Prosecco Extra Dry", "2.600", "0,75 L"],
+    ["Istenič No1", "3.900", "0,75 L"]
+  ]
+}

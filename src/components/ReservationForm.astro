@@ -1,0 +1,302 @@
+---
+import { settings } from "../content/settings";
+const { locale = "en" } = Astro.props;
+const sr = locale === "sr";
+const tx = (a: string, b: string) => (sr ? a : b);
+const config = settings.reservations;
+---
+
+<div class="reservation-widget" data-reservation data-locale={locale} data-phone={config.phone}>
+  <form novalidate>
+    <fieldset disabled>
+      <legend>{tx("Vaš upit za rezervaciju", "Your reservation request")}</legend>
+      <label>
+        {tx("Ime *", "Name *")}
+        <input name="name" required maxlength="80" autocomplete="name" />
+      </label>
+      <label>
+        {tx("Telefon sa pozivnim brojem države *", "Phone with country code *")}
+        <input
+          name="phone"
+          type="tel"
+          required
+          maxlength="30"
+          autocomplete="tel"
+          placeholder="+381 60 123 4567"
+          aria-describedby="phone-help"
+        />
+      </label>
+      <p id="phone-help" class="full fine">
+        {tx(
+          "Unesite + ili 00 i pozivni broj države, da bismo mogli da vas pozovemo.",
+          "Include + or 00 and your country code so the team can call you back.",
+        )}
+      </p>
+      <label>
+        {tx("Željeni datum *", "Preferred date *")}
+        <input name="date" type="date" required />
+      </label>
+      <label>
+        {tx("Željeno vreme *", "Preferred time *")}
+        <input name="time" type="time" required />
+      </label>
+      <label>
+        {tx("Broj gostiju *", "Number of guests *")}
+        <input
+          name="guests"
+          type="number"
+          min="1"
+          max="999"
+          step="1"
+          required
+          inputmode="numeric"
+        />
+      </label>
+      <label>
+        {tx("Povod (opciono)", "Occasion (optional)")}
+        <input name="occasion" maxlength="80" />
+      </label>
+      <label class="full">
+        {tx("Posebne želje (opciono)", "Special requests (optional)")}
+        <textarea name="notes" rows="3" maxlength="400"></textarea>
+      </label>
+      <button class="btn cream full" type="submit">
+        {tx("Pripremite poruku", "Prepare message")}↗
+      </button>
+    </fieldset>
+  </form>
+  <p class="fine">
+    {tx(
+      "Vreme je lokalno za Beograd. Podaci se ne čuvaju na ovom sajtu.",
+      "Times are local to Belgrade. Details are not stored on this website.",
+    )}
+  </p>
+  <div data-result hidden>
+    <label for="reservation-message">{tx("Vaša poruka", "Your message")}</label>
+    <textarea id="reservation-message" data-message rows="10" readonly></textarea>
+    <p class="fine">
+      {tx(
+        "Otvara vašu aplikaciju za poruke. Pritisnite „Pošalji” da pošaljete upit. Rezervacija je potvrđena tek kada dobijete potvrdu restorana.",
+        "Opens your messaging app. Press Send to submit your request. Your reservation is confirmed only after the restaurant replies.",
+      )}
+    </p>
+    <p data-apple-note hidden class="fine">
+      {tx(
+        "Na iPhone-u prvo kopirajte poruku, zatim otvorite SMS i nalepite je.",
+        "On iPhone, copy your message first, then open SMS and paste it.",
+      )}
+    </p>
+    <div class="actions">
+      <button type="button" class="btn cream" data-copy>
+        {tx("Kopirajte upit", "Copy request")}
+      </button>
+      <a class="btn cream" data-sms>
+        {tx("Otvorite SMS", "Open SMS")}↗
+      </a>
+      {config.whatsapp && (
+        <a class="btn cream" data-whatsapp rel="noreferrer">
+          WhatsApp ↗
+        </a>
+      )}
+    </div>
+    <p class="fine">
+      {tx(
+        "Ako se aplikacija ne otvori ili poruka nije popunjena, kopirajte tekst i pošaljite ga na +381 60 646 4109. Moguća je naplata SMS-a prema vašoj tarifi.",
+        "If the app does not open or the message is empty, copy the text and send it to +381 60 646 4109. Your carrier’s SMS charges may apply.",
+      )}
+    </p>
+    {config.viber && (
+      <p class="fine">
+        {tx(
+          "Za Viber: kopirajte upit, otvorite Viber, pronađite +381 60 646 4109 i nalepite poruku u razgovor.",
+          "For Viber: copy the request, open Viber, find +381 60 646 4109 and paste the message into the chat.",
+        )}
+      </p>
+    )}
+  </div>
+  <p data-status role="status" aria-live="polite"></p>
+  <a class="call-link" href={`tel:${config.phone}`}>
+    {tx("Ili nas pozovite", "Or call us")}: +381 60 646 4109 ↗
+  </a>
+  <noscript>
+    <p>
+      {tx(
+        "Za pripremu poruke uključite JavaScript ili nas pozovite.",
+        "Enable JavaScript to prepare a message, or call us.",
+      )}
+    </p>
+  </noscript>
+</div>
+<script>
+  import {
+    normalizePhone,
+    belgradeStamp,
+    futureSlot,
+    messageFor,
+    smsLink,
+    whatsappLink,
+  } from "../lib/reservation.mjs";
+  for (const widget of document.querySelectorAll<HTMLElement>("[data-reservation]")) {
+    const sr = widget.dataset.locale === "sr";
+    const tx = (a: string, b: string) => (sr ? a : b);
+    const form = widget.querySelector("form")!;
+    const fieldset = form.querySelector("fieldset")!;
+    const input = (name: string) => form.elements.namedItem(name) as HTMLInputElement;
+    const result = widget.querySelector<HTMLElement>("[data-result]")!;
+    const message = widget.querySelector<HTMLTextAreaElement>("[data-message]")!;
+    const status = widget.querySelector<HTMLElement>("[data-status]")!;
+    const sms = widget.querySelector<HTMLAnchorElement>("[data-sms]")!;
+    const whatsapp = widget.querySelector<HTMLAnchorElement>("[data-whatsapp]");
+    const phone = widget.dataset.phone!;
+    const apple =
+      /iPhone|iPad|iPod/.test(navigator.userAgent) ||
+      (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+    input("date").min = belgradeStamp().slice(0, 10);
+    function clear() {
+      result.hidden = true;
+      message.value = "";
+      status.textContent = "";
+      sms.removeAttribute("href");
+      whatsapp?.removeAttribute("href");
+      for (const name of ["name", "phone", "date"]) input(name).setCustomValidity("");
+    }
+    function valid() {
+      input("date").min = belgradeStamp().slice(0, 10);
+      input("name").setCustomValidity(
+        input("name").value.trim() ? "" : tx("Unesite ime.", "Enter your name."),
+      );
+      input("phone").setCustomValidity(
+        normalizePhone(input("phone").value)
+          ? ""
+          : tx(
+              "Unesite međunarodni broj, npr. +381601234567.",
+              "Enter an international number, e.g. +381601234567.",
+            ),
+      );
+      input("date").setCustomValidity(
+        futureSlot(input("date").value, input("time").value)
+          ? ""
+          : tx(
+              "Izaberite važeći budući datum i vreme u Beogradu.",
+              "Choose a valid future date and time in Belgrade.",
+            ),
+      );
+      return form.reportValidity();
+    }
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      clear();
+      if (!valid()) return;
+      message.value = messageFor(Object.fromEntries(new FormData(form)), widget.dataset.locale);
+      sms.href = smsLink(phone, message.value, apple);
+      if (whatsapp) whatsapp.href = whatsappLink(phone, message.value);
+      widget.querySelector<HTMLElement>("[data-apple-note]")!.hidden = !apple;
+      result.hidden = false;
+      status.textContent = tx(
+        "Poruka je spremna. Još nije poslata.",
+        "Message ready. It has not been sent.",
+      );
+      message.focus();
+    });
+    form.addEventListener("input", clear);
+    form.addEventListener("change", clear);
+    for (const link of [sms, whatsapp])
+      link?.addEventListener("click", (event) => {
+        if (!valid()) {
+          event.preventDefault();
+          clear();
+          return;
+        }
+        status.textContent = tx(
+          "Pošaljite poruku u aplikaciji, pa sačekajte odgovor restorana.",
+          "Send the message in your app, then wait for the restaurant’s reply.",
+        );
+      });
+    widget.querySelector("[data-copy]")!.addEventListener("click", async () => {
+      if (!valid()) {
+        clear();
+        return;
+      }
+      try {
+        await navigator.clipboard.writeText(message.value);
+        status.textContent = tx(
+          "Upit je kopiran. Nalepite ga u poruku i pošaljite.",
+          "Request copied. Paste it into your message and send.",
+        );
+      } catch {
+        message.focus();
+        message.select();
+        status.textContent = tx(
+          "Tekst je označen. Kopirajte ga ručno i nalepite u poruku.",
+          "Text selected. Copy it manually and paste into your message.",
+        );
+      }
+    });
+    // Without JavaScript all fields remain disabled; no guest details can become a GET URL.
+    fieldset.disabled = false;
+  }
+</script>
+<style>
+  .reservation-widget {
+    min-width: 0;
+  }
+  fieldset {
+    padding: 0;
+    border: 0;
+    min-width: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  legend {
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+    font-weight: 600;
+  }
+  label {
+    display: grid;
+    gap: 8px;
+    min-width: 0;
+  }
+  input,
+  textarea {
+    width: 100%;
+    box-sizing: border-box;
+    min-width: 0;
+  }
+  .full {
+    grid-column: 1/-1;
+  }
+  .fine {
+    font-size: 0.85rem;
+    line-height: 1.6;
+  }
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .call-link {
+    display: inline-block;
+    margin-top: 16px;
+    text-decoration: underline;
+  }
+  [data-result] {
+    margin-top: 24px;
+  }
+  [data-result][hidden] {
+    display: none;
+  }
+  [data-message] {
+    margin: 10px 0;
+    resize: vertical;
+  }
+  [data-status]:empty {
+    display: none;
+  }
+  @media (max-width: 600px) {
+    fieldset {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
