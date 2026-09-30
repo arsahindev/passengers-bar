@@ -13,19 +13,22 @@ npm run dev
 
 Routes: `/sr/` and `/en/`. Root redirects to Serbian.
 
-## Cloudflare Pages
+## Cloudflare Workers
 
-Create a new GitHub repository from this folder, then connect that repository to a **separate Cloudflare Pages project**.
+The site is deployed as a **Cloudflare Worker serving static assets** (not Cloudflare Pages), connected to this GitHub repository through Workers Builds. It is live at `https://passengers-bar.arsahin-dev.workers.dev`.
 
-- Framework preset: Astro
 - Build command: `npm run build`
-- Output directory: `dist`
+- Deploy command: `npx wrangler deploy`
 - Root directory: leave blank (repository root)
 - Production branch: `main`
-- Node version: 24 (`.nvmrc` included; set `NODE_VERSION=24` if needed)
-- No Cloudflare adapter, secrets or special preview environment flag needed.
+- Node version: 24 (`.nvmrc` is honoured)
+- Preview builds for non-production branches are switched off (Settings → Builds → Branch control). CI on pull requests is GitHub Actions (`.github/workflows/ci.yml`).
+- `wrangler.jsonc` points the Worker at `dist/` and serves `404.html` for unknown URLs. Wrangler is pinned in devDependencies so deploys are repeatable. `public/_headers` and `public/_redirects` are applied by Workers static assets.
+- No Cloudflare adapter, bindings (KV, Images, etc.) or secrets are needed. Do not run `astro add cloudflare`; without `wrangler.jsonc`, Wrangler would try to add the adapter automatically during the deploy.
 
-See https://developers.cloudflare.com/pages/framework-guides/deploy-an-astro-site/
+To check a deploy locally without deploying: `npm run build && npx wrangler deploy --dry-run`, or `npx wrangler dev` to serve `dist/` on 127.0.0.1:8787.
+
+See https://developers.cloudflare.com/workers/static-assets/
 
 ## Important current boundaries
 
@@ -33,7 +36,7 @@ This is an owner-review concept, not the official restaurant website. Customer-f
 
 Reservations use a client-side enquiry form that prepares a message for +381606464109. Guests send it themselves through their messaging app. There is no automatic availability, table selection, payment or booking confirmation. The apartment tour is displayed as a sample for the owner presentation. Replace `tourEmbedUrl` and set `tourIsSample: false` in `src/content/settings.ts` when the restaurant tour is ready.
 
-The Panoee embed is the clearly labelled Space360 apartment example, not Passengers Bar. `src/content/settings.ts` holds its URL and the external Space360 attribution link; neither is a build dependency on Space360. The menu PDF and Google Fonts also remain external services.
+The Panoee embed is the clearly labelled Space360 apartment example, not Passengers Bar. `src/content/settings.ts` holds its URL and the external Space360 attribution link; neither is a build dependency on Space360. Google Fonts also remains an external service; the menu PDFs are served locally from `public/menus/`.
 
 Before official launch: confirm owner approval, rights to existing photographs/promotional artwork, current offers/menu/hours and booking rules; replace the example tour; configure and verify the real booking workflow; then review/remove concept labels and indexing restrictions. Do not point the restaurant's existing domain here prematurely.
 
