@@ -1,0 +1,48 @@
+---
+import { useLocale } from "../../lib/i18n";
+import { Image } from "astro:assets";
+import { btn, eyebrow, section, twoColumns } from "../../lib/ui";
+import room2 from "../../assets/passengers/space-2.jpg";
+const { tx } = useLocale(Astro.currentLocale);
+---
+
+<section id="celebrate" class={`${section} ${twoColumns}`}>
+  <div>
+    <Image
+      class="h-[390px] w-full object-cover md:h-[570px]"
+      src={room2}
+      width={850}
+      format="webp"
+      loading="lazy"
+      alt={tx("Ambijent Passengers Bara", "Passengers Bar interior")}
+    />
+  </div>
+  <div>
+    <p class={eyebrow}>{tx("VAŠ POVOD. NAŠ PROSTOR.", "YOUR OCCASION. OUR PLACE.")}</p>
+    <h2>
+      {tx("Okupite", "Bring everyone")}
+      <br />
+      <em>{tx("svoje ljude.", "together.")}</em>
+    </h2>
+    <p class="mt-[25px]">
+      {tx(
+        "Rođendan, privatno okupljanje ili poslovni događaj. Recite nam šta planirate i kakav ambijent želite.",
+        "A birthday, a private gathering or a work event. Tell us what you’re planning and the atmosphere you have in mind.",
+      )}
+    </p>
+    <div class="mb-[30px] mt-[25px] flex flex-wrap gap-2.5">
+      <span class="border border-[#d5d0c4] px-3 py-2 text-[11px]">
+        {tx("Privatni događaji", "Private events")}
+      </span>
+      <span class="border border-[#d5d0c4] px-3 py-2 text-[11px]">
+        {tx("Prostor uz baštu", "Garden-side setting")}
+      </span>
+      <span class="border border-[#d5d0c4] px-3 py-2 text-[11px]">
+        {tx("Dogovor prema povodu", "Plans tailored to the occasion")}
+      </span>
+    </div>
+    <a class={btn} href="#reserve" data-event-link>
+      {tx("Upit za proslavu", "Plan a celebration")}↗
+    </a>
+  </div>
+</section>

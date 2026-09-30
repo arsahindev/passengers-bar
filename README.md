@@ -42,9 +42,9 @@ Before official launch: confirm owner approval, rights to existing photographs/p
 
 ## Edit
 
-- Website: `src/components/PassengersPage.astro`
+- Website: `src/components/PassengersPage.astro` (sections in `src/components/sections/`)
 - Assets and provenance: `src/assets/passengers/`
-- Language routes: `src/pages/[locale]/index.astro`
+- Language routes: `src/pages/sr/index.astro` and `src/pages/en/index.astro`
 - Tour and attribution settings: `src/content/settings.ts`
 - Design tokens (colours, fonts, breakpoint) and base styles: `src/styles/global.css`
 - Shared Tailwind class strings (buttons, section layout, form fields): `src/lib/ui.ts`
@@ -61,7 +61,7 @@ Prettier with the official Astro plugin is pinned in devDependencies. Run `npm r
 
 English and Serbian menu PDFs are served locally from `public/menus/`. Both the menu button and expandable embedded viewer select the current language. Both PDFs use the same six-page design, preserving the supplied menu’s 92 food/wine entries, RSD prices and offers. Serbian uses local number formatting. The source includes unexplained dual croissant prices, which are retained without inventing portion sizes. Verify current prices and promotions with the owner before public launch.
 
-Editable content: `src/content/menu-en.json` and `src/content/menu-sr.json`. Optional PDF regeneration on macOS: install Python `reportlab`, then run `python3 scripts/build-menu.py en` or `python3 scripts/build-menu.py sr`. The generator uses the system Arial and Georgia fonts. Normal Astro/Cloudflare builds require no Python; the generated PDFs are committed static assets.
+Updating prices: the customer edits the Figma menu file and exports the Serbian and English PDFs. Replace `public/menus/passengers-menu-sr.pdf` and `public/menus/passengers-menu-en.pdf` with the exports, keeping the same filenames, check the file size and fonts, then deploy. The PDFs are the only source of menu content; there is no menu data in the repository.
 
 ## Reservation messaging
 

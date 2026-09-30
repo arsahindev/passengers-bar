@@ -1,0 +1,60 @@
+---
+import { useLocale } from "../../lib/i18n";
+import { settings } from "../../content/settings";
+import { actions, btn, eyebrow, section, twoColumns, underlined } from "../../lib/ui";
+const { tx } = useLocale(Astro.currentLocale);
+---
+
+<section id="visit" class={`${section} ${twoColumns}`}>
+  <div>
+    <p class={eyebrow}>{tx("DORĆOL VAS ČEKA", "DORĆOL IS CALLING")}</p>
+    <h2>
+      Simina 5.
+      <br />
+      <em>{tx("Svratite.", "Come by.")}</em>
+    </h2>
+    <p class="mt-[25px]">Simina 5, Beograd</p>
+    <p>
+      {tx("Pon–čet", "Mon–Thu")}08:30–00:00
+      <br />
+      {tx("Pet–sub", "Fri–Sat")}08:30–01:00
+      <br />
+      {tx("Nedelja", "Sunday")}09:00–00:00
+    </p>
+    <div class={actions}>
+      <a class={btn} href={settings.mapUrl} target="_blank" rel="noopener noreferrer">
+        Google Maps ↗
+      </a>
+      <a
+        class={underlined}
+        href="https://www.instagram.com/passengers_bar/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Instagram ↗
+      </a>
+    </div>
+  </div>
+  <div class="relative flex min-h-[320px] flex-col justify-end bg-sand p-[30px] md:min-h-[390px] md:p-[45px]">
+    <span
+      class="absolute right-[35px] top-5 font-[Georgia,serif] text-[95px] text-wine"
+      aria-hidden="true"
+    >
+      ↗
+    </span>
+    <p class={eyebrow}>SIMINA × VIŠNJIĆEVA</p>
+    <h3 class="text-[40px]">
+      {tx("Na uglu.", "On the corner.")}
+      <br />
+      {tx("U komšiluku.", "In the neighbourhood.")}
+    </h3>
+    <a
+      class="mt-7 text-[12px] underline"
+      href={settings.mapUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      {tx("Otvorite tačnu lokaciju u Google Maps", "Open the location in Google Maps")}↗
+    </a>
+  </div>
+</section>

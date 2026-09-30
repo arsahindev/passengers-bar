@@ -1,9 +1,8 @@
 ---
 import { settings } from "../content/settings";
+import { useLocale } from "../lib/i18n";
 import { btnCream, field, fine } from "../lib/ui";
-const { locale = "en" } = Astro.props;
-const sr = locale === "sr";
-const tx = (a: string, b: string) => (sr ? a : b);
+const { locale, tx } = useLocale(Astro.currentLocale);
 const config = settings.reservations;
 const label = "grid min-w-0 gap-2 text-[12px]";
 ---
