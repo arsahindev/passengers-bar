@@ -14,6 +14,9 @@ checklist details.
 
 Before committing, run `npm run format:check`, `npm test` and `npm run build`. All must pass.
 
+CI: `.github/workflows/ci.yml` runs those same three checks on every PR and on pushes to `main`.
+Cloudflare deploys `main` only; branch/preview builds are switched off in its dashboard.
+
 ## Layout
 
 - `src/components/PassengersPage.astro` — the whole page; `ReservationForm.astro` — enquiry form
