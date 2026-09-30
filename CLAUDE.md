@@ -17,6 +17,11 @@ Before committing, run `npm run format:check`, `npm test` and `npm run build`. A
 CI: `.github/workflows/ci.yml` runs those same three checks on every PR and on pushes to `main`.
 Cloudflare deploys `main` only; branch/preview builds are switched off in its dashboard.
 
+Hosting is a Cloudflare **Worker with static assets** (not Pages): build `npm run build`, deploy
+`npx wrangler deploy`, configured by `wrangler.jsonc` (assets from `dist/`). Wrangler is a pinned
+devDependency. Don't add the Cloudflare adapter, bindings (KV/Images) or run `astro add cloudflare`.
+Check config changes with `npm run build && npx wrangler deploy --dry-run`; never deploy from here.
+
 ## Layout
 
 - `src/components/PassengersPage.astro` — the whole page; `ReservationForm.astro` — enquiry form
