@@ -101,6 +101,7 @@ npm run dev
 Follow `CLAUDE.md`: formatting, tests and build must pass before commits. Preserve unrelated existing edits. No need to repeat broad research before reading the working code.
 
 Prioritize:
+
 1. Reproduce/fix anchor gaps for `#story`, `#menu`, `#celebrate`, `#reserve`, `#tour` and skip navigation. Check direct hash loads, smooth scrolling, reduced motion and both languages.
 2. If undertaking the Tailwind migration, capture before/after screenshots and retain the design, mobile breakpoints, form behaviour and hidden/disabled states. Shared tokens/components should reduce repetition, not simply relocate a tangled cascade.
 3. Verify 320/390/768/1440px layouts, overflow, keyboard focus, menus in each language, PDF fallback links, gallery, sample tour labels and reservation errors. Never submit real enquiries.

@@ -17,6 +17,9 @@ Before committing, run `npm run format:check`, `npm test` and `npm run build`. A
 ## Layout
 
 - `src/components/PassengersPage.astro` — the whole page; `ReservationForm.astro` — enquiry form
+- `src/styles/global.css` — Tailwind v4 entry: `@theme` design tokens (colours, fonts, the `md`
+  breakpoint) and a small `@layer base` for element defaults; the only hand-written CSS
+- `src/lib/ui.ts` — shared class strings (buttons, eyebrow, section layout, form field, etc.)
 - `src/pages/[locale]/index.astro` — `/sr/` and `/en/` routes; `src/pages/index.astro` redirects to `/sr/`
 - `src/content/settings.ts` — reservation phone/channels, tour embed URL and `tourIsSample` flag
 - `src/content/menu-{en,sr}.json` — menu source data
@@ -36,6 +39,15 @@ Before committing, run `npm run format:check`, `npm test` and `npm run build`. A
 - Keep noindex/concept labelling until the owner approves launch (see README "Before official launch").
 - Do not invent menu items, prices, hours or booking rules; prices are RSD and need owner confirmation.
 - Never send a test message to the restaurant's phone number.
+- Styling is Tailwind utilities in the markup plus tokens in `global.css`; don't add `<style>`
+  blocks or new global CSS. Reuse or extend the strings in `src/lib/ui.ts` instead of repeating them.
+  Classes must appear as complete literals (no string-built class names) so Tailwind can find them.
+- Mobile-first: bare classes are mobile, `md:` is desktop and starts at 761px (the original 760px
+  cut-off). Use px/arbitrary values when parity matters: named sizes like `text-sm` also change
+  line-height, and `grid-cols-2` means `minmax(0,1fr)` (use `grid-cols-[1fr_1fr]` for the original
+  `1fr 1fr`). Don't put two conflicting utilities of one property on an element (e.g. `flex` and
+  `block`); Tailwind's stylesheet order, not markup order, decides.
+- The header is not sticky, so don't add `scroll-padding-top`; it just leaves a gap above sections.
 - Prettier settings are in `.prettierrc.json`; don't hand-format around them.
 - Match existing code style and keep changes small and focused; add tests in `tests/` for logic
   changes in `src/lib/`.

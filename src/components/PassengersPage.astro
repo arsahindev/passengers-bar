@@ -2,6 +2,20 @@
 import ReservationForm from "./ReservationForm.astro";
 import { Image } from "astro:assets";
 import { settings } from "../content/settings";
+import {
+  actions,
+  btn,
+  btnCream,
+  btnSmall,
+  eyebrow,
+  section,
+  sectionHead,
+  twoColumns,
+  underlined,
+  wordmark,
+  wordmarkSub,
+} from "../lib/ui";
+import "../styles/global.css";
 import logo from "../assets/passengers/logo.png";
 import hero from "../assets/passengers/hero.jpg";
 import room1 from "../assets/passengers/space-1.jpg";
@@ -44,31 +58,47 @@ const map =
     />
   </head>
   <body data-locale={locale}>
-    <a class="skip" href="#main">
+    <a class="absolute left-2.5 top-[-80px] z-[100] bg-white p-2.5 focus:top-0" href="#main">
       {tx("Pređi na sadržaj", "Skip to content")}
     </a>
-    <header>
-      <a class="wordmark" href="#main">
-        <Image src={logo} width={66} height={66} alt="Passengers Bar" />
+    <header class="flex flex-wrap items-center justify-between gap-2.5 bg-cream px-[6%] py-[15px] md:flex-nowrap md:gap-6 md:px-[5%] md:py-4">
+      <a class={wordmark} href="#main">
+        <Image
+          class="h-[46px] w-[46px] md:h-[66px] md:w-[66px]"
+          src={logo}
+          width={66}
+          height={66}
+          alt="Passengers Bar"
+        />
         <span>
-          PASSENGERS<small>BAR · DORĆOL</small>
+          PASSENGERS<small class={wordmarkSub}>BAR · DORĆOL</small>
         </span>
       </a>
-      <nav aria-label={tx("Glavna navigacija", "Main navigation")}>
-        <a href="#story">{tx("Naše mesto", "Our place")}</a>
-        <a href="#menu">{tx("Meni", "Menu")}</a>
-        <a href="#celebrate">{tx("Proslave", "Celebrations")}</a>
-        <a class="language" href={"/" + (sr ? "en" : "sr") + "/"}>
+      <nav
+        class="flex w-full items-center justify-between gap-[17px] text-[11px] md:w-auto md:justify-start md:gap-7 md:text-[13px]"
+        aria-label={tx("Glavna navigacija", "Main navigation")}
+      >
+        <a class="max-md:hidden hover:underline" href="#story">
+          {tx("Naše mesto", "Our place")}
+        </a>
+        <a class="hover:underline" href="#menu">
+          {tx("Meni", "Menu")}
+        </a>
+        <a class="hover:underline" href="#celebrate">
+          {tx("Proslave", "Celebrations")}
+        </a>
+        <a class="font-bold hover:underline" href={"/" + (sr ? "en" : "sr") + "/"}>
           {sr ? "EN" : "SR"}
         </a>
-        <a class="btn small" href="#reserve">
+        <a class={btnSmall} href="#reserve">
           {tx("Rezervacije", "Reservations")}↗
         </a>
       </nav>
     </header>
     <main id="main">
-      <section class="hero">
+      <section class="relative h-[73vh] min-h-[580px] bg-espresso text-white md:h-[min(770px,80vh)] md:min-h-[540px]">
         <Image
+          class="h-full w-full object-cover object-center"
           src={hero}
           width={1600}
           format="webp"
@@ -76,39 +106,39 @@ const map =
           loading="eager"
           fetchpriority="high"
         />
-        <div class="hero-shade"></div>
-        <div class="hero-copy">
-          <p class="eyebrow">SIMINA 5 · DORĆOL · BEOGRAD</p>
-          <h1>
+        <div class="absolute inset-0 bg-[linear-gradient(90deg,#101910bb_0%,#10191055_58%,#10191022)]"></div>
+        <div class="absolute left-[7%] right-[7%] top-[10%] max-w-[770px] md:left-[8%] md:right-auto md:top-[15%]">
+          <p class={eyebrow}>SIMINA 5 · DORĆOL · BEOGRAD</p>
+          <h1 class="text-[3.8rem] tracking-[-.045em] md:text-[clamp(4.7rem,8vw,8.5rem)]">
             {tx("Vaše mesto.", "Your kind")}
             <br />
             <em>{tx("U srcu Dorćola.", "of place.")}</em>
           </h1>
-          <p>
+          <p class="mt-[25px] max-w-[270px] text-[14px] md:max-w-none md:text-[16px]">
             {tx(
               "Jutarnja kafa. Dugi ručkovi. Večeri koje ne planirate.",
               "Morning coffee. Long lunches. Evenings you didn’t plan.",
             )}
           </p>
-          <div class="actions">
-            <a class="btn cream" href="#reserve">
+          <div class={actions}>
+            <a class={btnCream} href="#reserve">
               {tx("Pronađite svoje mesto", "Find your table")}↗
             </a>
-            <a href="#tour" class="text-link">
+            <a href="#tour" class={underlined}>
               {tx("Pogledajte prostor", "Explore the space")}↓
             </a>
           </div>
         </div>
-        <div class="hero-bottom">
+        <div class="absolute bottom-[30px] left-[7%] right-[7%] flex justify-between text-[8px] tracking-[.12em] md:left-[8%] md:right-[8%] md:text-[10px]">
           <span>{tx("HRANA · PIĆE · DOBRO DRUŠTVO", "FOOD · DRINKS · GOOD COMPANY")}</span>
           <a href={map} target="_blank" rel="noopener noreferrer">
             {tx("Put do nas", "Get directions")}↗
           </a>
         </div>
       </section>
-      <section id="story" class="section story">
+      <section id="story" class={`${section} ${twoColumns}`}>
         <div>
-          <p class="eyebrow">{tx("MALO DALJE OD ŽURBE", "A LITTLE AWAY FROM THE RUSH")}</p>
+          <p class={eyebrow}>{tx("MALO DALJE OD ŽURBE", "A LITTLE AWAY FROM THE RUSH")}</p>
           <h2>
             {tx("U centru grada.", "Right in the city.")}
             <br />
@@ -116,7 +146,7 @@ const map =
           </h2>
         </div>
         <div>
-          <p class="lead">
+          <p class="text-[18px] leading-[1.65] md:text-[20px]">
             {tx(
               "Na uglu Simine i Višnjićeve, Passengers spaja druženje, hranu i baštu u kojoj se ostaje malo duže.",
               "On the corner of Simina and Višnjićeva, Passengers brings together food, conversation and a garden made for staying a little longer.",
@@ -128,19 +158,25 @@ const map =
               "Drop in for coffee, gather your friends for lunch, or talk to us about your next celebration.",
             )}
           </p>
-          <a class="underlined" href="#gallery">
+          <a class={`${underlined} mt-6 inline-block`} href="#gallery">
             {tx("Zavirite unutra", "Take a look around")}↗
           </a>
         </div>
       </section>
-      <section class="section gallery-section" id="gallery">
-        <div class="section-head">
+      <section
+        class="mx-auto max-w-[1400px] px-[7%] py-[55px] md:px-[8%] md:pb-[95px] md:pt-2.5"
+        id="gallery"
+      >
+        <div class={`${sectionHead} flex`}>
           <div>
-            <p class="eyebrow">{tx("MESTO I TRENUTAK", "THE PLACE. THE MOMENT.")}</p>
-            <h2>{tx("Osetite Passengers.", "A taste of Passengers.")}</h2>
+            <p class={eyebrow}>{tx("MESTO I TRENUTAK", "THE PLACE. THE MOMENT.")}</p>
+            <h2 class="text-[2.6rem] md:text-[clamp(2.5rem,4vw,4.2rem)]">
+              {tx("Osetite Passengers.", "A taste of Passengers.")}
+            </h2>
           </div>
-          <div class="gallery-controls">
+          <div class="flex gap-2.5 self-end md:self-auto">
             <button
+              class="size-[35px] rounded-full border border-[#b5b4a8] bg-transparent text-[22px] md:size-11"
               type="button"
               data-gallery-prev
               aria-label={tx("Prethodna fotografija", "Previous photograph")}
@@ -148,6 +184,7 @@ const map =
               ←
             </button>
             <button
+              class="size-[35px] rounded-full border border-[#b5b4a8] bg-transparent text-[22px] md:size-11"
               type="button"
               data-gallery-next
               aria-label={tx("Sledeća fotografija", "Next photograph")}
@@ -156,11 +193,17 @@ const map =
             </button>
           </div>
         </div>
-        <div class="gallery" tabindex="0" aria-label={tx("Galerija fotografija", "Photo gallery")}>
+        <div
+          class="flex snap-x snap-mandatory gap-5 overflow-x-auto pb-[15px]"
+          tabindex="0"
+          data-gallery
+          aria-label={tx("Galerija fotografija", "Photo gallery")}
+        >
           {gallery.map((img, i) => (
-            <figure>
+            <figure class="shrink-0 grow-0 basis-[85%] snap-start md:basis-[42%]">
               <>
                 <Image
+                  class="h-[330px] w-full object-cover md:h-[380px]"
                   src={img}
                   width={850}
                   format="webp"
@@ -170,7 +213,7 @@ const map =
                     i < 3 ? "The setting at Passengers Bar" : "Food at Passengers Bar",
                   )}
                 />
-                <figcaption>
+                <figcaption class="mt-[15px] text-[10px] tracking-[.15em]">
                   {String(i + 1).padStart(2, "0")} / 05 ·{" "}
                   {tx(
                     i < 3 ? "Naš prostor" : "Sa našeg stola",
@@ -182,23 +225,27 @@ const map =
           ))}
         </div>
       </section>
-      <section class="menu-band" id="menu">
-        <div>
-          <p class="eyebrow">
+      <section
+        class="grid grid-cols-[1fr] gap-[30px] bg-wine text-cream md:grid-cols-[1fr_1fr] md:gap-0"
+        id="menu"
+      >
+        <div class="px-[7%] py-[50px] md:px-[16%] md:py-[85px]">
+          <p class={eyebrow}>
             {tx("DOBRO JUTRO. DOBAR APETIT.", "GOOD MORNINGS. GOOD APPETITES.")}
           </p>
           <h2>{tx("Za svaki deo dana.", "Something for every part of the day.")}</h2>
-          <p>
+          <p class="mt-6">
             {tx(
               "Pogledajte meni i pronađite svoj sledeći razlog za dolazak.",
               "Browse the menu and find your next reason to visit.",
             )}
           </p>
-          <a class="btn cream" href={menu} target="_blank" rel="noopener noreferrer">
+          <a class={`${btnCream} mt-[25px]`} href={menu} target="_blank" rel="noopener noreferrer">
             {tx("Otvorite meni · PDF", "Open menu · PDF")}↗
           </a>
         </div>
         <Image
+          class="h-80 max-h-[660px] w-full object-cover md:h-full"
           src={food1}
           width={850}
           format="webp"
@@ -206,27 +253,34 @@ const map =
           alt={tx("Jelo iz Passengers Bara", "A dish at Passengers Bar")}
         />
       </section>
-      <section class="menu-reader" aria-label={tx("Pregled menija", "Menu viewer")}>
-        <details>
-          <summary>
+      <section
+        class="bg-wine px-[max(6vw,20px)] py-6 text-cream"
+        aria-label={tx("Pregled menija", "Menu viewer")}
+      >
+        <details class="mx-auto max-w-[1280px]">
+          <summary class="cursor-pointer py-3 text-[1.1rem]">
             {tx("Pročitajte meni ovde", "Read the menu here")}
-            <span aria-hidden="true">＋</span>
+            <span class="float-right" aria-hidden="true">
+              ＋
+            </span>
           </summary>
           <p>
-            <a href={menu} target="_blank" rel="noopener noreferrer">
+            <a class="underline" href={menu} target="_blank" rel="noopener noreferrer">
               {tx("Otvorite PDF u novom prozoru", "Open the PDF in a new tab")}↗
             </a>
           </p>
           <iframe
+            class="block h-[min(80vh,900px)] min-h-[400px] w-full rounded-lg border-0 bg-cream"
             src={menu}
             title={tx("Passengers Bar - meni na srpskom", "Passengers Bar - English menu")}
             loading="lazy"
           ></iframe>
         </details>
       </section>
-      <section class="section celebrations" id="celebrate">
-        <div class="celebrate-photo">
+      <section id="celebrate" class={`${section} ${twoColumns}`}>
+        <div>
           <Image
+            class="h-[390px] w-full object-cover md:h-[570px]"
             src={room2}
             width={850}
             format="webp"
@@ -235,38 +289,44 @@ const map =
           />
         </div>
         <div>
-          <p class="eyebrow">{tx("VAŠ POVOD. NAŠ PROSTOR.", "YOUR OCCASION. OUR PLACE.")}</p>
+          <p class={eyebrow}>{tx("VAŠ POVOD. NAŠ PROSTOR.", "YOUR OCCASION. OUR PLACE.")}</p>
           <h2>
             {tx("Okupite", "Bring everyone")}
             <br />
             <em>{tx("svoje ljude.", "together.")}</em>
           </h2>
-          <p>
+          <p class="mt-[25px]">
             {tx(
               "Rođendan, privatno okupljanje ili poslovni događaj. Recite nam šta planirate i kakav ambijent želite.",
               "A birthday, a private gathering or a work event. Tell us what you’re planning and the atmosphere you have in mind.",
             )}
           </p>
-          <div class="facts">
-            <span>{tx("Privatni događaji", "Private events")}</span>
-            <span>{tx("Prostor uz baštu", "Garden-side setting")}</span>
-            <span>{tx("Dogovor prema povodu", "Plans tailored to the occasion")}</span>
+          <div class="mb-[30px] mt-[25px] flex flex-wrap gap-2.5">
+            <span class="border border-[#d5d0c4] px-3 py-2 text-[11px]">
+              {tx("Privatni događaji", "Private events")}
+            </span>
+            <span class="border border-[#d5d0c4] px-3 py-2 text-[11px]">
+              {tx("Prostor uz baštu", "Garden-side setting")}
+            </span>
+            <span class="border border-[#d5d0c4] px-3 py-2 text-[11px]">
+              {tx("Dogovor prema povodu", "Plans tailored to the occasion")}
+            </span>
           </div>
-          <a class="btn" href="#reserve" data-event-link>
+          <a class={btn} href="#reserve" data-event-link>
             {tx("Upit za proslavu", "Plan a celebration")}↗
           </a>
         </div>
       </section>
       {settings.tourEmbedUrl && (
-        <section class="tour-section" id="tour">
-          <div class="section-head">
+        <section class="bg-mist px-[7%] py-[55px] md:px-[8%] md:py-[85px]" id="tour">
+          <div class={`${sectionHead} md:mx-auto md:flex md:max-w-[1150px]`}>
             <div>
-              <p class="eyebrow">
+              <p class={eyebrow}>
                 360°{settings.tourIsSample ? tx(" · Primer ture", " · Sample tour") : ""}
               </p>
               <h2>{tx("Pogledajte prostor.", "Take a look around.")}</h2>
             </div>
-            <p>
+            <p class="md:max-w-[340px]">
               {tx(
                 "Pronađite svoj omiljeni kutak pre dolaska.",
                 "Find your favourite corner before you visit.",
@@ -274,6 +334,7 @@ const map =
             </p>
           </div>
           <iframe
+            class="inline border-2 align-baseline [border-style:inset]"
             src={settings.tourEmbedUrl}
             title={
               settings.tourIsSample
@@ -288,22 +349,23 @@ const map =
           ></iframe>
         </section>
       )}
-      <section class="section promotions" id="offers">
-        <div class="section-head">
+      <section class={section} id="offers">
+        <div class={`${sectionHead} md:flex`}>
           <div>
-            <p class="eyebrow">{tx("AKTUELNO", "WHAT’S ON")}</p>
+            <p class={eyebrow}>{tx("AKTUELNO", "WHAT’S ON")}</p>
             <h2>{tx("Mali razlozi za dolazak.", "A few more reasons to visit.")}</h2>
           </div>
-          <p class="review-note">
+          <p class="mt-[18px]! text-[11px] leading-[1.7] opacity-75 md:max-w-[340px]">
             {tx(
               "Za aktuelne ponude i uslove obratite se našem timu.",
               "Ask our team about current offers and availability.",
             )}
           </p>
         </div>
-        <div class="poster-grid">
+        <div class="grid grid-cols-[1fr] gap-[30px] md:grid-cols-[1fr_1fr]">
           <figure>
             <Image
+              class="h-auto w-full"
               src={sr ? breakfastSR : breakfastEN}
               width={1100}
               format="webp"
@@ -313,10 +375,11 @@ const map =
                 "Breakfast: add coffee and freshly squeezed mixed juice for RSD 250. Offer subject to confirmation.",
               )}
             />
-            <figcaption>{tx("Doručak", "Breakfast")}</figcaption>
+            <figcaption class="mt-3 text-[11px]">{tx("Doručak", "Breakfast")}</figcaption>
           </figure>
           <figure>
             <Image
+              class="h-auto w-full"
               src={sr ? offersSR : offersEN}
               width={1100}
               format="webp"
@@ -326,14 +389,17 @@ const map =
                 "Offers: buy four burgers, get one free; Sunday–Thursday 25% off selected drinks; lunch 14–16 includes a drink from the listed selection. Terms subject to confirmation.",
               )}
             />
-            <figcaption>{tx("Ponude", "Offers")}</figcaption>
+            <figcaption class="mt-3 text-[11px]">{tx("Ponude", "Offers")}</figcaption>
           </figure>
         </div>
       </section>
-      <section class="reserve-section" id="reserve">
-        <div>
-          <p class="eyebrow">{tx("NAPRAVITE PLAN", "MAKE A PLAN")}</p>
-          <h2>
+      <section
+        class="grid grid-cols-[1fr] gap-[30px] bg-forest px-[7%] py-[55px] text-white md:grid-cols-[1fr_1fr] md:gap-20 md:px-[8%] md:py-[90px]"
+        id="reserve"
+      >
+        <div class="*:mt-5 *:max-w-[400px] md:*:mt-[30px]">
+          <p class={eyebrow}>{tx("NAPRAVITE PLAN", "MAKE A PLAN")}</p>
+          <h2 class="mt-0! max-w-none! text-[3.5rem] md:text-[clamp(2.5rem,4vw,4.2rem)]">
             {tx("Vidimo se", "See you")}
             <br />
             <em>{tx("za stolom.", "at the table.")}</em>
@@ -349,15 +415,15 @@ const map =
           <ReservationForm locale={locale} />
         </div>
       </section>
-      <section class="section visit" id="visit">
+      <section id="visit" class={`${section} ${twoColumns}`}>
         <div>
-          <p class="eyebrow">{tx("DORĆOL VAS ČEKA", "DORĆOL IS CALLING")}</p>
+          <p class={eyebrow}>{tx("DORĆOL VAS ČEKA", "DORĆOL IS CALLING")}</p>
           <h2>
             Simina 5.
             <br />
             <em>{tx("Svratite.", "Come by.")}</em>
           </h2>
-          <p>Simina 5, Beograd</p>
+          <p class="mt-[25px]">Simina 5, Beograd</p>
           <p>
             {tx("Pon–čet", "Mon–Thu")}08:30–00:00
             <br />
@@ -365,12 +431,12 @@ const map =
             <br />
             {tx("Nedelja", "Sunday")}09:00–00:00
           </p>
-          <div class="actions">
-            <a class="btn" href={map} target="_blank" rel="noopener noreferrer">
+          <div class={actions}>
+            <a class={btn} href={map} target="_blank" rel="noopener noreferrer">
               Google Maps ↗
             </a>
             <a
-              class="underlined"
+              class={underlined}
               href="https://www.instagram.com/passengers_bar/"
               target="_blank"
               rel="noopener noreferrer"
@@ -379,35 +445,45 @@ const map =
             </a>
           </div>
         </div>
-        <div class="location-card">
-          <span class="compass" aria-hidden="true">
+        <div class="relative flex min-h-[320px] flex-col justify-end bg-sand p-[30px] md:min-h-[390px] md:p-[45px]">
+          <span
+            class="absolute right-[35px] top-5 font-[Georgia,serif] text-[95px] text-wine"
+            aria-hidden="true"
+          >
             ↗
           </span>
-          <p class="eyebrow">SIMINA × VIŠNJIĆEVA</p>
-          <h3>
+          <p class={eyebrow}>SIMINA × VIŠNJIĆEVA</p>
+          <h3 class="text-[40px]">
             {tx("Na uglu.", "On the corner.")}
             <br />
             {tx("U komšiluku.", "In the neighbourhood.")}
           </h3>
-          <a href={map} target="_blank" rel="noopener noreferrer">
+          <a
+            class="mt-7 text-[12px] underline"
+            href={map}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             {tx("Otvorite tačnu lokaciju u Google Maps", "Open the location in Google Maps")}↗
           </a>
         </div>
       </section>
     </main>
-    <footer>
-      <div class="wordmark">
-        PASSENGERS<small>BAR · DORĆOL</small>
+    <footer class="flex items-start justify-between gap-5 border-t border-[#d9d4c9] px-[7%] py-[30px] md:items-center md:gap-0 md:px-[8%] md:py-10">
+      <div class={wordmark}>
+        PASSENGERS<small class={wordmarkSub}>BAR · DORĆOL</small>
       </div>
-      <p>
+      <p class="text-right text-[11px]">
         {tx("Simina 5 · Dorćol · Beograd", "Simina 5 · Dorćol · Belgrade")}
         <br />
-        <a href={settings.origin + "/" + locale + "/"}>Space360</a>·
-        {tx("Izrada sajta", "Website by")}
+        <a class="underline" href={settings.origin + "/" + locale + "/"}>
+          Space360
+        </a>
+        ·{tx("Izrada sajta", "Website by")}
       </p>
     </footer>
     <script>
-      const track = document.querySelector<HTMLElement>(".gallery");
+      const track = document.querySelector<HTMLElement>("[data-gallery]");
       const move = (direction: number) =>
         track?.scrollBy({
           left:
@@ -418,679 +494,5 @@ const map =
       document.querySelector("[data-gallery-prev]")?.addEventListener("click", () => move(-1));
       document.querySelector("[data-gallery-next]")?.addEventListener("click", () => move(1));
     </script>
-    <style is:global>
-      @import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap");
-      .menu-reader {
-        padding: 24px max(6vw, 20px);
-        background: #53272e;
-        color: #f7f4ee;
-      }
-      .menu-reader details {
-        max-width: 1280px;
-        margin: 0 auto;
-      }
-      .menu-reader summary {
-        cursor: pointer;
-        font-size: 1.1rem;
-        padding: 12px 0;
-      }
-      .menu-reader summary span {
-        float: right;
-      }
-      .menu-reader a {
-        text-decoration: underline;
-      }
-      .menu-reader iframe {
-        display: block;
-        width: 100%;
-        height: min(80vh, 900px);
-        min-height: 400px;
-        border: 0;
-        border-radius: 8px;
-        background: #f7f4ee;
-      }
-
-      * {
-        box-sizing: border-box;
-      }
-      html {
-        scroll-behavior: smooth;
-      }
-      body {
-        margin: 0;
-        background: #f7f4ee;
-        color: #2f2e28;
-        font:
-          16px/1.6 "DM Sans",
-          sans-serif;
-      }
-      a {
-        color: inherit;
-        text-decoration: none;
-      }
-      button,
-      input,
-      select,
-      textarea {
-        font: inherit;
-      }
-      button,
-      a,
-      input,
-      select,
-      textarea {
-        -webkit-tap-highlight-color: transparent;
-      }
-      button {
-        cursor: pointer;
-      }
-      img {
-        display: block;
-        max-width: 100%;
-      }
-      h1,
-      h2,
-      h3,
-      p,
-      figure {
-        margin: 0;
-      }
-      h1,
-      h2,
-      h3 {
-        font-family: "Playfair Display", Georgia, serif;
-        font-weight: 500;
-        line-height: 1.06;
-      }
-      h2 {
-        font-size: clamp(2.5rem, 4vw, 4.2rem);
-        letter-spacing: -0.045em;
-      }
-      h3 {
-        font-size: 2rem;
-      }
-      p + p {
-        margin-top: 18px;
-      }
-      em {
-        font-weight: 500;
-      }
-      a:focus-visible,
-      button:focus-visible,
-      input:focus-visible,
-      select:focus-visible,
-      textarea:focus-visible {
-        outline: 3px solid #d98b56;
-        outline-offset: 5px;
-      }
-      .skip {
-        position: absolute;
-        left: 10px;
-        top: -80px;
-        background: white;
-        padding: 10px;
-        z-index: 100;
-      }
-      .skip:focus {
-        top: 0;
-      }
-      .preview-banner {
-        background: #3b4a3d;
-        color: #fff;
-        font-size: 11px;
-        text-align: center;
-        letter-spacing: 0.06em;
-        padding: 10px;
-      }
-      .preview-banner a {
-        text-decoration: underline;
-        margin-left: 14px;
-      }
-      header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 16px 5%;
-        gap: 24px;
-        background: #f7f4ee;
-      }
-      .wordmark {
-        display: flex;
-        align-items: center;
-        gap: 14px;
-        font-size: 19px;
-        letter-spacing: 0.15em;
-        font-weight: 700;
-      }
-      .wordmark small {
-        display: block;
-        font-size: 9px;
-        letter-spacing: 0.22em;
-      }
-      nav {
-        display: flex;
-        align-items: center;
-        gap: 28px;
-        font-size: 13px;
-      }
-      nav > a:not(.btn):hover {
-        text-decoration: underline;
-      }
-      .language {
-        font-weight: 700;
-      }
-      .btn {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 25px;
-        border: 1px solid #53272e;
-        background: #53272e;
-        color: white;
-        padding: 15px 24px;
-        border-radius: 2px;
-        font-size: 13px;
-        font-weight: 600;
-      }
-      .btn:hover {
-        filter: brightness(1.13);
-      }
-      .btn.small {
-        padding: 12px 18px;
-      }
-      .btn.cream {
-        background: #f7f4ee;
-        border-color: #f7f4ee;
-        color: #422730;
-      }
-      .hero {
-        height: min(770px, 80vh);
-        min-height: 540px;
-        position: relative;
-        background: #382e28;
-        color: white;
-      }
-      .hero > img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: center;
-      }
-      .hero-shade {
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(90deg, #101910bb 0%, #10191055 58%, #10191022);
-      }
-      .hero-copy {
-        position: absolute;
-        left: 8%;
-        top: 15%;
-        max-width: 770px;
-      }
-      .eyebrow {
-        font-size: 10px;
-        font-weight: 700;
-        letter-spacing: 0.22em;
-        margin-bottom: 25px;
-      }
-      .hero h1 {
-        font-size: clamp(4.7rem, 8vw, 8.5rem);
-        letter-spacing: -0.045em;
-      }
-      .hero-copy > p:not(.eyebrow) {
-        margin-top: 25px;
-      }
-      .actions {
-        display: flex;
-        gap: 25px;
-        align-items: center;
-        flex-wrap: wrap;
-        margin-top: 30px;
-      }
-      .text-link,
-      .underlined {
-        text-decoration: underline;
-        text-underline-offset: 6px;
-        font-size: 13px;
-      }
-      .hero-bottom {
-        position: absolute;
-        bottom: 30px;
-        left: 8%;
-        right: 8%;
-        display: flex;
-        justify-content: space-between;
-        font-size: 10px;
-        letter-spacing: 0.12em;
-      }
-      .section {
-        max-width: 1400px;
-        margin: auto;
-        padding: 95px 8%;
-      }
-      .story,
-      .celebrations,
-      .visit {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 90px;
-        align-items: center;
-      }
-      .story .lead {
-        font-size: 20px;
-        line-height: 1.65;
-      }
-      .story .underlined {
-        display: inline-block;
-        margin-top: 24px;
-      }
-      .section-head {
-        display: flex;
-        align-items: end;
-        justify-content: space-between;
-        gap: 45px;
-        margin-bottom: 35px;
-      }
-      .section-head > p {
-        max-width: 340px;
-      }
-      .gallery-section {
-        padding-top: 10px;
-      }
-      .gallery-controls {
-        display: flex;
-        gap: 10px;
-      }
-      .gallery-controls button {
-        border: 1px solid #b5b4a8;
-        border-radius: 50%;
-        width: 44px;
-        height: 44px;
-        background: transparent;
-        font-size: 22px;
-      }
-      .gallery {
-        display: flex;
-        gap: 20px;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        padding-bottom: 15px;
-      }
-      .gallery figure {
-        flex: 0 0 42%;
-        scroll-snap-align: start;
-      }
-      .gallery img {
-        width: 100%;
-        height: 380px;
-        object-fit: cover;
-      }
-      .gallery figcaption {
-        font-size: 10px;
-        letter-spacing: 0.15em;
-        margin-top: 15px;
-      }
-      .review-note {
-        font-size: 11px;
-        opacity: 0.75;
-        margin-top: 18px !important;
-        line-height: 1.7;
-      }
-      .menu-band {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        background: #53272e;
-        color: #f7f4ee;
-      }
-      .menu-band > div {
-        padding: 85px 16%;
-      }
-      .menu-band > img {
-        height: 100%;
-        width: 100%;
-        object-fit: cover;
-        max-height: 660px;
-      }
-      .menu-band p:not(.eyebrow) {
-        margin-top: 24px;
-      }
-      .menu-band .btn {
-        margin-top: 25px;
-      }
-      .celebrate-photo img {
-        height: 570px;
-        width: 100%;
-        object-fit: cover;
-      }
-      .celebrations h2 + p {
-        margin-top: 25px;
-      }
-      .facts {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        margin: 25px 0 30px;
-      }
-      .facts span {
-        border: 1px solid #d5d0c4;
-        padding: 8px 12px;
-        font-size: 11px;
-      }
-      .tour-section {
-        padding: 85px 8%;
-        background: #e8ecdf;
-      }
-      .tour-section .section-head {
-        max-width: 1150px;
-        margin-inline: auto;
-      }
-      .example-label {
-        max-width: 1150px;
-        margin: 30px auto 0;
-        padding: 12px 18px;
-        background: #fff2c5;
-        font-size: 12px;
-        font-weight: 600;
-      }
-      .tour-loader {
-        max-width: 1150px;
-        margin: auto;
-        background: #20382d;
-        color: white;
-      }
-      .tour-loader summary {
-        cursor: pointer;
-        padding: 40px;
-        font-family: "Playfair Display", Georgia, serif;
-        font-size: 30px;
-        list-style-position: inside;
-      }
-      .tour-loader iframe {
-        display: block;
-        width: 100%;
-        height: 540px;
-        border: 0;
-      }
-      .poster-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 30px;
-      }
-      .poster-grid img {
-        width: 100%;
-        height: auto;
-      }
-      .poster-grid figcaption {
-        font-size: 11px;
-        margin-top: 12px;
-      }
-      .reserve-section {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 80px;
-        padding: 90px 8%;
-        background: #3b4a3d;
-        color: #fff;
-      }
-      .reserve-section > div > p {
-        max-width: 400px;
-        margin-top: 30px;
-      }
-      .preview-note {
-        border-left: 2px solid #d7d6a8;
-        padding-left: 18px;
-        font-size: 12px;
-        color: #e5e4cf;
-      }
-      fieldset {
-        border: 0;
-        padding: 0;
-        margin: 0;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 18px;
-      }
-      legend {
-        font-size: 15px;
-        font-weight: 600;
-        margin-bottom: 25px;
-      }
-      label {
-        font-size: 12px;
-      }
-      input,
-      select,
-      textarea {
-        margin-top: 8px;
-        width: 100%;
-        min-width: 0;
-        border: 1px solid #869083;
-        background: #f7f4ee;
-        color: #2f2e28;
-        border-radius: 2px;
-        padding: 10px;
-        min-height: 45px;
-      }
-      .full {
-        grid-column: 1/-1;
-      }
-      form .btn {
-        width: 100%;
-        margin-top: 25px;
-      }
-      .fine {
-        font-size: 11px;
-        color: #d2d9cd;
-        margin-top: 15px !important;
-      }
-      .request-result {
-        border: 1px solid #92a18c;
-        padding: 25px;
-        margin-top: 20px;
-        overflow-wrap: anywhere;
-      }
-      .request-result h3 {
-        font-size: 25px;
-      }
-      .request-result p {
-        margin-top: 18px;
-      }
-      .request-result .btn {
-        padding: 12px;
-        font-size: 11px;
-      }
-      .location-card {
-        background: #e5e1d6;
-        min-height: 390px;
-        padding: 45px;
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        justify-content: end;
-      }
-      .compass {
-        position: absolute;
-        top: 20px;
-        right: 35px;
-        font-size: 95px;
-        color: #53272e;
-        font-family: Georgia, serif;
-      }
-      .location-card h3 {
-        font-size: 40px;
-      }
-      .location-card a {
-        margin-top: 28px;
-        font-size: 12px;
-        text-decoration: underline;
-      }
-      .visit h2 + p {
-        margin-top: 25px;
-      }
-      footer {
-        padding: 40px 8%;
-        border-top: 1px solid #d9d4c9;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-      footer p {
-        text-align: right;
-        font-size: 11px;
-      }
-      footer a {
-        text-decoration: underline;
-      }
-      [hidden] {
-        display: none !important;
-      }
-      @media (max-width: 760px) {
-        .preview-banner {
-          font-size: 9px;
-          padding: 9px 15px;
-        }
-        header {
-          padding: 15px 6%;
-          flex-wrap: wrap;
-          gap: 10px;
-        }
-        .wordmark {
-          font-size: 15px;
-        }
-        .wordmark img {
-          width: 46px;
-          height: 46px;
-        }
-        nav {
-          width: 100%;
-          gap: 17px;
-          font-size: 11px;
-          justify-content: space-between;
-        }
-        nav .btn.small {
-          padding: 8px;
-        }
-        nav > a:first-child {
-          display: none;
-        }
-        .hero {
-          min-height: 580px;
-          height: 73vh;
-        }
-        .hero-copy {
-          left: 7%;
-          right: 7%;
-          top: 10%;
-        }
-        .hero h1 {
-          font-size: 3.8rem;
-        }
-        .hero-copy > p:not(.eyebrow) {
-          font-size: 14px;
-          max-width: 270px;
-        }
-        .hero-bottom {
-          left: 7%;
-          right: 7%;
-          font-size: 8px;
-        }
-        .section {
-          padding: 55px 7%;
-        }
-        .story,
-        .celebrations,
-        .visit,
-        .reserve-section,
-        .menu-band {
-          grid-template-columns: 1fr;
-          gap: 30px;
-        }
-        .story .lead {
-          font-size: 18px;
-        }
-        .section-head {
-          align-items: start;
-          gap: 20px;
-        }
-        .section-head > p {
-          max-width: none;
-        }
-        .gallery-section .section-head h2 {
-          font-size: 2.6rem;
-        }
-        .gallery-controls {
-          align-self: end;
-        }
-        .gallery-controls button {
-          width: 35px;
-          height: 35px;
-        }
-        .gallery figure {
-          flex-basis: 85%;
-        }
-        .gallery img {
-          height: 330px;
-        }
-        .menu-band > div {
-          padding: 50px 7%;
-        }
-        .menu-band > img {
-          height: 320px;
-        }
-        .celebrate-photo img {
-          height: 390px;
-        }
-        .tour-section {
-          padding: 55px 7%;
-        }
-        .tour-section .section-head,
-        .promotions .section-head {
-          display: block;
-        }
-        .tour-loader summary {
-          padding: 30px 20px;
-          font-size: 25px;
-        }
-        .tour-loader iframe {
-          height: 460px;
-        }
-        .poster-grid {
-          grid-template-columns: 1fr;
-        }
-        .reserve-section {
-          padding: 55px 7%;
-        }
-        .reserve-section h2 {
-          font-size: 3.5rem;
-        }
-        .reserve-section > div > p {
-          margin-top: 20px;
-        }
-        .location-card {
-          min-height: 320px;
-          padding: 30px;
-        }
-        footer {
-          align-items: start;
-          gap: 20px;
-          padding: 30px 7%;
-        }
-        .wordmark small {
-          font-size: 8px;
-        }
-        .eyebrow {
-          font-size: 9px;
-          margin-bottom: 20px;
-        }
-        .actions {
-          gap: 20px;
-        }
-      }
-      @media (prefers-reduced-motion: reduce) {
-        html {
-          scroll-behavior: auto;
-        }
-      }
-    </style>
   </body>
 </html>
