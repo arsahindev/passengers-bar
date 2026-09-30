@@ -43,6 +43,10 @@ Before official launch: confirm owner approval, rights to existing photographs/p
 - Assets and provenance: `src/assets/passengers/`
 - Language routes: `src/pages/[locale]/index.astro`
 - Tour and attribution settings: `src/content/settings.ts`
+- Design tokens (colours, fonts, breakpoint) and base styles: `src/styles/global.css`
+- Shared Tailwind class strings (buttons, section layout, form fields): `src/lib/ui.ts`
+
+Styling uses Tailwind CSS v4 through the official Vite plugin (build-time only, no runtime cost). Classes live in the markup; the desktop layout starts at 761px and below that the mobile layout applies. Google Fonts is still loaded from `global.css`.
 
 Images are existing venue assets plus English poster adaptations, not Space360 portfolio work. No licence to redistribute third-party photographs is implied by this repository.
 

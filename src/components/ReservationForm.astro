@@ -1,22 +1,30 @@
 ---
 import { settings } from "../content/settings";
+import { btnCream, field, fine } from "../lib/ui";
 const { locale = "en" } = Astro.props;
 const sr = locale === "sr";
 const tx = (a: string, b: string) => (sr ? a : b);
 const config = settings.reservations;
+const label = "grid min-w-0 gap-2 text-[12px]";
 ---
 
-<div class="reservation-widget" data-reservation data-locale={locale} data-phone={config.phone}>
+<div class="min-w-0" data-reservation data-locale={locale} data-phone={config.phone}>
   <form novalidate>
-    <fieldset disabled>
-      <legend>{tx("Vaš upit za rezervaciju", "Your reservation request")}</legend>
-      <label>
+    <fieldset
+      class="m-0 grid min-w-0 grid-cols-[1fr] gap-4 border-0 p-0 min-[601px]:grid-cols-[1fr_1fr]"
+      disabled
+    >
+      <legend class="mb-5 px-0.5 text-[1.3rem] font-semibold">
+        {tx("Vaš upit za rezervaciju", "Your reservation request")}
+      </legend>
+      <label class={label}>
         {tx("Ime *", "Name *")}
-        <input name="name" required maxlength="80" autocomplete="name" />
+        <input class={`${field} mt-2`} name="name" required maxlength="80" autocomplete="name" />
       </label>
-      <label>
+      <label class={label}>
         {tx("Telefon sa pozivnim brojem države *", "Phone with country code *")}
         <input
+          class={`${field} mt-2`}
           name="phone"
           type="tel"
           required
@@ -26,23 +34,24 @@ const config = settings.reservations;
           aria-describedby="phone-help"
         />
       </label>
-      <p id="phone-help" class="full fine">
+      <p id="phone-help" class={`${fine} col-span-full`}>
         {tx(
           "Unesite + ili 00 i pozivni broj države, da bismo mogli da vas pozovemo.",
           "Include + or 00 and your country code so the team can call you back.",
         )}
       </p>
-      <label>
+      <label class={label}>
         {tx("Željeni datum *", "Preferred date *")}
-        <input name="date" type="date" required />
+        <input class={`${field} mt-2`} name="date" type="date" required />
       </label>
-      <label>
+      <label class={label}>
         {tx("Željeno vreme *", "Preferred time *")}
-        <input name="time" type="time" required />
+        <input class={`${field} mt-2`} name="time" type="time" required />
       </label>
-      <label>
+      <label class={label}>
         {tx("Broj gostiju *", "Number of guests *")}
         <input
+          class={`${field} mt-2`}
           name="guests"
           type="number"
           min="1"
@@ -52,61 +61,69 @@ const config = settings.reservations;
           inputmode="numeric"
         />
       </label>
-      <label>
+      <label class={label}>
         {tx("Povod (opciono)", "Occasion (optional)")}
-        <input name="occasion" maxlength="80" />
+        <input class={`${field} mt-2`} name="occasion" maxlength="80" />
       </label>
-      <label class="full">
+      <label class={`${label} col-span-full`}>
         {tx("Posebne želje (opciono)", "Special requests (optional)")}
-        <textarea name="notes" rows="3" maxlength="400"></textarea>
+        <textarea class={`${field} mt-2`} name="notes" rows="3" maxlength="400"></textarea>
       </label>
-      <button class="btn cream full" type="submit">
+      <button class={`${btnCream} col-span-full mt-[25px] w-full`} type="submit">
         {tx("Pripremite poruku", "Prepare message")}↗
       </button>
     </fieldset>
   </form>
-  <p class="fine">
+  <p class={fine}>
     {tx(
       "Vreme je lokalno za Beograd. Podaci se ne čuvaju na ovom sajtu.",
       "Times are local to Belgrade. Details are not stored on this website.",
     )}
   </p>
-  <div data-result hidden>
-    <label for="reservation-message">{tx("Vaša poruka", "Your message")}</label>
-    <textarea id="reservation-message" data-message rows="10" readonly></textarea>
-    <p class="fine">
+  <div class="mt-6" data-result hidden>
+    <label class={label} for="reservation-message">
+      {tx("Vaša poruka", "Your message")}
+    </label>
+    <textarea
+      class={`${field} my-2.5 resize-y`}
+      id="reservation-message"
+      data-message
+      rows="10"
+      readonly
+    ></textarea>
+    <p class={fine}>
       {tx(
         "Otvara vašu aplikaciju za poruke. Pritisnite „Pošalji” da pošaljete upit. Rezervacija je potvrđena tek kada dobijete potvrdu restorana.",
         "Opens your messaging app. Press Send to submit your request. Your reservation is confirmed only after the restaurant replies.",
       )}
     </p>
-    <p data-apple-note hidden class="fine">
+    <p data-apple-note hidden class={fine}>
       {tx(
         "Na iPhone-u prvo kopirajte poruku, zatim otvorite SMS i nalepite je.",
         "On iPhone, copy your message first, then open SMS and paste it.",
       )}
     </p>
-    <div class="actions">
-      <button type="button" class="btn cream" data-copy>
+    <div class="mt-[30px] flex flex-wrap gap-3">
+      <button type="button" class={btnCream} data-copy>
         {tx("Kopirajte upit", "Copy request")}
       </button>
-      <a class="btn cream" data-sms>
+      <a class={btnCream} data-sms>
         {tx("Otvorite SMS", "Open SMS")}↗
       </a>
       {config.whatsapp && (
-        <a class="btn cream" data-whatsapp rel="noreferrer">
+        <a class={btnCream} data-whatsapp rel="noreferrer">
           WhatsApp ↗
         </a>
       )}
     </div>
-    <p class="fine">
+    <p class={fine}>
       {tx(
         "Ako se aplikacija ne otvori ili poruka nije popunjena, kopirajte tekst i pošaljite ga na +381 60 646 4109. Moguća je naplata SMS-a prema vašoj tarifi.",
         "If the app does not open or the message is empty, copy the text and send it to +381 60 646 4109. Your carrier’s SMS charges may apply.",
       )}
     </p>
     {config.viber && (
-      <p class="fine">
+      <p class={fine}>
         {tx(
           "Za Viber: kopirajte upit, otvorite Viber, pronađite +381 60 646 4109 i nalepite poruku u razgovor.",
           "For Viber: copy the request, open Viber, find +381 60 646 4109 and paste the message into the chat.",
@@ -114,8 +131,8 @@ const config = settings.reservations;
       </p>
     )}
   </div>
-  <p data-status role="status" aria-live="polite"></p>
-  <a class="call-link" href={`tel:${config.phone}`}>
+  <p class="empty:hidden" data-status role="status" aria-live="polite"></p>
+  <a class="mt-4 inline-block underline" href={`tel:${config.phone}`}>
     {tx("Ili nas pozovite", "Or call us")}: +381 60 646 4109 ↗
   </a>
   <noscript>
@@ -236,67 +253,3 @@ const config = settings.reservations;
     fieldset.disabled = false;
   }
 </script>
-<style>
-  .reservation-widget {
-    min-width: 0;
-  }
-  fieldset {
-    padding: 0;
-    border: 0;
-    min-width: 0;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-  }
-  legend {
-    font-size: 1.3rem;
-    margin-bottom: 20px;
-    font-weight: 600;
-  }
-  label {
-    display: grid;
-    gap: 8px;
-    min-width: 0;
-  }
-  input,
-  textarea {
-    width: 100%;
-    box-sizing: border-box;
-    min-width: 0;
-  }
-  .full {
-    grid-column: 1/-1;
-  }
-  .fine {
-    font-size: 0.85rem;
-    line-height: 1.6;
-  }
-  .actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-  }
-  .call-link {
-    display: inline-block;
-    margin-top: 16px;
-    text-decoration: underline;
-  }
-  [data-result] {
-    margin-top: 24px;
-  }
-  [data-result][hidden] {
-    display: none;
-  }
-  [data-message] {
-    margin: 10px 0;
-    resize: vertical;
-  }
-  [data-status]:empty {
-    display: none;
-  }
-  @media (max-width: 600px) {
-    fieldset {
-      grid-template-columns: 1fr;
-    }
-  }
-</style>
