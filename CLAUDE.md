@@ -9,12 +9,13 @@ checklist details.
 - `npm ci` — install (Node 24, see `.nvmrc`)
 - `npm run dev` — dev server on 127.0.0.1
 - `npm run build` — production build to `dist/`
+- `npm run check` — `astro check` type check
 - `npm test` — Node test runner over `tests/*.test.mjs` (reservation logic)
 - `npm run format` / `npm run format:check` — Prettier (with Astro plugin)
 
-Before committing, run `npm run format:check`, `npm test` and `npm run build`. All must pass.
+Before committing, run `npm run format:check`, `npm run check`, `npm test` and `npm run build`. All must pass.
 
-CI: `.github/workflows/ci.yml` runs those same three checks on every PR and on pushes to `main`.
+CI: `.github/workflows/ci.yml` runs those same four checks on every PR and on pushes to `main`.
 Cloudflare deploys `main` only; branch/preview builds are switched off in its dashboard.
 
 Hosting is a Cloudflare **Worker with static assets** (not Pages): build `npm run build`, deploy
@@ -35,7 +36,7 @@ Check config changes with `npm run build && npx wrangler deploy --dry-run`; neve
 - `src/assets/passengers/` — images; provenance in `sources.json`
 - `public/menus/*.pdf` — generated menu PDFs, committed. Regenerate with
   `python3 scripts/build-menu.py en|sr` (needs `reportlab` and macOS fonts; not part of the build)
-- `public/_headers`, `_redirects`, `robots.txt` — Cloudflare Pages config (noindex is intentional)
+- `public/_headers`, `_redirects`, `robots.txt` — Cloudflare static-assets config (noindex is intentional)
 
 ## Rules
 
