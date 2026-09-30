@@ -32,7 +32,7 @@ See https://developers.cloudflare.com/workers/static-assets/
 
 ## Important current boundaries
 
-This is an owner-review concept, not the official restaurant website. Customer-facing review labels have been removed; noindex instructions remain. Noindex is not password protection: uploading to Pages makes the preview publicly accessible unless you add access controls.
+This is an owner-review concept, not the official restaurant website. Customer-facing review labels have been removed; noindex instructions remain. Noindex is not password protection: deploying makes the preview publicly accessible unless you add access controls.
 
 Reservations use a client-side enquiry form that prepares a message for +381606464109. Guests send it themselves through their messaging app. There is no automatic availability, table selection, payment or booking confirmation. The apartment tour is displayed as a sample for the owner presentation. Replace `tourEmbedUrl` and set `tourIsSample: false` in `src/content/settings.ts` when the restaurant tour is ready.
 
