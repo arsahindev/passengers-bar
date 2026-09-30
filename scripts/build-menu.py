@@ -14,7 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 locale = sys.argv[1] if len(sys.argv) > 1 else 'en'
 if locale not in ('en', 'sr'):
  raise SystemExit('Usage: python3 scripts/build-menu.py [en|sr]')
-D = json.loads((ROOT / f'src/content/menu-{locale}.json').read_text())
+D = json.loads((ROOT / f'src/content/menu/{locale}.json').read_text())
 LABELS = {
  'All prices in Serbian dinars (RSD).': 'Sve cene su u dinarima (RSD).',
  'Small plates. Good company.': 'Mali zalogaji. Dobro društvo.',

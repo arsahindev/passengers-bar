@@ -1,0 +1,33 @@
+---
+import { useLocale } from "../../lib/i18n";
+import { eyebrow, section, twoColumns, underlined } from "../../lib/ui";
+const { tx } = useLocale(Astro.currentLocale);
+---
+
+<section id="story" class={`${section} ${twoColumns}`}>
+  <div>
+    <p class={eyebrow}>{tx("MALO DALJE OD ŽURBE", "A LITTLE AWAY FROM THE RUSH")}</p>
+    <h2>
+      {tx("U centru grada.", "Right in the city.")}
+      <br />
+      <em>{tx("U svom ritmu.", "At your own pace.")}</em>
+    </h2>
+  </div>
+  <div>
+    <p class="text-[18px] leading-[1.65] md:text-[20px]">
+      {tx(
+        "Na uglu Simine i Višnjićeve, Passengers spaja druženje, hranu i baštu u kojoj se ostaje malo duže.",
+        "On the corner of Simina and Višnjićeva, Passengers brings together food, conversation and a garden made for staying a little longer.",
+      )}
+    </p>
+    <p>
+      {tx(
+        "Svratite na kafu, okupite prijatelje za ručak ili nam se javite da zajedno osmislimo proslavu.",
+        "Drop in for coffee, gather your friends for lunch, or talk to us about your next celebration.",
+      )}
+    </p>
+    <a class={`${underlined} mt-6 inline-block`} href="#gallery">
+      {tx("Zavirite unutra", "Take a look around")}↗
+    </a>
+  </div>
+</section>

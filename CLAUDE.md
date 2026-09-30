@@ -25,13 +25,18 @@ Check config changes with `npm run build && npx wrangler deploy --dry-run`; neve
 
 ## Layout
 
-- `src/components/PassengersPage.astro` — the whole page; `ReservationForm.astro` — enquiry form
+- `src/components/PassengersPage.astro` — composes the page from `src/components/sections/*.astro`
+  (one per section, each reads the locale itself); `ReservationForm.astro` — enquiry form
+- `src/layouts/Base.astro` — `<html>`/`<head>`/skip link; `src/lib/i18n.ts` — `useLocale()` gives
+  `tx(serbian, english)`, `sr` and the language-switch URL from `Astro.currentLocale`
 - `src/styles/global.css` — Tailwind v4 entry: `@theme` design tokens (colours, fonts, the `md`
   breakpoint) and a small `@layer base` for element defaults; the only hand-written CSS
 - `src/lib/ui.ts` — shared class strings (buttons, eyebrow, section layout, form field, etc.)
-- `src/pages/[locale]/index.astro` — `/sr/` and `/en/` routes; `src/pages/index.astro` redirects to `/sr/`
+- `src/pages/{sr,en}/index.astro` — `/sr/` and `/en/` routes (locales and default are set in the
+  `i18n` block of `astro.config.mjs`); `src/pages/index.astro` redirects to `/sr/`
 - `src/content/settings.ts` — reservation phone/channels, tour embed URL and `tourIsSample` flag
-- `src/content/menu-{en,sr}.json` — menu source data
+- `src/content/menu/{en,sr}.json` — menu source data, validated by the `menu` collection schema in
+  `src/content.config.ts` (checked on build/`astro check`)
 - `src/lib/reservation.mjs` — phone normalization, message encoding, Belgrade time (unit-tested)
 - `src/assets/passengers/` — images; provenance in `sources.json`
 - `public/menus/*.pdf` — generated menu PDFs, committed. Regenerate with

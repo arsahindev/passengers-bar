@@ -1,0 +1,49 @@
+---
+import { useLocale } from "../../lib/i18n";
+import { Image } from "astro:assets";
+import { settings } from "../../content/settings";
+import { actions, btnCream, eyebrow, underlined } from "../../lib/ui";
+import hero from "../../assets/passengers/hero.jpg";
+const { tx } = useLocale(Astro.currentLocale);
+---
+
+<section class="relative h-[73vh] min-h-[580px] bg-espresso text-white md:h-[min(770px,80vh)] md:min-h-[540px]">
+  <Image
+    class="h-full w-full object-cover object-center"
+    src={hero}
+    width={1600}
+    format="webp"
+    alt={tx("Bašta Passengers Bara", "Passengers Bar garden")}
+    loading="eager"
+    fetchpriority="high"
+  />
+  <div class="absolute inset-0 bg-[linear-gradient(90deg,#101910bb_0%,#10191055_58%,#10191022)]"></div>
+  <div class="absolute left-[7%] right-[7%] top-[10%] max-w-[770px] md:left-[8%] md:right-auto md:top-[15%]">
+    <p class={eyebrow}>SIMINA 5 · DORĆOL · BEOGRAD</p>
+    <h1 class="text-[3.8rem] tracking-[-.045em] md:text-[clamp(4.7rem,8vw,8.5rem)]">
+      {tx("Vaše mesto.", "Your kind")}
+      <br />
+      <em>{tx("U srcu Dorćola.", "of place.")}</em>
+    </h1>
+    <p class="mt-[25px] max-w-[270px] text-[14px] md:max-w-none md:text-[16px]">
+      {tx(
+        "Jutarnja kafa. Dugi ručkovi. Večeri koje ne planirate.",
+        "Morning coffee. Long lunches. Evenings you didn’t plan.",
+      )}
+    </p>
+    <div class={actions}>
+      <a class={btnCream} href="#reserve">
+        {tx("Pronađite svoje mesto", "Find your table")}↗
+      </a>
+      <a href="#tour" class={underlined}>
+        {tx("Pogledajte prostor", "Explore the space")}↓
+      </a>
+    </div>
+  </div>
+  <div class="absolute bottom-[30px] left-[7%] right-[7%] flex justify-between text-[8px] tracking-[.12em] md:left-[8%] md:right-[8%] md:text-[10px]">
+    <span>{tx("HRANA · PIĆE · DOBRO DRUŠTVO", "FOOD · DRINKS · GOOD COMPANY")}</span>
+    <a href={settings.mapUrl} target="_blank" rel="noopener noreferrer">
+      {tx("Put do nas", "Get directions")}↗
+    </a>
+  </div>
+</section>

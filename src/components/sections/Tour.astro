@@ -1,0 +1,39 @@
+---
+import { useLocale } from "../../lib/i18n";
+import { settings } from "../../content/settings";
+import { eyebrow, sectionHead } from "../../lib/ui";
+const { tx } = useLocale(Astro.currentLocale);
+---
+
+{settings.tourEmbedUrl && (
+  <section class="bg-mist px-[7%] py-[55px] md:px-[8%] md:py-[85px]" id="tour">
+    <div class={`${sectionHead} md:mx-auto md:flex md:max-w-[1150px]`}>
+      <div>
+        <p class={eyebrow}>
+          360°{settings.tourIsSample ? tx(" · Primer ture", " · Sample tour") : ""}
+        </p>
+        <h2>{tx("Pogledajte prostor.", "Take a look around.")}</h2>
+      </div>
+      <p class="md:max-w-[340px]">
+        {tx(
+          "Pronađite svoj omiljeni kutak pre dolaska.",
+          "Find your favourite corner before you visit.",
+        )}
+      </p>
+    </div>
+    <iframe
+      class="inline border-2 align-baseline [border-style:inset]"
+      src={settings.tourEmbedUrl}
+      title={
+        settings.tourIsSample
+          ? tx("Primer virtuelne ture stana", "Sample apartment virtual tour")
+          : tx("Virtuelna tura Passengers Bara", "Passengers Bar virtual tour")
+      }
+      width="100%"
+      height="500"
+      loading="lazy"
+      allow="autoplay; fullscreen; gyroscope; accelerometer; xr-spatial-tracking"
+      allowfullscreen
+    ></iframe>
+  </section>
+)}
