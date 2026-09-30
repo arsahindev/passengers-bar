@@ -35,18 +35,16 @@ Check config changes with `npm run build && npx wrangler deploy --dry-run`; neve
 - `src/pages/{sr,en}/index.astro` — `/sr/` and `/en/` routes (locales and default are set in the
   `i18n` block of `astro.config.mjs`); `src/pages/index.astro` redirects to `/sr/`
 - `src/content/settings.ts` — reservation phone/channels, tour embed URL and `tourIsSample` flag
-- `src/content/menu/{en,sr}.json` — menu source data, validated by the `menu` collection schema in
-  `src/content.config.ts` (checked on build/`astro check`)
 - `src/lib/reservation.mjs` — phone normalization, message encoding, Belgrade time (unit-tested)
 - `src/assets/passengers/` — images; provenance in `sources.json`
-- `public/menus/*.pdf` — generated menu PDFs, committed. Regenerate with
-  `python3 scripts/build-menu.py en|sr` (needs `reportlab` and macOS fonts; not part of the build)
+- `public/menus/passengers-menu-{sr,en}.pdf` — menu PDFs, committed. The customer edits the menu in
+  Figma and exports both PDFs; replace these files, keeping the filenames. No menu data lives in the repo.
 - `public/_headers`, `_redirects`, `robots.txt` — Cloudflare static-assets config (noindex is intentional)
 
 ## Rules
 
 - Every user-facing string needs both Serbian and English. Change both languages together.
-- If menu JSON changes, the PDFs are stale; say so rather than silently leaving them out of sync.
+- Menu content exists only in the PDFs; don't re-create menu data in the repo, and don't edit prices by hand.
 - Privacy: guest reservation details must never be stored, logged, sent via fetch/analytics or put
   in own-site URLs. Details leave the page only through the guest's own messaging action.
 - No backend, no Cloudflare adapter, no secrets, no new runtime dependencies without asking.
