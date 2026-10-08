@@ -3,8 +3,9 @@
 //   [data-viewer-open="<index>"]  page button in the carousel; data-large = full-size image URL
 //   dialog[data-viewer]           with [data-viewer-scroll] > img[data-viewer-image],
 //                                 [data-viewer-status], [data-viewer-prev|next|zoom-in|zoom-out|close]
-// Fit shows the whole page; double-tap (or double-click) toggles 2.5x at that point, and the
-// buttons or +/- keys step through the zoom levels. When zoomed, the page pans by normal scrolling/dragging.
+// Fit shows the whole page. Pinch zooms the page (not the site), double-tap or double-click toggles
+// 2.5x at that point, and the buttons or +/- keys step through zoom levels. When zoomed, the page
+// pans by normal scrolling/dragging.
 const dialog = document.querySelector<HTMLDialogElement>("[data-viewer]");
 const openers = [...document.querySelectorAll<HTMLButtonElement>("[data-viewer-open]")];
 
@@ -13,6 +14,7 @@ if (dialog && openers.length) {
   const image = dialog.querySelector<HTMLImageElement>("[data-viewer-image]")!;
   const status = dialog.querySelector<HTMLElement>("[data-viewer-status]");
   const levels = [1, 1.75, 2.5, 3.5];
+  const maxZoom = 4; // pinch can go a little past the largest button level
   let page = 0;
   let zoom = 1;
 
@@ -23,18 +25,26 @@ if (dialog && openers.length) {
     return Math.min(scroller.clientWidth, scroller.clientHeight * ratio);
   };
 
-  // Sets the zoom and keeps the page point under (x, y) (viewport coords) in place.
+  // Where viewport point (x, y) falls on the page, as fractions of its width and height.
+  const pagePoint = (x: number, y: number) => {
+    const rect = image.getBoundingClientRect();
+    return { fx: (x - rect.left) / rect.width, fy: (y - rect.top) / rect.height };
+  };
+  // Sets the zoom and scrolls so that page point (fx, fy) sits under viewport point (x, y).
+  const zoomAround = (next: number, x: number, y: number, fx: number, fy: number) => {
+    const box = scroller.getBoundingClientRect();
+    zoom = Math.min(Math.max(next, 1), maxZoom);
+    image.style.width = `${fitWidth() * zoom}px`;
+    scroller.scrollLeft = image.offsetLeft + fx * image.offsetWidth - (x - box.left);
+    scroller.scrollTop = image.offsetTop + fy * image.offsetHeight - (y - box.top);
+  };
+  // Sets the zoom, keeping the page point under (x, y) (default: viewer centre) in place.
   const setZoom = (next: number, x?: number, y?: number) => {
     const box = scroller.getBoundingClientRect();
-    const before = image.getBoundingClientRect();
     const px = x ?? box.left + box.width / 2;
     const py = y ?? box.top + box.height / 2;
-    const fx = (px - before.left) / before.width;
-    const fy = (py - before.top) / before.height;
-    zoom = Math.min(Math.max(next, levels[0]), levels[levels.length - 1]);
-    image.style.width = `${fitWidth() * zoom}px`;
-    scroller.scrollLeft = image.offsetLeft + fx * image.offsetWidth - (px - box.left);
-    scroller.scrollTop = image.offsetTop + fy * image.offsetHeight - (py - box.top);
+    const { fx, fy } = pagePoint(px, py);
+    zoomAround(next, px, py, fx, fy);
   };
   const step = (direction: number) => {
     const i = levels.findIndex((level) => level >= zoom - 0.01);
@@ -91,11 +101,21 @@ if (dialog && openers.length) {
     }
   });
 
-  // Double-tap toggles zoom and a horizontal swipe at fit size changes page. Touch events, not
-  // pointer events: browsers cancel pointer events once a finger starts panning.
+  // Double-tap toggles zoom, a horizontal swipe at fit size changes page, and two fingers pinch.
+  // Touch events, not pointer events: browsers cancel pointer events once a finger starts panning.
+  // The scroller's touch-action (pan-x pan-y) stops the browser zooming the site on pinch.
   let start = { x: 0, y: 0, t: -1 };
   let lastTap = { x: 0, y: 0, t: -1000 };
   let lastTouch = -1000;
+  let pinch: { distance: number; zoom: number; fx: number; fy: number } | null = null;
+  const between = (touches: TouchList) => ({
+    x: (touches[0].clientX + touches[1].clientX) / 2,
+    y: (touches[0].clientY + touches[1].clientY) / 2,
+    distance: Math.hypot(
+      touches[0].clientX - touches[1].clientX,
+      touches[0].clientY - touches[1].clientY,
+    ),
+  });
   scroller.addEventListener(
     "touchstart",
     (event) => {
@@ -103,12 +123,32 @@ if (dialog && openers.length) {
       start =
         event.touches.length === 1
           ? { x: touch.clientX, y: touch.clientY, t: event.timeStamp }
-          : { x: 0, y: 0, t: -1 }; // pinch: leave it to the browser
+          : { x: 0, y: 0, t: -1 }; // not a tap or swipe
+      if (event.touches.length === 2) {
+        const mid = between(event.touches);
+        pinch = { distance: mid.distance, zoom, ...pagePoint(mid.x, mid.y) };
+      }
     },
     { passive: true },
   );
+  scroller.addEventListener(
+    "touchmove",
+    (event) => {
+      if (!pinch || event.touches.length !== 2) return;
+      if (event.cancelable) event.preventDefault(); // we move the page, not the browser
+      const mid = between(event.touches);
+      // The page point that started between the fingers follows them while zooming.
+      zoomAround((pinch.zoom * mid.distance) / pinch.distance, mid.x, mid.y, pinch.fx, pinch.fy);
+    },
+    { passive: false },
+  );
+  scroller.addEventListener("touchcancel", () => (pinch = null));
   scroller.addEventListener("touchend", (event) => {
     lastTouch = event.timeStamp;
+    if (pinch && event.touches.length < 2) {
+      pinch = null;
+      if (zoom < 1.05) setZoom(1); // snap back to fit
+    }
     if (start.t < 0 || event.touches.length) return;
     const touch = event.changedTouches[0];
     const dx = touch.clientX - start.x;

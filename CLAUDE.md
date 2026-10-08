@@ -36,7 +36,7 @@ Check config changes with `npm run build && npx wrangler deploy --dry-run`; neve
 - `src/scripts/carousel.ts` — scroll-snap carousel (prev/next buttons, optional page counter) for
   the gallery and the menu pages; driven by `data-carousel*` attributes
 - `src/scripts/menu-viewer.ts` — full-screen menu page viewer (`<dialog>` in `Menu.astro`) with
-  double-tap/button zoom and swipe; phones can't zoom one image without zooming the whole site
+  pinch, double-tap and button zoom, and swipe; the site itself never zooms while it is open
 - `src/lib/ui.ts` — shared class strings (buttons, eyebrow, section layout, form field, etc.)
 - `src/pages/{sr,en}/index.astro` — `/sr/` and `/en/` routes (locales and default are set in the
   `i18n` block of `astro.config.mjs`); `src/pages/index.astro` redirects to `/sr/`

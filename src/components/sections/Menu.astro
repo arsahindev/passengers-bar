@@ -159,7 +159,7 @@ const large = await Promise.all(
         </button>
       </div>
       <div
-        class="relative flex min-h-0 flex-1 touch-manipulation overflow-auto overscroll-contain"
+        class="relative flex min-h-0 flex-1 touch-pan-x touch-pan-y overflow-auto overscroll-contain"
         data-viewer-scroll
       >
         <img class="m-auto block h-auto max-w-none shrink-0 bg-cream" data-viewer-image alt="" />
@@ -174,7 +174,7 @@ const large = await Promise.all(
           <Icon name="arrow-left" />
         </button>
         <span class="text-[12px] opacity-75">
-          {tx("Dupli dodir za uvećanje", "Double-tap to zoom")}
+          {tx("Uvećajte prstima ili dvostrukim dodirom", "Pinch or double-tap to zoom")}
         </span>
         <button
           class={roundButton}
