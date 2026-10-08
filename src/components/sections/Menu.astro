@@ -2,7 +2,7 @@
 import Icon from "../Icon.astro";
 import { useLocale } from "../../lib/i18n";
 import { Image } from "astro:assets";
-import { btnCream, eyebrow } from "../../lib/ui";
+import { btnCream, eyebrow, roundButton } from "../../lib/ui";
 import food1 from "../../assets/passengers/food-1.jpg";
 const { locale, tx } = useLocale(Astro.currentLocale);
 
@@ -48,26 +48,52 @@ const pages = Object.entries(
   class="bg-wine px-[max(6vw,20px)] py-6 text-cream"
   aria-label={tx("Pregled menija", "Menu viewer")}
 >
-  <details class="mx-auto max-w-[1280px]">
+  <details class="mx-auto max-w-[1280px]" data-carousel>
     <summary class="cursor-pointer py-3 text-[1.1rem]">
       {tx("Pročitajte meni ovde", "Read the menu here")}
       <span class="float-right" aria-hidden="true">
         <Icon name="plus" />
       </span>
     </summary>
-    <p>
+    <div class="flex flex-wrap items-center justify-between gap-4">
       <a class="underline" href={menu} target="_blank" rel="noopener noreferrer">
         {tx("Otvorite PDF u novom prozoru", "Open the PDF in a new tab")}
         <Icon name="arrow-up-right" trailing />
       </a>
-    </p>
-    <div class="mx-auto mt-4 grid max-w-[900px] gap-4 pb-3">
+      <div class="flex items-center gap-2.5">
+        <button
+          class={roundButton}
+          type="button"
+          data-carousel-prev
+          aria-label={tx("Prethodna strana", "Previous page")}
+        >
+          <Icon name="arrow-left" />
+        </button>
+        <span class="min-w-[4.5em] text-center text-[13px] tabular-nums" data-carousel-status>
+          {`1 / ${pages.length}`}
+        </span>
+        <button
+          class={roundButton}
+          type="button"
+          data-carousel-next
+          aria-label={tx("Sledeća strana", "Next page")}
+        >
+          <Icon name="arrow-right" />
+        </button>
+      </div>
+    </div>
+    <div
+      class="mt-4 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-3"
+      tabindex="0"
+      data-carousel-track
+      aria-label={tx("Strane menija", "Menu pages")}
+    >
       {pages.map((page, i) => (
         <Image
-          class="h-auto w-full rounded-lg bg-cream"
+          class="h-auto w-full shrink-0 snap-start rounded-lg bg-cream md:h-[min(80vh,900px)] md:w-auto"
           src={page}
           widths={[600, 900, 1200, 1785]}
-          sizes="(min-width: 1000px) 900px, 88vw"
+          sizes="(min-width: 761px) 640px, 88vw"
           format="webp"
           quality={90}
           loading="lazy"
@@ -80,3 +106,6 @@ const pages = Object.entries(
     </div>
   </details>
 </section>
+<script>
+  import "../../scripts/carousel";
+</script>

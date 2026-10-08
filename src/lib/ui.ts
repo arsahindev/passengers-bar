@@ -21,6 +21,10 @@ export const wordmark =
   "flex items-center gap-3.5 text-[15px] font-bold tracking-[.15em] md:text-[19px]";
 export const wordmarkSub = "block text-[8px] tracking-[.22em] md:text-[9px]";
 
+// Round prev/next buttons for carousels.
+export const roundButton =
+  "size-[35px] rounded-full border border-[#b5b4a8] bg-transparent text-[22px] md:size-11";
+
 export const field =
   "min-h-[45px] w-full min-w-0 rounded-[2px] border border-[#869083] bg-cream p-2.5 text-ink";
 export const fine = "mt-[15px]! text-[.85rem] leading-[1.6] text-[#d2d9cd]";

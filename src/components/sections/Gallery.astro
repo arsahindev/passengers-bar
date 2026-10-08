@@ -2,7 +2,7 @@
 import Icon from "../Icon.astro";
 import { useLocale } from "../../lib/i18n";
 import { Image } from "astro:assets";
-import { eyebrow, sectionHead } from "../../lib/ui";
+import { eyebrow, roundButton, sectionHead } from "../../lib/ui";
 import room1 from "../../assets/passengers/space-1.jpg";
 import room2 from "../../assets/passengers/space-2.jpg";
 import room3 from "../../assets/passengers/space-3.jpg";
@@ -16,6 +16,7 @@ const gallery = [room1, room2, room3, food1, food2];
 <section
   class="mx-auto max-w-[1400px] px-[7%] py-[55px] md:px-[8%] md:pb-[95px] md:pt-2.5"
   id="gallery"
+  data-carousel
 >
   <div class={`${sectionHead} flex`}>
     <div>
@@ -26,17 +27,17 @@ const gallery = [room1, room2, room3, food1, food2];
     </div>
     <div class="flex gap-2.5 self-end md:self-auto">
       <button
-        class="size-[35px] rounded-full border border-[#b5b4a8] bg-transparent text-[22px] md:size-11"
+        class={roundButton}
         type="button"
-        data-gallery-prev
+        data-carousel-prev
         aria-label={tx("Prethodna fotografija", "Previous photograph")}
       >
         <Icon name="arrow-left" />
       </button>
       <button
-        class="size-[35px] rounded-full border border-[#b5b4a8] bg-transparent text-[22px] md:size-11"
+        class={roundButton}
         type="button"
-        data-gallery-next
+        data-carousel-next
         aria-label={tx("Sledeća fotografija", "Next photograph")}
       >
         <Icon name="arrow-right" />
@@ -46,7 +47,7 @@ const gallery = [room1, room2, room3, food1, food2];
   <div
     class="flex snap-x snap-mandatory gap-5 overflow-x-auto pb-[15px]"
     tabindex="0"
-    data-gallery
+    data-carousel-track
     aria-label={tx("Galerija fotografija", "Photo gallery")}
   >
     {gallery.map((img, i) => (
@@ -73,14 +74,5 @@ const gallery = [room1, room2, room3, food1, food2];
   </div>
 </section>
 <script>
-  const track = document.querySelector<HTMLElement>("[data-gallery]");
-  const move = (direction: number) =>
-    track?.scrollBy({
-      left:
-        direction * (track.querySelector("figure")?.getBoundingClientRect().width || 300) +
-        direction * 20,
-      behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth",
-    });
-  document.querySelector("[data-gallery-prev]")?.addEventListener("click", () => move(-1));
-  document.querySelector("[data-gallery-next]")?.addEventListener("click", () => move(1));
+  import "../../scripts/carousel";
 </script>
