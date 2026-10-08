@@ -6,8 +6,9 @@ import { mkdir, rm, writeFile } from "node:fs/promises";
 import { pdf } from "pdf-to-img";
 
 const out = new URL("../src/assets/menus/", import.meta.url);
-// A4 is 595pt wide, so scale 3 gives ~1786px: sharp on a 3x phone screen and on desktop.
-const scale = 3;
+// A4 is 595pt wide, so scale 4 gives ~2381px: still sharp when the full-screen viewer zooms a
+// page to 2.5x on a 3x phone screen. The carousel uses smaller versions made by astro:assets.
+const scale = 4;
 
 await rm(out, { recursive: true, force: true });
 for (const locale of ["sr", "en"]) {

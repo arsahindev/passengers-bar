@@ -1,7 +1,7 @@
 ---
 import Icon from "../Icon.astro";
 import { useLocale } from "../../lib/i18n";
-import { Image } from "astro:assets";
+import { Image, getImage } from "astro:assets";
 import { btnCream, eyebrow, roundButton } from "../../lib/ui";
 import food1 from "../../assets/passengers/food-1.jpg";
 const { locale, tx } = useLocale(Astro.currentLocale);
@@ -15,6 +15,10 @@ const pages = Object.entries(
   .filter(([path]) => path.includes(`/menus/${locale}/`))
   .sort(([a], [b]) => a.localeCompare(b))
   .map(([, image]) => image.default);
+// Full-size versions for the zoomable full-screen viewer (src/scripts/menu-viewer.ts).
+const large = await Promise.all(
+  pages.map((page) => getImage({ src: page, format: "webp", quality: 85 })),
+);
 ---
 
 <section
@@ -82,6 +86,9 @@ const pages = Object.entries(
         </button>
       </div>
     </div>
+    <p class="mt-3 text-[13px] opacity-80">
+      {tx("Dodirnite stranu da je uvećate.", "Tap a page to zoom in.")}
+    </p>
     <div
       class="mt-4 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-3"
       tabindex="0"
@@ -89,23 +96,99 @@ const pages = Object.entries(
       aria-label={tx("Strane menija", "Menu pages")}
     >
       {pages.map((page, i) => (
-        <Image
-          class="h-auto w-full shrink-0 snap-start rounded-lg bg-cream md:h-[min(80vh,900px)] md:w-auto"
-          src={page}
-          widths={[600, 900, 1200, 1785]}
-          sizes="(min-width: 761px) 640px, 88vw"
-          format="webp"
-          quality={90}
-          loading="lazy"
-          alt={tx(
-            `Meni, strana ${i + 1} od ${pages.length}`,
-            `Menu, page ${i + 1} of ${pages.length}`,
+        <button
+          class="w-full shrink-0 cursor-zoom-in snap-start md:w-auto"
+          type="button"
+          data-viewer-open={i}
+          data-large={large[i].src}
+          aria-label={tx(
+            `Uvećajte stranu ${i + 1} od ${pages.length}`,
+            `Zoom in on page ${i + 1} of ${pages.length}`,
           )}
-        />
+        >
+          <Image
+            class="h-auto w-full rounded-lg bg-cream md:h-[min(80vh,900px)] md:w-auto"
+            src={page}
+            widths={[600, 900, 1200, 1785]}
+            sizes="(min-width: 761px) 640px, 88vw"
+            format="webp"
+            quality={90}
+            loading="lazy"
+            alt={tx(
+              `Meni, strana ${i + 1} od ${pages.length}`,
+              `Menu, page ${i + 1} of ${pages.length}`,
+            )}
+          />
+        </button>
       ))}
     </div>
   </details>
+  <dialog
+    class="m-0 h-dvh max-h-none w-screen max-w-none bg-espresso p-0 text-cream backdrop:bg-black/80"
+    data-viewer
+    aria-label={tx("Meni", "Menu")}
+  >
+    <div class="flex h-full flex-col">
+      <div class="flex items-center justify-between gap-3 px-4 py-3">
+        <div class="flex items-center gap-2.5">
+          <button
+            class={roundButton}
+            type="button"
+            data-viewer-zoom-out
+            aria-label={tx("Umanjite", "Zoom out")}
+          >
+            <Icon name="minus" />
+          </button>
+          <button
+            class={roundButton}
+            type="button"
+            data-viewer-zoom-in
+            aria-label={tx("Uvećajte", "Zoom in")}
+          >
+            <Icon name="plus" />
+          </button>
+        </div>
+        <span class="text-[13px] tabular-nums" data-viewer-status></span>
+        <button
+          class={roundButton}
+          type="button"
+          data-viewer-close
+          aria-label={tx("Zatvorite", "Close")}
+        >
+          <Icon name="close" />
+        </button>
+      </div>
+      <div
+        class="relative flex min-h-0 flex-1 touch-manipulation overflow-auto overscroll-contain"
+        data-viewer-scroll
+      >
+        <img class="m-auto block h-auto max-w-none shrink-0 bg-cream" data-viewer-image alt="" />
+      </div>
+      <div class="flex items-center justify-center gap-6 px-4 py-3">
+        <button
+          class={roundButton}
+          type="button"
+          data-viewer-prev
+          aria-label={tx("Prethodna strana", "Previous page")}
+        >
+          <Icon name="arrow-left" />
+        </button>
+        <span class="text-[12px] opacity-75">
+          {tx("Dupli dodir za uvećanje", "Double-tap to zoom")}
+        </span>
+        <button
+          class={roundButton}
+          type="button"
+          data-viewer-next
+          aria-label={tx("Sledeća strana", "Next page")}
+        >
+          <Icon name="arrow-right" />
+        </button>
+      </div>
+    </div>
+  </dialog>
 </section>
 <script>
   import "../../scripts/carousel";
+  import "../../scripts/menu-viewer";
 </script>

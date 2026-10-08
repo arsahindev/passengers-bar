@@ -1,5 +1,5 @@
 ---
-// Inline SVG icons. Unicode arrows (↗ ← → ＋) aren't in the Google Fonts subsets, so each device
+// Inline SVG icons (arrows, plus/minus, close). Unicode arrows (↗ ← → ＋) aren't in the Google Fonts subsets, so each device
 // fell back to its own font and iOS drew ↗ as an emoji. SVG looks the same everywhere.
 // Sized in em and drawn with currentColor, so an icon follows the surrounding text.
 const paths = {
@@ -8,6 +8,8 @@ const paths = {
   "arrow-left": "M19 12H5m6-6-6 6 6 6",
   "arrow-right": "M5 12h14m-6-6 6 6-6 6",
   plus: "M12 5v14M5 12h14",
+  minus: "M5 12h14",
+  close: "M6 6l12 12M18 6 6 18",
 };
 
 interface Props {
