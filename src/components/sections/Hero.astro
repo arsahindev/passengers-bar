@@ -1,4 +1,5 @@
 ---
+import Icon from "../Icon.astro";
 import { useLocale } from "../../lib/i18n";
 import { Image } from "astro:assets";
 import { settings } from "../../content/settings";
@@ -33,17 +34,20 @@ const { tx } = useLocale(Astro.currentLocale);
     </p>
     <div class={actions}>
       <a class={btnCream} href="#reserve">
-        {tx("Pronađite svoje mesto", "Find your table")}↗
+        {tx("Pronađite svoje mesto", "Find your table")}
+        <Icon name="arrow-up-right" trailing />
       </a>
       <a href="#tour" class={underlined}>
-        {tx("Pogledajte prostor", "Explore the space")}↓
+        {tx("Pogledajte prostor", "Explore the space")}
+        <Icon name="arrow-down" trailing />
       </a>
     </div>
   </div>
   <div class="absolute bottom-[30px] left-[7%] right-[7%] flex justify-between text-[8px] tracking-[.12em] md:left-[8%] md:right-[8%] md:text-[10px]">
     <span>{tx("HRANA · PIĆE · DOBRO DRUŠTVO", "FOOD · DRINKS · GOOD COMPANY")}</span>
     <a href={settings.mapUrl} target="_blank" rel="noopener noreferrer">
-      {tx("Put do nas", "Get directions")}↗
+      {tx("Put do nas", "Get directions")}
+      <Icon name="arrow-up-right" trailing />
     </a>
   </div>
 </section>

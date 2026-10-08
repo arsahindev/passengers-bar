@@ -1,4 +1,5 @@
 ---
+import Icon from "../Icon.astro";
 import { useLocale } from "../../lib/i18n";
 import { Image } from "astro:assets";
 import { btnCream, eyebrow } from "../../lib/ui";
@@ -22,7 +23,8 @@ const menu = `/menus/passengers-menu-${sr ? "sr" : "en"}.pdf`;
       )}
     </p>
     <a class={`${btnCream} mt-[25px]`} href={menu} target="_blank" rel="noopener noreferrer">
-      {tx("Otvorite meni · PDF", "Open menu · PDF")}↗
+      {tx("Otvorite meni · PDF", "Open menu · PDF")}
+      <Icon name="arrow-up-right" trailing />
     </a>
   </div>
   <Image
@@ -42,12 +44,13 @@ const menu = `/menus/passengers-menu-${sr ? "sr" : "en"}.pdf`;
     <summary class="cursor-pointer py-3 text-[1.1rem]">
       {tx("Pročitajte meni ovde", "Read the menu here")}
       <span class="float-right" aria-hidden="true">
-        ＋
+        <Icon name="plus" />
       </span>
     </summary>
     <p>
       <a class="underline" href={menu} target="_blank" rel="noopener noreferrer">
-        {tx("Otvorite PDF u novom prozoru", "Open the PDF in a new tab")}↗
+        {tx("Otvorite PDF u novom prozoru", "Open the PDF in a new tab")}
+        <Icon name="arrow-up-right" trailing />
       </a>
     </p>
     <iframe

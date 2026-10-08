@@ -1,4 +1,5 @@
 ---
+import Icon from "../Icon.astro";
 import { useLocale } from "../../lib/i18n";
 import { settings } from "../../content/settings";
 import { actions, btn, eyebrow, section, twoColumns, underlined } from "../../lib/ui";
@@ -23,7 +24,8 @@ const { tx } = useLocale(Astro.currentLocale);
     </p>
     <div class={actions}>
       <a class={btn} href={settings.mapUrl} target="_blank" rel="noopener noreferrer">
-        Google Maps ↗
+        Google Maps
+        <Icon name="arrow-up-right" trailing />
       </a>
       <a
         class={underlined}
@@ -31,16 +33,14 @@ const { tx } = useLocale(Astro.currentLocale);
         target="_blank"
         rel="noopener noreferrer"
       >
-        Instagram ↗
+        Instagram
+        <Icon name="arrow-up-right" trailing />
       </a>
     </div>
   </div>
   <div class="relative flex min-h-[320px] flex-col justify-end bg-sand p-[30px] md:min-h-[390px] md:p-[45px]">
-    <span
-      class="absolute right-[35px] top-5 font-[Georgia,serif] text-[95px] text-wine"
-      aria-hidden="true"
-    >
-      ↗
+    <span class="absolute right-[35px] top-5 text-[95px] text-wine" aria-hidden="true">
+      <Icon name="arrow-up-right" strokeWidth={1} />
     </span>
     <p class={eyebrow}>SIMINA × VIŠNJIĆEVA</p>
     <h3 class="text-[40px]">
@@ -54,7 +54,8 @@ const { tx } = useLocale(Astro.currentLocale);
       target="_blank"
       rel="noopener noreferrer"
     >
-      {tx("Otvorite tačnu lokaciju u Google Maps", "Open the location in Google Maps")}↗
+      {tx("Otvorite tačnu lokaciju u Google Maps", "Open the location in Google Maps")}
+      <Icon name="arrow-up-right" trailing />
     </a>
   </div>
 </section>

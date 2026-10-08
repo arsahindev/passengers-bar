@@ -2,7 +2,7 @@
 // Section widths and breakpoints follow the original stylesheet (mobile below 761px).
 
 const button =
-  "inline-flex items-center justify-center gap-[25px] rounded-[2px] border text-[13px] font-semibold hover:brightness-[1.13]";
+  "inline-flex items-center justify-center rounded-[2px] border text-[13px] font-semibold hover:brightness-[1.13]";
 
 export const btn = `${button} border-wine bg-wine px-6 py-[15px] text-white`;
 export const btnCream = `${button} border-cream bg-cream px-6 py-[15px] text-wine-dark`;

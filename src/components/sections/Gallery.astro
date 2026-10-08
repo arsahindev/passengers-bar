@@ -1,4 +1,5 @@
 ---
+import Icon from "../Icon.astro";
 import { useLocale } from "../../lib/i18n";
 import { Image } from "astro:assets";
 import { eyebrow, sectionHead } from "../../lib/ui";
@@ -30,7 +31,7 @@ const gallery = [room1, room2, room3, food1, food2];
         data-gallery-prev
         aria-label={tx("Prethodna fotografija", "Previous photograph")}
       >
-        ←
+        <Icon name="arrow-left" />
       </button>
       <button
         class="size-[35px] rounded-full border border-[#b5b4a8] bg-transparent text-[22px] md:size-11"
@@ -38,7 +39,7 @@ const gallery = [room1, room2, room3, food1, food2];
         data-gallery-next
         aria-label={tx("Sledeća fotografija", "Next photograph")}
       >
-        →
+        <Icon name="arrow-right" />
       </button>
     </div>
   </div>

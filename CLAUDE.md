@@ -31,6 +31,8 @@ Check config changes with `npm run build && npx wrangler deploy --dry-run`; neve
   `tx(serbian, english)`, `sr` and the language-switch URL from `Astro.currentLocale`
 - `src/styles/global.css` — Tailwind v4 entry: `@theme` design tokens (colours, fonts, the `md`
   breakpoint) and a small `@layer base` for element defaults; the only hand-written CSS
+- `src/components/Icon.astro` — inline SVG icons (arrows, plus). Use these, not Unicode arrows like
+  ↗ ← →: the web fonts don't include them, so devices fall back to other fonts or emoji
 - `src/lib/ui.ts` — shared class strings (buttons, eyebrow, section layout, form field, etc.)
 - `src/pages/{sr,en}/index.astro` — `/sr/` and `/en/` routes (locales and default are set in the
   `i18n` block of `astro.config.mjs`); `src/pages/index.astro` redirects to `/sr/`

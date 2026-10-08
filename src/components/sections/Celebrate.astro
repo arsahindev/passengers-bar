@@ -1,4 +1,5 @@
 ---
+import Icon from "../Icon.astro";
 import { useLocale } from "../../lib/i18n";
 import { Image } from "astro:assets";
 import { btn, eyebrow, section, twoColumns } from "../../lib/ui";
@@ -42,7 +43,8 @@ const { tx } = useLocale(Astro.currentLocale);
       </span>
     </div>
     <a class={btn} href="#reserve" data-event-link>
-      {tx("Upit za proslavu", "Plan a celebration")}↗
+      {tx("Upit za proslavu", "Plan a celebration")}
+      <Icon name="arrow-up-right" trailing />
     </a>
   </div>
 </section>
