@@ -25,6 +25,9 @@ export const wordmarkSub = "block text-[8px] tracking-[.22em] md:text-[9px]";
 export const roundButton =
   "size-[35px] rounded-full border border-[#b5b4a8] bg-transparent text-[22px] md:size-11";
 
+// Form fields. 16px text stops iPhone Safari zooming the page when a field is focused, and
+// appearance-none drops iOS's native rounded, centred look for date/time fields (the
+// ::-webkit-date-and-time-value rules keep their value left-aligned and full height when empty).
 export const field =
-  "min-h-[45px] w-full min-w-0 rounded-[2px] border border-[#869083] bg-cream p-2.5 text-ink";
+  "min-h-[45px] w-full min-w-0 appearance-none rounded-[2px] border border-[#869083] bg-cream p-2.5 text-[16px] text-ink [&::-webkit-date-and-time-value]:min-h-[1.5em] [&::-webkit-date-and-time-value]:text-left";
 export const fine = "mt-[15px]! text-[.85rem] leading-[1.6] text-[#d2d9cd]";

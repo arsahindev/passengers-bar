@@ -19,12 +19,12 @@ const label = "grid min-w-0 gap-2 text-[12px]";
       </legend>
       <label class={label}>
         {tx("Ime *", "Name *")}
-        <input class={`${field} mt-2`} name="name" required maxlength="80" autocomplete="name" />
+        <input class={field} name="name" required maxlength="80" autocomplete="name" />
       </label>
       <label class={label}>
         {tx("Telefon sa pozivnim brojem države *", "Phone with country code *")}
         <input
-          class={`${field} mt-2`}
+          class={field}
           name="phone"
           type="tel"
           required
@@ -42,16 +42,16 @@ const label = "grid min-w-0 gap-2 text-[12px]";
       </p>
       <label class={label}>
         {tx("Željeni datum *", "Preferred date *")}
-        <input class={`${field} mt-2`} name="date" type="date" required />
+        <input class={field} name="date" type="date" required />
       </label>
       <label class={label}>
         {tx("Željeno vreme *", "Preferred time *")}
-        <input class={`${field} mt-2`} name="time" type="time" required />
+        <input class={field} name="time" type="time" required />
       </label>
       <label class={label}>
         {tx("Broj gostiju *", "Number of guests *")}
         <input
-          class={`${field} mt-2`}
+          class={field}
           name="guests"
           type="number"
           min="1"
@@ -63,11 +63,11 @@ const label = "grid min-w-0 gap-2 text-[12px]";
       </label>
       <label class={label}>
         {tx("Povod (opciono)", "Occasion (optional)")}
-        <input class={`${field} mt-2`} name="occasion" maxlength="80" />
+        <input class={field} name="occasion" maxlength="80" />
       </label>
       <label class={`${label} col-span-full`}>
         {tx("Posebne želje (opciono)", "Special requests (optional)")}
-        <textarea class={`${field} mt-2`} name="notes" rows="3" maxlength="400"></textarea>
+        <textarea class={field} name="notes" rows="3" maxlength="400"></textarea>
       </label>
       <button class={`${btnCream} col-span-full mt-[25px] w-full`} type="submit">
         {tx("Pripremite poruku", "Prepare message")}
