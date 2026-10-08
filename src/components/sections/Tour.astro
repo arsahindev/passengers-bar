@@ -3,7 +3,7 @@ import { useLocale } from "../../lib/i18n";
 import { settings } from "../../content/settings";
 import { eyebrow, sectionHead } from "../../lib/ui";
 const { tx } = useLocale(Astro.currentLocale);
-// The tour frame keeps a fixed ratio: 16:9 on landscape screens, 4:5 on portrait ones. Its width
+// The tour frame keeps a fixed ratio: 16:9 on landscape screens, 2:3 on portrait ones. Its width
 // shrinks when needed so it is never taller than 85% of the screen (e.g. a phone held sideways).
 ---
 
@@ -24,7 +24,7 @@ const { tx } = useLocale(Astro.currentLocale);
       </p>
     </div>
     <iframe
-      class="mx-auto block aspect-video h-auto w-full max-w-[min(1150px,calc(85vh*16/9))] border-2 [border-style:inset] portrait:aspect-[4/5] portrait:max-w-[min(1150px,calc(85vh*4/5))]"
+      class="mx-auto block aspect-video h-auto w-full max-w-[min(1150px,calc(85vh*16/9))] border-2 [border-style:inset] portrait:aspect-[2/3] portrait:max-w-[min(1150px,calc(85vh*2/3))]"
       src={settings.tourEmbedUrl}
       title={
         settings.tourIsSample
