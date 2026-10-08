@@ -4,9 +4,17 @@ import { useLocale } from "../../lib/i18n";
 import { Image } from "astro:assets";
 import { btnCream, eyebrow } from "../../lib/ui";
 import food1 from "../../assets/passengers/food-1.jpg";
-const { sr, tx } = useLocale(Astro.currentLocale);
+const { locale, tx } = useLocale(Astro.currentLocale);
 
-const menu = `/menus/passengers-menu-${sr ? "sr" : "en"}.pdf`;
+const menu = `/menus/passengers-menu-${locale}.pdf`;
+// Page images rendered from the PDF by scripts/menu-pages.mjs (runs before dev and build).
+// Mobile browsers can't display a PDF in an iframe, so the viewer shows these instead.
+const pages = Object.entries(
+  import.meta.glob<{ default: ImageMetadata }>("../../assets/menus/*/*.png", { eager: true }),
+)
+  .filter(([path]) => path.includes(`/menus/${locale}/`))
+  .sort(([a], [b]) => a.localeCompare(b))
+  .map(([, image]) => image.default);
 ---
 
 <section
@@ -53,11 +61,22 @@ const menu = `/menus/passengers-menu-${sr ? "sr" : "en"}.pdf`;
         <Icon name="arrow-up-right" trailing />
       </a>
     </p>
-    <iframe
-      class="block h-[min(80vh,900px)] min-h-[400px] w-full rounded-lg border-0 bg-cream"
-      src={menu}
-      title={tx("Passengers Bar - meni na srpskom", "Passengers Bar - English menu")}
-      loading="lazy"
-    ></iframe>
+    <div class="mx-auto mt-4 grid max-w-[900px] gap-4 pb-3">
+      {pages.map((page, i) => (
+        <Image
+          class="h-auto w-full rounded-lg bg-cream"
+          src={page}
+          widths={[600, 900, 1200, 1785]}
+          sizes="(min-width: 1000px) 900px, 88vw"
+          format="webp"
+          quality={90}
+          loading="lazy"
+          alt={tx(
+            `Meni, strana ${i + 1} od ${pages.length}`,
+            `Menu, page ${i + 1} of ${pages.length}`,
+          )}
+        />
+      ))}
+    </div>
   </details>
 </section>

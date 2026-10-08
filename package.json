@@ -4,7 +4,9 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "predev": "node scripts/menu-pages.mjs",
     "dev": "astro dev --host 127.0.0.1",
+    "prebuild": "node scripts/menu-pages.mjs",
     "build": "astro build",
     "preview": "astro preview --host 127.0.0.1",
     "format": "prettier --write .",
@@ -18,6 +20,7 @@
   "devDependencies": {
     "@astrojs/check": "0.9.10",
     "@tailwindcss/vite": "4.3.3",
+    "pdf-to-img": "7.0.0",
     "prettier": "3.9.9",
     "prettier-plugin-astro": "1.1.0",
     "tailwindcss": "4.3.3",

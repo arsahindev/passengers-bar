@@ -8,7 +8,7 @@ checklist details.
 
 - `npm ci` — install (Node 24, see `.nvmrc`)
 - `npm run dev` — dev server on 127.0.0.1
-- `npm run build` — production build to `dist/`
+- `npm run build` — production build to `dist/` (`prebuild`/`predev` first run `scripts/menu-pages.mjs`)
 - `npm run check` — `astro check` type check
 - `npm test` — Node test runner over `tests/*.test.mjs` (reservation logic)
 - `npm run format` / `npm run format:check` — Prettier (with Astro plugin)
@@ -41,6 +41,9 @@ Check config changes with `npm run build && npx wrangler deploy --dry-run`; neve
 - `src/assets/passengers/` — images; provenance in `sources.json`
 - `public/menus/passengers-menu-{sr,en}.pdf` — menu PDFs, committed. The customer edits the menu in
   Figma and exports both PDFs; replace these files, keeping the filenames. No menu data lives in the repo.
+- `scripts/menu-pages.mjs` — renders each menu PDF to page images in `src/assets/menus/<locale>/`
+  (gitignored, build output) for the on-page viewer; mobile browsers can't show a PDF in an iframe.
+  Uses the `pdf-to-img` devDependency; don't go back to an `<iframe>` for the menu.
 - `public/_headers`, `_redirects`, `robots.txt` — Cloudflare static-assets config (noindex is intentional)
 
 ## Rules
