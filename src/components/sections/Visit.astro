@@ -3,7 +3,8 @@ import Icon from "../Icon.astro";
 import { useLocale } from "../../lib/i18n";
 import { settings } from "../../content/settings";
 import { actions, btn, eyebrow, section, twoColumns, underlined } from "../../lib/ui";
-const { tx } = useLocale(Astro.currentLocale);
+const { locale, tx } = useLocale(Astro.currentLocale);
+const { phone, phoneDisplay } = settings.reservations;
 ---
 
 <section id="visit" class={`${section} ${twoColumns}`}>
@@ -14,13 +15,20 @@ const { tx } = useLocale(Astro.currentLocale);
       <br />
       <em>{tx("Svratite.", "Come by.")}</em>
     </h2>
-    <p class="mt-[25px]">Simina 5, Beograd</p>
+    <p class="mt-[25px]">
+      Simina 5, Beograd
+      <br />
+      <a class="underline underline-offset-[4px]" href={`tel:${phone}`}>
+        {phoneDisplay}
+      </a>
+    </p>
     <p>
-      {`${tx("Pon–čet", "Mon–Thu")} `}08:30–00:00
-      <br />
-      {`${tx("Pet–sub", "Fri–Sat")} `}08:30–01:00
-      <br />
-      {`${tx("Nedelja", "Sunday")} `}09:00–00:00
+      {settings.hours.map(({ label, open, close }, i) => (
+        <>
+          {i > 0 && <br />}
+          {`${label[locale]} ${open}–${close}`}
+        </>
+      ))}
     </p>
     <div class={actions}>
       <a class={btn} href={settings.mapUrl} target="_blank" rel="noopener noreferrer">

@@ -45,11 +45,34 @@ const { tx } = useLocale(Astro.currentLocale);
       </a>
     </div>
   </div>
-  <div class="relative flex justify-between text-[8px] tracking-[.12em] md:text-[10px]">
+  <div class="relative flex flex-wrap justify-between gap-x-6 gap-y-2 text-[8px] tracking-[.12em] md:text-[10px]">
     <span>{tx("HRANA · PIĆE · DOBRO DRUŠTVO", "FOOD · DRINKS · GOOD COMPANY")}</span>
-    <a href={settings.mapUrl} target="_blank" rel="noopener noreferrer">
-      {tx("Put do nas", "Get directions")}
-      <Icon name="arrow-up-right" trailing />
-    </a>
+    <span class="flex flex-wrap gap-x-[1.6em] gap-y-2">
+      <span
+        data-today-hours
+        data-hours={JSON.stringify(
+          settings.hours.map(({ days, open, close }) => ({ days, open, close })),
+        )}
+        data-label={tx("Danas", "Today")}
+        hidden
+      ></span>
+      <a href={settings.mapUrl} target="_blank" rel="noopener noreferrer">
+        {tx("Put do nas", "Get directions")}
+        <Icon name="arrow-up-right" trailing />
+      </a>
+    </span>
   </div>
 </section>
+<script>
+  // Today's opening hours (Belgrade time) in the bottom strip. Filled in on the visitor's device,
+  // since a static page can't know the day; without JavaScript the strip simply omits it.
+  import { belgradeWeekday, hoursOn } from "../../lib/hours.mjs";
+  const today = document.querySelector<HTMLElement>("[data-today-hours]");
+  if (today) {
+    const hours = hoursOn(JSON.parse(today.dataset.hours || "[]"), belgradeWeekday());
+    if (hours) {
+      today.textContent = `${today.dataset.label} ${hours.open}–${hours.close}`;
+      today.hidden = false;
+    }
+  }
+</script>

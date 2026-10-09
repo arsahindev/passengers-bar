@@ -65,7 +65,7 @@ Updating prices: the customer edits the Figma menu file and exports the Serbian 
 
 ## Reservation messaging
 
-- `src/content/settings.ts`: `reservations.phone` is the recipient; `whatsapp` and `viber` remain false until the owner confirms those channels.
+- `src/content/settings.ts`: `reservations.phone` is the recipient (also shown as a call link in the Visit section); `whatsapp` and `viber` remain false until the owner confirms those channels. `hours` holds the opening hours shown in the Visit section and, for the current Belgrade day, in the hero; confirm them with the owner.
 - SMS is enabled. Standard SMS body links follow RFC 5724. On detected iPhone/iPad devices, the recipient-only link follows Apple's documented scheme: copy the prepared request, open SMS, then paste. Other phones may also need copy/paste. SMS carrier charges can apply; no paid API or backend is used.
 - WhatsApp, when enabled, uses an international-number `wa.me` link with encoded text. Viber, when enabled, displays copy/paste instructions and the number; bot-only deep links are not used for this ordinary phone number.
 - Requests stay in the page's memory until the guest copies them or opens a messaging link. No storage, analytics events, fetch requests or own-site URL parameters contain guest details. External apps receive details only on the guest's action. The browser/device may retain clipboard or messaging drafts.
