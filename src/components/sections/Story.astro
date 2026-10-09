@@ -1,35 +1,97 @@
 ---
 import Icon from "../Icon.astro";
 import { useLocale } from "../../lib/i18n";
-import { eyebrow, section, twoColumns, underlined } from "../../lib/ui";
+import { Image } from "astro:assets";
+import { eyebrow, roundButton, section, twoColumns } from "../../lib/ui";
+import room1 from "../../assets/passengers/space-1.jpg";
+import room2 from "../../assets/passengers/space-2.jpg";
+import room3 from "../../assets/passengers/space-3.jpg";
+import food2 from "../../assets/passengers/food-2.jpg";
 const { tx } = useLocale(Astro.currentLocale);
+
+// "Our place": the story, then a carousel of the space (and one dish; the other food photo has
+// its own band after the menu).
+const gallery = [
+  { src: room1, space: true },
+  { src: room2, space: true },
+  { src: room3, space: true },
+  { src: food2, space: false },
+];
+const total = String(gallery.length).padStart(2, "0");
 ---
 
-<section id="story" class={`${section} ${twoColumns}`}>
-  <div>
-    <p class={eyebrow}>{tx("MALO DALJE OD ŽURBE", "A LITTLE AWAY FROM THE RUSH")}</p>
-    <h2>
-      {tx("U centru grada.", "Right in the city.")}
-      <br />
-      <em>{tx("U svom ritmu.", "At your own pace.")}</em>
-    </h2>
+<section id="story" class={section} data-carousel>
+  <div class={twoColumns}>
+    <div>
+      <p class={eyebrow}>{tx("MALO DALJE OD ŽURBE", "A LITTLE AWAY FROM THE RUSH")}</p>
+      <h2>
+        {tx("U centru grada.", "Right in the city.")}
+        <br />
+        <em>{tx("U svom ritmu.", "At your own pace.")}</em>
+      </h2>
+    </div>
+    <div>
+      <p class="text-[18px] leading-[1.65] md:text-[20px]">
+        {tx(
+          "Na uglu Simine i Višnjićeve, Passengers spaja druženje, hranu i baštu u kojoj se ostaje malo duže.",
+          "On the corner of Simina and Višnjićeva, Passengers brings together food, conversation and a garden made for staying a little longer.",
+        )}
+      </p>
+      <p>
+        {tx(
+          "Svratite na kafu, okupite prijatelje za ručak ili nam se javite da zajedno osmislimo proslavu.",
+          "Drop in for coffee, gather your friends for lunch, or talk to us about your next celebration.",
+        )}
+      </p>
+    </div>
   </div>
-  <div>
-    <p class="text-[18px] leading-[1.65] md:text-[20px]">
-      {tx(
-        "Na uglu Simine i Višnjićeve, Passengers spaja druženje, hranu i baštu u kojoj se ostaje malo duže.",
-        "On the corner of Simina and Višnjićeva, Passengers brings together food, conversation and a garden made for staying a little longer.",
-      )}
-    </p>
-    <p>
-      {tx(
-        "Svratite na kafu, okupite prijatelje za ručak ili nam se javite da zajedno osmislimo proslavu.",
-        "Drop in for coffee, gather your friends for lunch, or talk to us about your next celebration.",
-      )}
-    </p>
-    <a class={`${underlined} mt-6 inline-block`} href="#gallery">
-      {tx("Zavirite unutra", "Take a look around")}
-      <Icon name="arrow-up-right" trailing />
-    </a>
+  <div class="mt-[45px] md:mt-[75px]" id="gallery">
+    <div class="mb-5 flex justify-end gap-2.5">
+      <button
+        class={roundButton}
+        type="button"
+        data-carousel-prev
+        aria-label={tx("Prethodna fotografija", "Previous photograph")}
+      >
+        <Icon name="arrow-left" />
+      </button>
+      <button
+        class={roundButton}
+        type="button"
+        data-carousel-next
+        aria-label={tx("Sledeća fotografija", "Next photograph")}
+      >
+        <Icon name="arrow-right" />
+      </button>
+    </div>
+    <div
+      class="flex snap-x snap-mandatory gap-5 overflow-x-auto pb-[15px]"
+      tabindex="0"
+      data-carousel-track
+      aria-label={tx("Galerija fotografija", "Photo gallery")}
+    >
+      {gallery.map(({ src, space }, i) => (
+        <figure class="shrink-0 grow-0 basis-[85%] snap-start md:basis-[42%]">
+          <Image
+            class="h-[330px] w-full object-cover md:h-[380px]"
+            src={src}
+            width={850}
+            format="webp"
+            loading="lazy"
+            alt={tx(
+              space ? "Ambijent Passengers Bara" : "Hrana u Passengers Baru",
+              space ? "The setting at Passengers Bar" : "Food at Passengers Bar",
+            )}
+          />
+          <figcaption class="mt-[15px] text-[10px] tracking-[.15em]">
+            {`${String(i + 1).padStart(2, "0")} / ${total} · `}
+            {tx(space ? "Naš prostor" : "Sa našeg stola", space ? "Our space" : "From our table")}
+          </figcaption>
+        </figure>
+      ))}
+    </div>
   </div>
 </section>
+<script>
+  import "../../scripts/carousel";
+</script>
