@@ -6,15 +6,16 @@ import { eyebrow, roundButton, section, twoColumns } from "../../lib/ui";
 import room1 from "../../assets/passengers/space-1.jpg";
 import room2 from "../../assets/passengers/space-2.jpg";
 import room3 from "../../assets/passengers/space-3.jpg";
+import food1 from "../../assets/passengers/food-1.jpg";
 import food2 from "../../assets/passengers/food-2.jpg";
 const { tx } = useLocale(Astro.currentLocale);
 
-// "Our place": the story, then a carousel of the space (and one dish; the other food photo has
-// its own band after the menu).
+// "Our place": the story, then a carousel of the space and two dishes.
 const gallery = [
   { src: room1, space: true },
   { src: room2, space: true },
   { src: room3, space: true },
+  { src: food1, space: false },
   { src: food2, space: false },
 ];
 const total = String(gallery.length).padStart(2, "0");
