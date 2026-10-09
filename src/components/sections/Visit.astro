@@ -16,11 +16,11 @@ const { tx } = useLocale(Astro.currentLocale);
     </h2>
     <p class="mt-[25px]">Simina 5, Beograd</p>
     <p>
-      {tx("Pon–čet", "Mon–Thu")}08:30–00:00
+      {`${tx("Pon–čet", "Mon–Thu")} `}08:30–00:00
       <br />
-      {tx("Pet–sub", "Fri–Sat")}08:30–01:00
+      {`${tx("Pet–sub", "Fri–Sat")} `}08:30–01:00
       <br />
-      {tx("Nedelja", "Sunday")}09:00–00:00
+      {`${tx("Nedelja", "Sunday")} `}09:00–00:00
     </p>
     <div class={actions}>
       <a class={btn} href={settings.mapUrl} target="_blank" rel="noopener noreferrer">
@@ -31,8 +31,7 @@ const { tx } = useLocale(Astro.currentLocale);
         class={underlined}
         href="https://www.instagram.com/passengers_bar/"
         target="_blank"
-        rel="noopener noreferrer"
-      >
+        rel="noopener noreferrer">
         Instagram
         <Icon name="arrow-up-right" trailing />
       </a>
@@ -52,8 +51,7 @@ const { tx } = useLocale(Astro.currentLocale);
       class="mt-7 text-[12px] underline"
       href={settings.mapUrl}
       target="_blank"
-      rel="noopener noreferrer"
-    >
+      rel="noopener noreferrer">
       {tx("Otvorite tačnu lokaciju u Google Maps", "Open the location in Google Maps")}
       <Icon name="arrow-up-right" trailing />
     </a>
