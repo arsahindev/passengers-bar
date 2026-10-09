@@ -1,5 +1,6 @@
 ---
 import Icon from "../Icon.astro";
+import OpenStatus from "../OpenStatus.astro";
 import { useLocale } from "../../lib/i18n";
 import { settings } from "../../content/settings";
 import { actions, btn, eyebrow, section, twoColumns, underlined } from "../../lib/ui";
@@ -16,6 +17,9 @@ const { phone, phoneDisplay } = settings.reservations;
       <em>{tx("Svratite.", "Come by.")}</em>
     </h2>
     <p class="mt-[25px]">
+      <OpenStatus class="inline-flex" />
+    </p>
+    <p>
       Simina 5, Beograd
       <br />
       <a class="underline underline-offset-[4px]" href={`tel:${phone}`}>

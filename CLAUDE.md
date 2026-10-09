@@ -35,16 +35,19 @@ Check config changes with `npm run build && npx wrangler deploy --dry-run`; neve
   ↗ ← →: the web fonts don't include them, so devices fall back to other fonts or emoji
 - `src/scripts/carousel.ts` — scroll-snap carousel (prev/next buttons, optional page counter) for
   the photo gallery in the "Our place" section (`Story.astro`); driven by `data-carousel*` attributes
-- `src/scripts/menu-viewer.ts` — full-screen menu page viewer (`<dialog>` in `Menu.astro`), opened by
-  the "Browse the menu" button and the fanned menu pages (`data-viewer-open`), with
-  pinch, double-tap and button zoom, and swipe; the site itself never zooms while it is open
+- `src/components/Viewer.astro` + `src/scripts/viewer.ts` — full-screen image viewer (`<dialog>`) with
+  pinch, double-tap and button zoom, and swipe; the site itself never zooms while it is open. Used
+  for the menu pages and the gallery photos; opened by elements with `data-viewer-for="<name>"`
+  and `data-viewer-open="<index>"`
+- `src/components/OpenStatus.astro` + `src/scripts/open-status.ts` — live "open until / opens at"
+  line for Belgrade time, in the hero and the Visit section
 - `src/lib/ui.ts` — shared class strings (buttons, eyebrow, section layout, form field, etc.)
 - `src/pages/{sr,en}/index.astro` — `/sr/` and `/en/` routes (locales and default are set in the
   `i18n` block of `astro.config.mjs`); `src/pages/index.astro` redirects to `/sr/`
-- `src/content/settings.ts` — reservation phone/channels, opening hours (shown in Visit and, for
-  today, in the hero), tour embed URL and `tourIsSample` flag
+- `src/content/settings.ts` — reservation phone/channels, opening hours (listed in Visit; drive the
+  live open/closed status), tour embed URL and `tourIsSample` flag
 - `src/lib/reservation.mjs` — phone normalization, message encoding, Belgrade time (unit-tested);
-  `src/lib/hours.mjs` — Belgrade weekday and today's hours (unit-tested)
+  `src/lib/hours.mjs` — Belgrade time and open/closed status from the hours (unit-tested)
 - `src/assets/passengers/` — images; provenance in `sources.json`
 - `public/menus/passengers-menu-{sr,en}.pdf` — menu PDFs, committed. The customer edits the menu in
   Figma and exports both PDFs; replace these files, keeping the filenames. No menu data lives in the repo.

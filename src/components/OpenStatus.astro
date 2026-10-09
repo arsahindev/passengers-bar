@@ -1,0 +1,39 @@
+---
+// Live "open / closed" line from the opening hours in settings.ts, e.g. "Otvoreno · do 01:00" or
+// "Zatvoreno · otvaramo u 08:30". Filled in on the visitor's device for the current Belgrade time
+// (src/scripts/open-status.ts); hidden without JavaScript. With href it renders as a link.
+import { settings } from "../content/settings";
+import { useLocale } from "../lib/i18n";
+
+interface Props {
+  href?: string;
+  class?: string;
+}
+
+const { href, class: className } = Astro.props as Props;
+const { tx } = useLocale(Astro.currentLocale);
+const Tag = href ? "a" : "span";
+const hours = settings.hours.map(({ days, open, close }) => ({ days, open, close }));
+---
+
+<Tag
+  href={href}
+  class:list={["items-center gap-[.6em]", className]}
+  data-open-status
+  data-hours={JSON.stringify(hours)}
+  data-open={tx("Otvoreno · do {time}", "Open · until {time}")}
+  data-opens-today={tx("Zatvoreno · otvaramo u {time}", "Closed · opens at {time}")}
+  data-opens-tomorrow={tx(
+    "Zatvoreno · otvaramo sutra u {time}",
+    "Closed · opens tomorrow at {time}",
+  )}
+  data-closed={tx("Zatvoreno", "Closed")}
+  hidden
+>
+  <span class="size-[.7em] shrink-0 rounded-full bg-[#8fd19e]" data-open-dot hidden></span>
+  <span class="size-[.7em] shrink-0 rounded-full bg-ember" data-closed-dot hidden></span>
+  <span data-open-text></span>
+</Tag>
+<script>
+  import "../scripts/open-status";
+</script>
