@@ -1,7 +1,8 @@
 ---
 import Icon from "../Icon.astro";
 import { useLocale } from "../../lib/i18n";
-import { Image } from "astro:assets";
+import { Image, getImage } from "astro:assets";
+import Viewer from "../Viewer.astro";
 import { eyebrow, roundButton, section, twoColumns } from "../../lib/ui";
 import room1 from "../../assets/passengers/space-1.jpg";
 import room2 from "../../assets/passengers/space-2.jpg";
@@ -19,6 +20,22 @@ const gallery = [
   { src: food2, space: false },
 ];
 const total = String(gallery.length).padStart(2, "0");
+const alt = (space: boolean) =>
+  tx(
+    space ? "Ambijent Passengers Bara" : "Hrana u Passengers Baru",
+    space ? "The setting at Passengers Bar" : "Food at Passengers Bar",
+  );
+// Tapping a photo opens it full-screen (Viewer.astro): a carousel-sized image at once, then a
+// larger one for zooming.
+const viewerPages = await Promise.all(
+  gallery.map(async ({ src, space }) => ({
+    small: (await getImage({ src, width: 850, format: "webp" })).src,
+    large: (await getImage({ src, width: Math.min(src.width, 1800), format: "webp", quality: 85 }))
+      .src,
+    alt: alt(space),
+    ratio: src.width / src.height,
+  })),
+);
 ---
 
 <section id="story" class={section} data-carousel>
@@ -73,17 +90,22 @@ const total = String(gallery.length).padStart(2, "0");
     >
       {gallery.map(({ src, space }, i) => (
         <figure class="shrink-0 grow-0 basis-[85%] snap-start md:basis-[42%]">
-          <Image
-            class="h-[330px] w-full object-cover md:h-[380px]"
-            src={src}
-            width={850}
-            format="webp"
-            loading="lazy"
-            alt={tx(
-              space ? "Ambijent Passengers Bara" : "Hrana u Passengers Baru",
-              space ? "The setting at Passengers Bar" : "Food at Passengers Bar",
-            )}
-          />
+          <button
+            class="block w-full cursor-zoom-in"
+            type="button"
+            data-viewer-for="gallery"
+            data-viewer-open={i}
+            aria-label={tx(`Uvećajte fotografiju ${i + 1}`, `Enlarge photograph ${i + 1}`)}
+          >
+            <Image
+              class="h-[330px] w-full object-cover md:h-[380px]"
+              src={src}
+              width={850}
+              format="webp"
+              loading="lazy"
+              alt={alt(space)}
+            />
+          </button>
           <figcaption class="mt-[15px] text-[10px] tracking-[.15em]">
             {`${String(i + 1).padStart(2, "0")} / ${total} · `}
             {tx(space ? "Naš prostor" : "Sa našeg stola", space ? "Our space" : "From our table")}
@@ -92,6 +114,7 @@ const total = String(gallery.length).padStart(2, "0");
       ))}
     </div>
   </div>
+  <Viewer name="gallery" pages={viewerPages} label={tx("Fotografije", "Photographs")} />
 </section>
 <script>
   import "../../scripts/carousel";

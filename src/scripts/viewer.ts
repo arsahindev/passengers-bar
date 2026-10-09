@@ -1,19 +1,25 @@
-// Full-screen menu page viewer with zoom. Phone browsers zoom the whole site on pinch, and an A4
-// page at phone width is too small to read, so pages open here instead. Markup (Menu.astro):
-//   [data-viewer-open="<index>"]  any button that opens the viewer at that page (0-based)
-//   dialog[data-viewer]           data-pages = JSON [{ small, large, alt, ratio }] (image URLs,
+// Full-screen image viewer with zoom, used for the menu pages and the gallery photos. Phone
+// browsers zoom the whole site on pinch, and an A4 menu page at phone width is too small to read,
+// so images open here instead. Markup (Viewer.astro):
+//   dialog[data-viewer="<name>"]  data-pages = JSON [{ small, large, alt, ratio }] (image URLs,
 //                                 ratio = width / height), with [data-viewer-scroll] >
 //                                 img[data-viewer-image], [data-viewer-status],
 //                                 [data-viewer-prev|next|zoom-in|zoom-out|close]
-// Fit shows the whole page. Pinch zooms the page (not the site), double-tap or double-click toggles
-// 2.5x at that point, and the buttons or +/- keys step through zoom levels. When zoomed, the page
-// pans by normal scrolling/dragging.
-const dialog = document.querySelector<HTMLDialogElement>("[data-viewer]");
-const openers = [...document.querySelectorAll<HTMLElement>("[data-viewer-open]")];
+//   [data-viewer-for="<name>"][data-viewer-open="<index>"]  opens that viewer at an image (0-based)
+// Fit shows the whole image. Pinch zooms the image (not the site), double-tap or double-click
+// toggles 2.5x at that point, and the buttons or +/- keys step through zoom levels. When zoomed,
+// the image pans by normal scrolling/dragging.
 type Page = { small: string; large: string; alt: string; ratio: number };
-const pages: Page[] = dialog ? JSON.parse(dialog.dataset.pages || "[]") : [];
 
-if (dialog && pages.length) {
+for (const dialog of document.querySelectorAll<HTMLDialogElement>("dialog[data-viewer]"))
+  setUp(dialog);
+
+function setUp(dialog: HTMLDialogElement) {
+  const pages: Page[] = JSON.parse(dialog.dataset.pages || "[]");
+  const openers = [
+    ...document.querySelectorAll<HTMLElement>(`[data-viewer-for="${dialog.dataset.viewer}"]`),
+  ];
+  if (!pages.length) return;
   const scroller = dialog.querySelector<HTMLElement>("[data-viewer-scroll]")!;
   const image = dialog.querySelector<HTMLImageElement>("[data-viewer-image]")!;
   const status = dialog.querySelector<HTMLElement>("[data-viewer-status]");
@@ -24,7 +30,7 @@ if (dialog && pages.length) {
 
   // Width in px that fits the whole page inside the viewer.
   const fitWidth = () =>
-    Math.min(scroller.clientWidth, scroller.clientHeight * (pages[page].ratio || 595 / 842));
+    Math.min(scroller.clientWidth, scroller.clientHeight * (pages[page].ratio || 1));
 
   // Where viewport point (x, y) falls on the page, as fractions of its width and height.
   const pagePoint = (x: number, y: number) => {
