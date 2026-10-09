@@ -4,7 +4,14 @@ import OpenStatus from "../OpenStatus.astro";
 import { useLocale } from "../../lib/i18n";
 import { Image } from "astro:assets";
 import { settings } from "../../content/settings";
-import { actions, btnCream, eyebrow, statusPillDark, underlined } from "../../lib/ui";
+import {
+  actions,
+  btnCream,
+  eyebrowRow,
+  eyebrowText,
+  statusPillDark,
+  underlined,
+} from "../../lib/ui";
 import hero from "../../assets/passengers/hero.jpg";
 const { tx } = useLocale(Astro.currentLocale);
 // The hero grows with its content: the copy and the bottom strip are in normal flow (not absolutely
@@ -23,8 +30,10 @@ const { tx } = useLocale(Astro.currentLocale);
   />
   <div class="absolute inset-0 bg-[linear-gradient(90deg,#101910bb_0%,#10191055_58%,#10191022)]"></div>
   <div class="relative max-w-[770px] md:max-w-[1100px]">
-    <OpenStatus href="#visit" class={`${statusPillDark} mb-6 md:mb-8`} />
-    <p class={eyebrow}>SIMINA 5 · DORĆOL · BEOGRAD</p>
+    <div class={eyebrowRow}>
+      <p class={eyebrowText}>SIMINA 5 · DORĆOL · BEOGRAD</p>
+      <OpenStatus href="#visit" class={statusPillDark} />
+    </div>
     <h1 class="text-[3.8rem] tracking-[-.045em] md:text-[clamp(4.7rem,8vw,8.5rem)]">
       {tx("Vaše mesto.", "Your kind")}
       <br />
