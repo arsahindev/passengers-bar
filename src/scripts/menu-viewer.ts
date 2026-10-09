@@ -1,15 +1,19 @@
 // Full-screen menu page viewer with zoom. Phone browsers zoom the whole site on pinch, and an A4
 // page at phone width is too small to read, so pages open here instead. Markup (Menu.astro):
-//   [data-viewer-open="<index>"]  page button in the carousel; data-large = full-size image URL
-//   dialog[data-viewer]           with [data-viewer-scroll] > img[data-viewer-image],
-//                                 [data-viewer-status], [data-viewer-prev|next|zoom-in|zoom-out|close]
+//   [data-viewer-open="<index>"]  any button that opens the viewer at that page (0-based)
+//   dialog[data-viewer]           data-pages = JSON [{ small, large, alt, ratio }] (image URLs,
+//                                 ratio = width / height), with [data-viewer-scroll] >
+//                                 img[data-viewer-image], [data-viewer-status],
+//                                 [data-viewer-prev|next|zoom-in|zoom-out|close]
 // Fit shows the whole page. Pinch zooms the page (not the site), double-tap or double-click toggles
 // 2.5x at that point, and the buttons or +/- keys step through zoom levels. When zoomed, the page
 // pans by normal scrolling/dragging.
 const dialog = document.querySelector<HTMLDialogElement>("[data-viewer]");
-const openers = [...document.querySelectorAll<HTMLButtonElement>("[data-viewer-open]")];
+const openers = [...document.querySelectorAll<HTMLElement>("[data-viewer-open]")];
+type Page = { small: string; large: string; alt: string; ratio: number };
+const pages: Page[] = dialog ? JSON.parse(dialog.dataset.pages || "[]") : [];
 
-if (dialog && openers.length) {
+if (dialog && pages.length) {
   const scroller = dialog.querySelector<HTMLElement>("[data-viewer-scroll]")!;
   const image = dialog.querySelector<HTMLImageElement>("[data-viewer-image]")!;
   const status = dialog.querySelector<HTMLElement>("[data-viewer-status]");
@@ -18,12 +22,9 @@ if (dialog && openers.length) {
   let page = 0;
   let zoom = 1;
 
-  const thumb = (i: number) => openers[i].querySelector("img")!;
   // Width in px that fits the whole page inside the viewer.
-  const fitWidth = () => {
-    const ratio = thumb(page).naturalWidth / thumb(page).naturalHeight || 595 / 842;
-    return Math.min(scroller.clientWidth, scroller.clientHeight * ratio);
-  };
+  const fitWidth = () =>
+    Math.min(scroller.clientWidth, scroller.clientHeight * (pages[page].ratio || 595 / 842));
 
   // Where viewport point (x, y) falls on the page, as fractions of its width and height.
   const pagePoint = (x: number, y: number) => {
@@ -52,30 +53,28 @@ if (dialog && openers.length) {
   };
 
   const show = (i: number) => {
-    page = (i + openers.length) % openers.length;
-    const small = thumb(page);
-    const large = openers[page].dataset.large!;
-    image.alt = small.alt;
-    // Show the already-loaded carousel image at once, then swap in the sharp one.
-    image.src = small.currentSrc || small.src;
+    page = (i + pages.length) % pages.length;
+    const { small, large, alt } = pages[page];
+    image.alt = alt;
+    // Show a light version at once, then swap in the sharp one when it has loaded.
+    image.src = small;
     const full = new Image();
     full.onload = () => {
-      if (openers[page].dataset.large === large) image.src = large;
+      if (pages[page].large === large) image.src = large;
     };
     full.src = large;
-    if (status) status.textContent = `${page + 1} / ${openers.length}`;
+    if (status) status.textContent = `${page + 1} / ${pages.length}`;
     zoom = 1;
     image.style.width = `${fitWidth()}px`;
     scroller.scrollTo(0, 0);
   };
 
-  openers.forEach((button, i) =>
-    button.addEventListener("click", () => {
+  for (const opener of openers)
+    opener.addEventListener("click", () => {
       dialog.showModal();
       document.documentElement.classList.add("overflow-hidden");
-      show(i);
-    }),
-  );
+      show(Number(opener.dataset.viewerOpen) || 0);
+    });
   dialog.addEventListener("close", () =>
     document.documentElement.classList.remove("overflow-hidden"),
   );
