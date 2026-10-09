@@ -1,0 +1,86 @@
+---
+// Full-screen image viewer with zoom (src/scripts/viewer.ts). Open it with any element carrying
+// data-viewer-for={name} and data-viewer-open={index}.
+import Icon from "./Icon.astro";
+import { useLocale } from "../lib/i18n";
+import { roundButton } from "../lib/ui";
+
+interface Props {
+  name: string;
+  label: string;
+  // small: shown at once; large: swapped in when loaded; ratio: width / height.
+  pages: { small: string; large: string; alt: string; ratio: number }[];
+}
+
+const { name, label, pages } = Astro.props as Props;
+const { tx } = useLocale(Astro.currentLocale);
+---
+
+<dialog
+  class="m-0 h-dvh max-h-none w-screen max-w-none bg-espresso p-0 text-cream backdrop:bg-black/80"
+  data-viewer={name}
+  data-pages={JSON.stringify(pages)}
+  aria-label={label}
+>
+  <div class="flex h-full flex-col">
+    <div class="flex items-center justify-between gap-3 px-4 py-3">
+      <div class="flex items-center gap-2.5">
+        <button
+          class={roundButton}
+          type="button"
+          data-viewer-zoom-out
+          aria-label={tx("Umanjite", "Zoom out")}
+        >
+          <Icon name="minus" />
+        </button>
+        <button
+          class={roundButton}
+          type="button"
+          data-viewer-zoom-in
+          aria-label={tx("Uvećajte", "Zoom in")}
+        >
+          <Icon name="plus" />
+        </button>
+      </div>
+      <span class="text-[13px] tabular-nums" data-viewer-status></span>
+      <button
+        class={roundButton}
+        type="button"
+        data-viewer-close
+        aria-label={tx("Zatvorite", "Close")}
+      >
+        <Icon name="close" />
+      </button>
+    </div>
+    <div
+      class="relative flex min-h-0 flex-1 touch-pan-x touch-pan-y overflow-auto overscroll-contain"
+      data-viewer-scroll
+    >
+      <img class="m-auto block h-auto max-w-none shrink-0 bg-cream" data-viewer-image alt="" />
+    </div>
+    <div class="flex items-center justify-center gap-6 px-4 py-3">
+      <button
+        class={roundButton}
+        type="button"
+        data-viewer-prev
+        aria-label={tx("Prethodna strana", "Previous page")}
+      >
+        <Icon name="arrow-left" />
+      </button>
+      <span class="text-[12px] opacity-75">
+        {tx("Uvećajte prstima ili dvostrukim dodirom", "Pinch or double-tap to zoom")}
+      </span>
+      <button
+        class={roundButton}
+        type="button"
+        data-viewer-next
+        aria-label={tx("Sledeća strana", "Next page")}
+      >
+        <Icon name="arrow-right" />
+      </button>
+    </div>
+  </div>
+</dialog>
+<script>
+  import "../scripts/viewer";
+</script>

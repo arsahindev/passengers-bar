@@ -42,9 +42,20 @@ const { tx } = useLocale(Astro.currentLocale);
         {tx("Dogovor prema povodu", "Plans tailored to the occasion")}
       </span>
     </div>
-    <a class={btn} href="#reserve" data-event-link>
+    <a class={btn} href="#reserve" data-event-link data-occasion={tx("Proslava", "Celebration")}>
       {tx("Upit za proslavu", "Plan a celebration")}
       <Icon name="arrow-up-right" trailing />
     </a>
   </div>
 </section>
+<script>
+  // "Plan a celebration" jumps to the reservation form and fills in its occasion field, unless
+  // the guest has already typed one. Nothing leaves the page.
+  const link = document.querySelector<HTMLElement>("[data-event-link]");
+  link?.addEventListener("click", () => {
+    const occasion = document.querySelector<HTMLInputElement>(
+      '[data-reservation] input[name="occasion"]',
+    );
+    if (occasion && !occasion.value.trim()) occasion.value = link.dataset.occasion || "";
+  });
+</script>

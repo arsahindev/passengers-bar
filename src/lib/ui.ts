@@ -8,7 +8,11 @@ export const btn = `${button} border-wine bg-wine px-6 py-[15px] text-white`;
 export const btnCream = `${button} border-cream bg-cream px-6 py-[15px] text-wine-dark`;
 export const btnSmall = `${button} border-wine bg-wine p-2 text-white md:px-[18px] md:py-3`;
 
-export const eyebrow = "mb-5 text-[9px] font-bold tracking-[.22em] md:mb-[25px] md:text-[10px]";
+// Small uppercase label above headings. eyebrowText is the type alone, for when the label shares a
+// row with something else (the row then carries the eyebrow spacing, eyebrowRow).
+export const eyebrowText = "text-[9px] font-bold tracking-[.22em] md:text-[10px]";
+export const eyebrow = `mb-5 md:mb-[25px] ${eyebrowText}`;
+export const eyebrowRow = "mb-5 flex flex-wrap items-center gap-x-5 gap-y-3 md:mb-[25px]";
 export const underlined = "text-[13px] underline underline-offset-[6px]";
 export const actions = "mt-[30px] flex flex-wrap items-center gap-5 md:gap-[25px]";
 
@@ -25,6 +29,12 @@ export const wordmarkSub = "block text-[8px] tracking-[.22em] md:text-[9px]";
 // each page's translate (offset), rotation and hover spread.
 export const fanPage =
   "absolute left-1/2 top-1/2 w-[46%] max-w-[300px] cursor-zoom-in overflow-hidden rounded-[3px] bg-cream shadow-[0_24px_50px_-18px_rgba(0,0,0,.65)] ring-1 ring-black/10 transition-[translate,rotate,scale] duration-500 ease-out motion-reduce:transition-none";
+
+// Open/closed status pill (OpenStatus.astro): on the hero photo and on the light Visit section.
+const statusPill =
+  "inline-flex w-fit items-center gap-[.6em] rounded-full border px-3.5 py-[7px] text-[12px] leading-none md:text-[13px]";
+export const statusPillDark = `${statusPill} border-white/30 bg-black/35 text-white backdrop-blur-sm hover:bg-black/50`;
+export const statusPillLight = `${statusPill} border-ink/15 bg-white/70 text-ink hover:bg-white`;
 
 // Round prev/next buttons for carousels.
 export const roundButton =
