@@ -54,9 +54,10 @@ Check config changes with `npm run build && npx wrangler deploy --dry-run`; neve
 - `scripts/menu-pages.mjs` — renders each menu PDF to page images in `src/assets/menus/<locale>/`
   (gitignored, build output) for the on-page viewer; mobile browsers can't show a PDF in an iframe.
   Uses the `pdf-to-img` devDependency; don't go back to an `<iframe>` for the menu.
-- `public/favicon.ico`, `icon-192.png`, `apple-touch-icon.png` — tab and home-screen icons made from
-  `src/assets/passengers/logo.png` with ImageMagick (`convert logo.png -define icon:auto-resize=48,32,16
-favicon.ico`; the 180px Apple icon sits on the cream `#f7f4ee`, since iOS fills transparency black)
+- `public/favicon.svg` (+ `favicon.ico`, `icon-192.png`, `apple-touch-icon.png`) — tab and home-screen
+  icon: a cream italic Playfair Display "P" on a wine `#53272e` circle (the full logo is unreadable
+  at 16px). The SVG is the source; the ICO/PNGs are renders of it (the 180px Apple one on a full
+  wine square, since iOS rounds corners itself)
 - `public/_headers`, `_redirects`, `robots.txt` — Cloudflare static-assets config (noindex is intentional)
 
 ## Rules
