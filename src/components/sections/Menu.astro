@@ -2,30 +2,53 @@
 import Icon from "../Icon.astro";
 import { useLocale } from "../../lib/i18n";
 import { Image, getImage } from "astro:assets";
-import { btnCream, eyebrow, roundButton } from "../../lib/ui";
-import food1 from "../../assets/passengers/food-1.jpg";
+import { actions, btnCream, eyebrow, fanPage, roundButton, underlined } from "../../lib/ui";
 const { locale, tx } = useLocale(Astro.currentLocale);
 
 const menu = `/menus/passengers-menu-${locale}.pdf`;
 // Page images rendered from the PDF by scripts/menu-pages.mjs (runs before dev and build).
-// Mobile browsers can't display a PDF in an iframe, so the viewer shows these instead.
 const pages = Object.entries(
   import.meta.glob<{ default: ImageMetadata }>("../../assets/menus/*/*.png", { eager: true }),
 )
   .filter(([path]) => path.includes(`/menus/${locale}/`))
   .sort(([a], [b]) => a.localeCompare(b))
   .map(([, image]) => image.default);
-// Full-size versions for the zoomable full-screen viewer (src/scripts/menu-viewer.ts).
-const large = await Promise.all(
-  pages.map((page) => getImage({ src: page, format: "webp", quality: 85 })),
+const pageLabel = (i: number) =>
+  tx(`Meni, strana ${i + 1} od ${pages.length}`, `Menu, page ${i + 1} of ${pages.length}`);
+// Pages for the full-screen viewer (src/scripts/menu-viewer.ts): a light version shown at once,
+// then the full-size one, sharp enough to zoom on a phone.
+const viewerPages = await Promise.all(
+  pages.map(async (page, i) => ({
+    small: (await getImage({ src: page, width: 900, format: "webp", quality: 85 })).src,
+    large: (await getImage({ src: page, format: "webp", quality: 85 })).src,
+    alt: pageLabel(i),
+    ratio: page.width / page.height,
+  })),
 );
+// The first three pages, fanned out like menus on a table; each opens the viewer at that page.
+// Listed back to front: page 3 (right), page 2 (left), page 1 (front). Complete class literals so
+// Tailwind can see them.
+const fan = [
+  {
+    index: 2,
+    position:
+      "-translate-x-[18%] -translate-y-1/2 rotate-[8deg] group-hover:-translate-x-[8%] group-hover:rotate-[11deg]",
+  },
+  {
+    index: 1,
+    position:
+      "-translate-x-[82%] -translate-y-1/2 -rotate-[8deg] group-hover:-translate-x-[92%] group-hover:-rotate-[11deg]",
+  },
+  {
+    index: 0,
+    position:
+      "-translate-x-1/2 -translate-y-[47%] group-hover:-translate-y-[52%] group-hover:scale-[1.03]",
+  },
+].filter(({ index }) => pages[index]);
 ---
 
-<section
-  class="grid grid-cols-[1fr] gap-[30px] bg-wine text-cream md:grid-cols-[1fr_1fr] md:gap-0"
-  id="menu"
->
-  <div class="px-[7%] py-[50px] md:px-[16%] md:py-[85px]">
+<section class="grid grid-cols-[1fr] bg-wine text-cream md:grid-cols-[1fr_1fr]" id="menu">
+  <div class="px-[7%] pb-[10px] pt-[50px] md:self-center md:px-[16%] md:py-[85px]">
     <p class={eyebrow}>{tx("DOBRO JUTRO. DOBAR APETIT.", "GOOD MORNINGS. GOOD APPETITES.")}</p>
     <h2>{tx("Za svaki deo dana.", "Something for every part of the day.")}</h2>
     <p class="mt-6">
@@ -34,98 +57,42 @@ const large = await Promise.all(
         "Browse the menu and find your next reason to visit.",
       )}
     </p>
-    <a class={`${btnCream} mt-[25px]`} href={menu} target="_blank" rel="noopener noreferrer">
-      {tx("Otvorite meni · PDF", "Open menu · PDF")}
-      <Icon name="arrow-up-right" trailing />
-    </a>
-  </div>
-  <Image
-    class="h-80 max-h-[660px] w-full object-cover md:h-full"
-    src={food1}
-    width={850}
-    format="webp"
-    loading="lazy"
-    alt={tx("Jelo iz Passengers Bara", "A dish at Passengers Bar")}
-  />
-</section>
-<section
-  class="bg-wine px-[max(6vw,20px)] py-6 text-cream"
-  aria-label={tx("Pregled menija", "Menu viewer")}
->
-  <details class="mx-auto max-w-[1280px]" data-carousel>
-    <summary class="cursor-pointer py-3 text-[1.1rem]">
-      {tx("Pročitajte meni ovde", "Read the menu here")}
-      <span class="float-right" aria-hidden="true">
-        <Icon name="plus" />
-      </span>
-    </summary>
-    <div class="flex flex-wrap items-center justify-between gap-4">
-      <a class="underline" href={menu} target="_blank" rel="noopener noreferrer">
-        {tx("Otvorite PDF u novom prozoru", "Open the PDF in a new tab")}
-        <Icon name="arrow-up-right" trailing />
+    <div class={actions}>
+      <button class={btnCream} type="button" data-viewer-open="0">
+        {tx("Pogledajte meni", "Browse the menu")}
+        <Icon name="arrow-right" trailing />
+      </button>
+      <a class={underlined} href={menu} download>
+        {tx("Preuzmite PDF", "Download PDF")}
+        <Icon name="arrow-down" trailing />
       </a>
-      <div class="flex items-center gap-2.5">
-        <button
-          class={roundButton}
-          type="button"
-          data-carousel-prev
-          aria-label={tx("Prethodna strana", "Previous page")}
-        >
-          <Icon name="arrow-left" />
-        </button>
-        <span class="min-w-[4.5em] text-center text-[13px] tabular-nums" data-carousel-status>
-          {`1 / ${pages.length}`}
-        </span>
-        <button
-          class={roundButton}
-          type="button"
-          data-carousel-next
-          aria-label={tx("Sledeća strana", "Next page")}
-        >
-          <Icon name="arrow-right" />
-        </button>
-      </div>
     </div>
-    <p class="mt-3 text-[13px] opacity-80">
-      {tx("Dodirnite stranu da je uvećate.", "Tap a page to zoom in.")}
-    </p>
-    <div
-      class="mt-4 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-3"
-      tabindex="0"
-      data-carousel-track
-      aria-label={tx("Strane menija", "Menu pages")}
-    >
-      {pages.map((page, i) => (
-        <button
-          class="w-full shrink-0 cursor-zoom-in snap-start md:w-auto"
-          type="button"
-          data-viewer-open={i}
-          data-large={large[i].src}
-          aria-label={tx(
-            `Uvećajte stranu ${i + 1} od ${pages.length}`,
-            `Zoom in on page ${i + 1} of ${pages.length}`,
-          )}
-        >
-          <Image
-            class="h-auto w-full rounded-lg bg-cream md:h-[min(80vh,900px)] md:w-auto"
-            src={page}
-            widths={[600, 900, 1200, 1785]}
-            sizes="(min-width: 761px) 640px, 88vw"
-            format="webp"
-            quality={90}
-            loading="lazy"
-            alt={tx(
-              `Meni, strana ${i + 1} od ${pages.length}`,
-              `Menu, page ${i + 1} of ${pages.length}`,
-            )}
-          />
-        </button>
-      ))}
-    </div>
-  </details>
+  </div>
+  <div class="group relative h-[clamp(330px,100vw,460px)] overflow-hidden md:h-auto md:min-h-[620px]">
+    {fan.map(({ index, position }) => (
+      <button
+        class={`${fanPage} ${position}`}
+        type="button"
+        data-viewer-open={index}
+        aria-label={tx(`Otvorite stranu ${index + 1}`, `Open page ${index + 1}`)}
+      >
+        <Image
+          class="block h-auto w-full"
+          src={pages[index]}
+          widths={[300, 450, 600, 900]}
+          sizes="(min-width: 761px) 300px, 46vw"
+          format="webp"
+          quality={85}
+          loading="lazy"
+          alt=""
+        />
+      </button>
+    ))}
+  </div>
   <dialog
     class="m-0 h-dvh max-h-none w-screen max-w-none bg-espresso p-0 text-cream backdrop:bg-black/80"
     data-viewer
+    data-pages={JSON.stringify(viewerPages)}
     aria-label={tx("Meni", "Menu")}
   >
     <div class="flex h-full flex-col">
@@ -189,6 +156,5 @@ const large = await Promise.all(
   </dialog>
 </section>
 <script>
-  import "../../scripts/carousel";
   import "../../scripts/menu-viewer";
 </script>

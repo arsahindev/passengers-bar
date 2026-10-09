@@ -21,6 +21,11 @@ export const wordmark =
   "flex items-center gap-3.5 text-[15px] font-bold tracking-[.15em] md:text-[19px]";
 export const wordmarkSub = "block text-[8px] tracking-[.22em] md:text-[9px]";
 
+// A menu page in the fanned stack (Menu.astro), anchored at the centre of its box. Menu.astro adds
+// each page's translate (offset), rotation and hover spread.
+export const fanPage =
+  "absolute left-1/2 top-1/2 w-[46%] max-w-[300px] cursor-zoom-in overflow-hidden rounded-[3px] bg-cream shadow-[0_24px_50px_-18px_rgba(0,0,0,.65)] ring-1 ring-black/10 transition-[translate,rotate,scale] duration-500 ease-out motion-reduce:transition-none";
+
 // Round prev/next buttons for carousels.
 export const roundButton =
   "size-[35px] rounded-full border border-[#b5b4a8] bg-transparent text-[22px] md:size-11";
