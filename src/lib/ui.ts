@@ -26,6 +26,12 @@ export const wordmarkSub = "block text-[8px] tracking-[.22em] md:text-[9px]";
 export const fanPage =
   "absolute left-1/2 top-1/2 w-[46%] max-w-[300px] cursor-zoom-in overflow-hidden rounded-[3px] bg-cream shadow-[0_24px_50px_-18px_rgba(0,0,0,.65)] ring-1 ring-black/10 transition-[translate,rotate,scale] duration-500 ease-out motion-reduce:transition-none";
 
+// Open/closed status pill (OpenStatus.astro): on the hero photo and on the light Visit section.
+const statusPill =
+  "inline-flex w-fit items-center gap-[.6em] rounded-full border px-4 py-2 text-[13px] leading-none md:text-[14px]";
+export const statusPillDark = `${statusPill} border-white/30 bg-black/35 text-white backdrop-blur-sm hover:bg-black/50`;
+export const statusPillLight = `${statusPill} border-ink/15 bg-white/70 text-ink hover:bg-white`;
+
 // Round prev/next buttons for carousels.
 export const roundButton =
   "size-[35px] rounded-full border border-[#b5b4a8] bg-transparent text-[22px] md:size-11";

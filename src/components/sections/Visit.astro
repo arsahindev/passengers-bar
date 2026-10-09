@@ -3,7 +3,15 @@ import Icon from "../Icon.astro";
 import OpenStatus from "../OpenStatus.astro";
 import { useLocale } from "../../lib/i18n";
 import { settings } from "../../content/settings";
-import { actions, btn, eyebrow, section, twoColumns, underlined } from "../../lib/ui";
+import {
+  actions,
+  btn,
+  eyebrow,
+  section,
+  statusPillLight,
+  twoColumns,
+  underlined,
+} from "../../lib/ui";
 const { locale, tx } = useLocale(Astro.currentLocale);
 const { phone, phoneDisplay } = settings.reservations;
 ---
@@ -17,7 +25,7 @@ const { phone, phoneDisplay } = settings.reservations;
       <em>{tx("Svratite.", "Come by.")}</em>
     </h2>
     <p class="mt-[25px]">
-      <OpenStatus class="inline-flex" />
+      <OpenStatus class={statusPillLight} />
     </p>
     <p>
       Simina 5, Beograd
