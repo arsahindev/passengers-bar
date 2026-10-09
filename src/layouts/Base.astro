@@ -1,0 +1,30 @@
+---
+import { useLocale } from "../lib/i18n";
+import "../styles/global.css";
+
+const { sr, locale, tx } = useLocale(Astro.currentLocale);
+---
+
+<!doctype html>
+<html lang={sr ? "sr-Latn" : "en"}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex,nofollow" />
+    <meta name="theme-color" content="#53272e" />
+    <title>Passengers Bar</title>
+    <meta
+      name="description"
+      content={tx(
+        "Passengers Bar u srcu Dorćola. Istražite prostor, pogledajte meni i kontaktirajte nas za rezervacije i proslave.",
+        "Passengers Bar in the heart of Dorćol. Explore the space, browse the menu and get in touch for tables and celebrations.",
+      )}
+    />
+  </head>
+  <body data-locale={locale}>
+    <a class="absolute left-2.5 top-[-80px] z-[100] bg-white p-2.5 focus:top-0" href="#main">
+      {tx("Pređi na sadržaj", "Skip to content")}
+    </a>
+    <slot />
+  </body>
+</html>

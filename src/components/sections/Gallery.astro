@@ -1,0 +1,78 @@
+---
+import Icon from "../Icon.astro";
+import { useLocale } from "../../lib/i18n";
+import { Image } from "astro:assets";
+import { eyebrow, roundButton, sectionHead } from "../../lib/ui";
+import room1 from "../../assets/passengers/space-1.jpg";
+import room2 from "../../assets/passengers/space-2.jpg";
+import room3 from "../../assets/passengers/space-3.jpg";
+import food1 from "../../assets/passengers/food-1.jpg";
+import food2 from "../../assets/passengers/food-2.jpg";
+const { tx } = useLocale(Astro.currentLocale);
+
+const gallery = [room1, room2, room3, food1, food2];
+---
+
+<section
+  class="mx-auto max-w-[1400px] px-[7%] py-[55px] md:px-[8%] md:pb-[95px] md:pt-2.5"
+  id="gallery"
+  data-carousel
+>
+  <div class={`${sectionHead} flex`}>
+    <div>
+      <p class={eyebrow}>{tx("MESTO I TRENUTAK", "THE PLACE. THE MOMENT.")}</p>
+      <h2 class="text-[2.6rem] md:text-[clamp(2.5rem,4vw,4.2rem)]">
+        {tx("Osetite Passengers.", "A taste of Passengers.")}
+      </h2>
+    </div>
+    <div class="flex gap-2.5 self-end md:self-auto">
+      <button
+        class={roundButton}
+        type="button"
+        data-carousel-prev
+        aria-label={tx("Prethodna fotografija", "Previous photograph")}
+      >
+        <Icon name="arrow-left" />
+      </button>
+      <button
+        class={roundButton}
+        type="button"
+        data-carousel-next
+        aria-label={tx("Sledeća fotografija", "Next photograph")}
+      >
+        <Icon name="arrow-right" />
+      </button>
+    </div>
+  </div>
+  <div
+    class="flex snap-x snap-mandatory gap-5 overflow-x-auto pb-[15px]"
+    tabindex="0"
+    data-carousel-track
+    aria-label={tx("Galerija fotografija", "Photo gallery")}
+  >
+    {gallery.map((img, i) => (
+      <figure class="shrink-0 grow-0 basis-[85%] snap-start md:basis-[42%]">
+        <>
+          <Image
+            class="h-[330px] w-full object-cover md:h-[380px]"
+            src={img}
+            width={850}
+            format="webp"
+            loading="lazy"
+            alt={tx(
+              i < 3 ? "Ambijent Passengers Bara" : "Hrana u Passengers Baru",
+              i < 3 ? "The setting at Passengers Bar" : "Food at Passengers Bar",
+            )}
+          />
+          <figcaption class="mt-[15px] text-[10px] tracking-[.15em]">
+            {String(i + 1).padStart(2, "0")} / 05 ·{" "}
+            {tx(i < 3 ? "Naš prostor" : "Sa našeg stola", i < 3 ? "Our space" : "From our table")}
+          </figcaption>
+        </>
+      </figure>
+    ))}
+  </div>
+</section>
+<script>
+  import "../../scripts/carousel";
+</script>

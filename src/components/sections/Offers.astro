@@ -1,0 +1,55 @@
+---
+import { useLocale } from "../../lib/i18n";
+import { Image } from "astro:assets";
+import { eyebrow, section, sectionHead } from "../../lib/ui";
+import breakfastEN from "../../assets/passengers/breakfast-en.png";
+import breakfastSR from "../../assets/passengers/breakfast-sr.jpg";
+import offersEN from "../../assets/passengers/offers-en.png";
+import offersSR from "../../assets/passengers/offers-sr.jpg";
+const { sr, tx } = useLocale(Astro.currentLocale);
+---
+
+<section class={section} id="offers">
+  <div class={`${sectionHead} md:flex`}>
+    <div>
+      <p class={eyebrow}>{tx("AKTUELNO", "WHAT’S ON")}</p>
+      <h2>{tx("Mali razlozi za dolazak.", "A few more reasons to visit.")}</h2>
+    </div>
+    <p class="mt-[18px]! text-[11px] leading-[1.7] opacity-75 md:max-w-[340px]">
+      {tx(
+        "Za aktuelne ponude i uslove obratite se našem timu.",
+        "Ask our team about current offers and availability.",
+      )}
+    </p>
+  </div>
+  <div class="grid grid-cols-[1fr] gap-[30px] md:grid-cols-[1fr_1fr]">
+    <figure>
+      <Image
+        class="h-auto w-full"
+        src={sr ? breakfastSR : breakfastEN}
+        width={1100}
+        format="webp"
+        loading="lazy"
+        alt={tx(
+          "Doručak: uz doplatu od 250 RSD kafa i ceđeni miks uz bilo koji doručak. Proverite aktuelnu ponudu sa osobljem.",
+          "Breakfast: add coffee and freshly squeezed mixed juice for RSD 250. Offer subject to confirmation.",
+        )}
+      />
+      <figcaption class="mt-3 text-[11px]">{tx("Doručak", "Breakfast")}</figcaption>
+    </figure>
+    <figure>
+      <Image
+        class="h-auto w-full"
+        src={sr ? offersSR : offersEN}
+        width={1100}
+        format="webp"
+        loading="lazy"
+        alt={tx(
+          "Akcije: 4+1 burger gratis; nedelja–četvrtak 25% na određena pića; uz ručak 14–16h jedno piće po izboru. Proverite uslove sa osobljem.",
+          "Offers: buy four burgers, get one free; Sunday–Thursday 25% off selected drinks; lunch 14–16 includes a drink from the listed selection. Terms subject to confirmation.",
+        )}
+      />
+      <figcaption class="mt-3 text-[11px]">{tx("Ponude", "Offers")}</figcaption>
+    </figure>
+  </div>
+</section>

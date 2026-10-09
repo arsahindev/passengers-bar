@@ -1,9 +1,9 @@
 ---
+import Icon from "./Icon.astro";
 import { settings } from "../content/settings";
+import { useLocale } from "../lib/i18n";
 import { btnCream, field, fine } from "../lib/ui";
-const { locale = "en" } = Astro.props;
-const sr = locale === "sr";
-const tx = (a: string, b: string) => (sr ? a : b);
+const { locale, tx } = useLocale(Astro.currentLocale);
 const config = settings.reservations;
 const label = "grid min-w-0 gap-2 text-[12px]";
 ---
@@ -19,12 +19,12 @@ const label = "grid min-w-0 gap-2 text-[12px]";
       </legend>
       <label class={label}>
         {tx("Ime *", "Name *")}
-        <input class={`${field} mt-2`} name="name" required maxlength="80" autocomplete="name" />
+        <input class={field} name="name" required maxlength="80" autocomplete="name" />
       </label>
       <label class={label}>
         {tx("Telefon sa pozivnim brojem države *", "Phone with country code *")}
         <input
-          class={`${field} mt-2`}
+          class={field}
           name="phone"
           type="tel"
           required
@@ -42,16 +42,16 @@ const label = "grid min-w-0 gap-2 text-[12px]";
       </p>
       <label class={label}>
         {tx("Željeni datum *", "Preferred date *")}
-        <input class={`${field} mt-2`} name="date" type="date" required />
+        <input class={field} name="date" type="date" required />
       </label>
       <label class={label}>
         {tx("Željeno vreme *", "Preferred time *")}
-        <input class={`${field} mt-2`} name="time" type="time" required />
+        <input class={field} name="time" type="time" required />
       </label>
       <label class={label}>
         {tx("Broj gostiju *", "Number of guests *")}
         <input
-          class={`${field} mt-2`}
+          class={field}
           name="guests"
           type="number"
           min="1"
@@ -63,14 +63,15 @@ const label = "grid min-w-0 gap-2 text-[12px]";
       </label>
       <label class={label}>
         {tx("Povod (opciono)", "Occasion (optional)")}
-        <input class={`${field} mt-2`} name="occasion" maxlength="80" />
+        <input class={field} name="occasion" maxlength="80" />
       </label>
       <label class={`${label} col-span-full`}>
         {tx("Posebne želje (opciono)", "Special requests (optional)")}
-        <textarea class={`${field} mt-2`} name="notes" rows="3" maxlength="400"></textarea>
+        <textarea class={field} name="notes" rows="3" maxlength="400"></textarea>
       </label>
       <button class={`${btnCream} col-span-full mt-[25px] w-full`} type="submit">
-        {tx("Pripremite poruku", "Prepare message")}↗
+        {tx("Pripremite poruku", "Prepare message")}
+        <Icon name="arrow-up-right" trailing />
       </button>
     </fieldset>
   </form>
@@ -108,11 +109,13 @@ const label = "grid min-w-0 gap-2 text-[12px]";
         {tx("Kopirajte upit", "Copy request")}
       </button>
       <a class={btnCream} data-sms>
-        {tx("Otvorite SMS", "Open SMS")}↗
+        {tx("Otvorite SMS", "Open SMS")}
+        <Icon name="arrow-up-right" trailing />
       </a>
       {config.whatsapp && (
         <a class={btnCream} data-whatsapp rel="noreferrer">
-          WhatsApp ↗
+          WhatsApp
+          <Icon name="arrow-up-right" trailing />
         </a>
       )}
     </div>
@@ -133,7 +136,8 @@ const label = "grid min-w-0 gap-2 text-[12px]";
   </div>
   <p class="empty:hidden" data-status role="status" aria-live="polite"></p>
   <a class="mt-4 inline-block underline" href={`tel:${config.phone}`}>
-    {tx("Ili nas pozovite", "Or call us")}: +381 60 646 4109 ↗
+    {tx("Ili nas pozovite", "Or call us")}: +381 60 646 4109
+    <Icon name="arrow-up-right" trailing />
   </a>
   <noscript>
     <p>

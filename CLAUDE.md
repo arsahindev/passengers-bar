@@ -8,7 +8,7 @@ checklist details.
 
 - `npm ci` — install (Node 24, see `.nvmrc`)
 - `npm run dev` — dev server on 127.0.0.1
-- `npm run build` — production build to `dist/`
+- `npm run build` — production build to `dist/` (`prebuild`/`predev` first run `scripts/menu-pages.mjs`)
 - `npm run check` — `astro check` type check
 - `npm test` — Node test runner over `tests/*.test.mjs` (reservation logic)
 - `npm run format` / `npm run format:check` — Prettier (with Astro plugin)
@@ -25,23 +25,35 @@ Check config changes with `npm run build && npx wrangler deploy --dry-run`; neve
 
 ## Layout
 
-- `src/components/PassengersPage.astro` — the whole page; `ReservationForm.astro` — enquiry form
+- `src/components/PassengersPage.astro` — composes the page from `src/components/sections/*.astro`
+  (one per section, each reads the locale itself); `ReservationForm.astro` — enquiry form
+- `src/layouts/Base.astro` — `<html>`/`<head>`/skip link; `src/lib/i18n.ts` — `useLocale()` gives
+  `tx(serbian, english)`, `sr` and the language-switch URL from `Astro.currentLocale`
 - `src/styles/global.css` — Tailwind v4 entry: `@theme` design tokens (colours, fonts, the `md`
   breakpoint) and a small `@layer base` for element defaults; the only hand-written CSS
+- `src/components/Icon.astro` — inline SVG icons (arrows, plus). Use these, not Unicode arrows like
+  ↗ ← →: the web fonts don't include them, so devices fall back to other fonts or emoji
+- `src/scripts/carousel.ts` — scroll-snap carousel (prev/next buttons, optional page counter) for
+  the gallery and the menu pages; driven by `data-carousel*` attributes
+- `src/scripts/menu-viewer.ts` — full-screen menu page viewer (`<dialog>` in `Menu.astro`) with
+  pinch, double-tap and button zoom, and swipe; the site itself never zooms while it is open
 - `src/lib/ui.ts` — shared class strings (buttons, eyebrow, section layout, form field, etc.)
-- `src/pages/[locale]/index.astro` — `/sr/` and `/en/` routes; `src/pages/index.astro` redirects to `/sr/`
+- `src/pages/{sr,en}/index.astro` — `/sr/` and `/en/` routes (locales and default are set in the
+  `i18n` block of `astro.config.mjs`); `src/pages/index.astro` redirects to `/sr/`
 - `src/content/settings.ts` — reservation phone/channels, tour embed URL and `tourIsSample` flag
-- `src/content/menu-{en,sr}.json` — menu source data
 - `src/lib/reservation.mjs` — phone normalization, message encoding, Belgrade time (unit-tested)
 - `src/assets/passengers/` — images; provenance in `sources.json`
-- `public/menus/*.pdf` — generated menu PDFs, committed. Regenerate with
-  `python3 scripts/build-menu.py en|sr` (needs `reportlab` and macOS fonts; not part of the build)
+- `public/menus/passengers-menu-{sr,en}.pdf` — menu PDFs, committed. The customer edits the menu in
+  Figma and exports both PDFs; replace these files, keeping the filenames. No menu data lives in the repo.
+- `scripts/menu-pages.mjs` — renders each menu PDF to page images in `src/assets/menus/<locale>/`
+  (gitignored, build output) for the on-page viewer; mobile browsers can't show a PDF in an iframe.
+  Uses the `pdf-to-img` devDependency; don't go back to an `<iframe>` for the menu.
 - `public/_headers`, `_redirects`, `robots.txt` — Cloudflare static-assets config (noindex is intentional)
 
 ## Rules
 
 - Every user-facing string needs both Serbian and English. Change both languages together.
-- If menu JSON changes, the PDFs are stale; say so rather than silently leaving them out of sync.
+- Menu content exists only in the PDFs; don't re-create menu data in the repo, and don't edit prices by hand.
 - Privacy: guest reservation details must never be stored, logged, sent via fetch/analytics or put
   in own-site URLs. Details leave the page only through the guest's own messaging action.
 - No backend, no Cloudflare adapter, no secrets, no new runtime dependencies without asking.

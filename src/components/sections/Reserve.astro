@@ -1,0 +1,29 @@
+---
+import { useLocale } from "../../lib/i18n";
+import ReservationForm from "../ReservationForm.astro";
+import { eyebrow } from "../../lib/ui";
+const { tx } = useLocale(Astro.currentLocale);
+---
+
+<section
+  class="grid grid-cols-[1fr] gap-[30px] bg-forest px-[7%] py-[55px] text-white md:grid-cols-[1fr_1fr] md:gap-20 md:px-[8%] md:py-[90px]"
+  id="reserve"
+>
+  <div class="*:mt-5 *:max-w-[400px] md:*:mt-[30px]">
+    <p class={eyebrow}>{tx("NAPRAVITE PLAN", "MAKE A PLAN")}</p>
+    <h2 class="mt-0! max-w-none! text-[3.5rem] md:text-[clamp(2.5rem,4vw,4.2rem)]">
+      {tx("Vidimo se", "See you")}
+      <br />
+      <em>{tx("za stolom.", "at the table.")}</em>
+    </h2>
+    <p>
+      {tx(
+        "Planirate dolazak ili proslavu? Javite nam željeni datum, vreme i broj gostiju.",
+        "Planning a visit or a celebration? Tell us your preferred date, time and number of guests.",
+      )}
+    </p>
+  </div>
+  <div>
+    <ReservationForm />
+  </div>
+</section>

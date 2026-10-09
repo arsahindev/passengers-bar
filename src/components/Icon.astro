@@ -1,0 +1,42 @@
+---
+// Inline SVG icons (arrows, plus/minus, close). Unicode arrows (↗ ← → ＋) aren't in the Google Fonts subsets, so each device
+// fell back to its own font and iOS drew ↗ as an emoji. SVG looks the same everywhere.
+// Sized in em and drawn with currentColor, so an icon follows the surrounding text.
+const paths = {
+  "arrow-up-right": "M7 17 17 7M8 7h9v9",
+  "arrow-down": "M12 5v14m-6-6 6 6 6-6",
+  "arrow-left": "M19 12H5m6-6-6 6 6 6",
+  "arrow-right": "M5 12h14m-6-6 6 6-6 6",
+  plus: "M12 5v14M5 12h14",
+  minus: "M5 12h14",
+  close: "M6 6l12 12M18 6 6 18",
+};
+
+interface Props {
+  name: keyof typeof paths;
+  // Adds a word-space before the icon, for arrows that follow a label.
+  trailing?: boolean;
+  strokeWidth?: number;
+  class?: string;
+}
+
+const { name, trailing = false, strokeWidth = 2, class: className } = Astro.props as Props;
+---
+
+<svg
+  class:list={[
+    "inline-block size-[1em] shrink-0 align-[-.125em]",
+    trailing && "ml-[.3em]",
+    className,
+  ]}
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width={strokeWidth}
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+  focusable="false"
+>
+  <path d={paths[name]}></path>
+</svg>
