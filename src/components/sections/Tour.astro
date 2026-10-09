@@ -32,8 +32,20 @@ const { tx } = useLocale(Astro.currentLocale);
           : tx("Virtuelna tura Passengers Bara", "Passengers Bar virtual tour")
       }
       loading="lazy"
+      data-tour
       allow="autoplay; fullscreen; gyroscope; accelerometer; xr-spatial-tracking"
       allowfullscreen
     ></iframe>
   </section>
 )}
+<script>
+  // Start loading the tour as soon as the page itself has loaded (hero photo, fonts, scripts), so it
+  // is ready by the time the visitor scrolls to it, without slowing the first screen. Without
+  // JavaScript the frame keeps loading="lazy" and loads when scrolled near.
+  const startTour = () => {
+    for (const frame of document.querySelectorAll<HTMLIFrameElement>("iframe[data-tour]"))
+      frame.loading = "eager";
+  };
+  if (document.readyState === "complete") startTour();
+  else addEventListener("load", startTour, { once: true });
+</script>
