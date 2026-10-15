@@ -67,7 +67,7 @@ Files in `public/hero/`:
 - `walkthrough-mobile.mp4`: phones, 540×960 portrait crop of the centre
 - `walkthrough-poster.jpg`, `walkthrough-poster-mobile.jpg`: first frames, used as the poster and the static hero
 
-The current video is a placeholder made from the four venue photos (slow push-ins with crossfades: courtyard, garden terrace, ground-floor room, upstairs room), pending AI-generated walkthrough clips. To replace it, join the clips in order into `joined.mp4`, then:
+The current video is a placeholder made from three venue photos (slow push-ins with crossfades: courtyard `space-2`, ground-floor room `space-3`, upstairs room `space-1`; the busy garden terrace `hero.jpg` is left out), pending AI-generated walkthrough clips. To replace it, join the clips in order into `joined.mp4`, then:
 
 ```sh
 ffmpeg -i joined.mp4 -vf "scale=1600:900:flags=lanczos" -g 1 -crf 22 -an -movflags +faststart -pix_fmt yuv420p public/hero/walkthrough.mp4

@@ -67,6 +67,12 @@ const { phone, phoneDisplay } = settings.reservations;
           {tx("Pronađite svoje mesto", "Find your table")}
           <Icon name="arrow-up-right" trailing />
         </a>
+        {settings.tourEmbedUrl && (
+          <a class={underlined} href="#tour">
+            {tx("Pogledajte prostor", "Explore the space")}
+            <Icon name="arrow-down" trailing />
+          </a>
+        )}
       </div>
     </div>
 
@@ -83,6 +89,12 @@ const { phone, phoneDisplay } = settings.reservations;
           {tx("Pronađite svoje mesto", "Find your table")}
           <Icon name="arrow-up-right" trailing />
         </a>
+        {settings.tourEmbedUrl && (
+          <a class={underlined} href="#tour">
+            {tx("Pogledajte prostor", "Explore the space")}
+            <Icon name="arrow-down" trailing />
+          </a>
+        )}
         <a class={underlined} href={`tel:${phone}`}>
           {`${tx("Ili nas pozovite", "Or call us")}: ${phoneDisplay}`}
         </a>
