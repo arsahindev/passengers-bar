@@ -26,6 +26,8 @@ The site is deployed as a **Cloudflare Worker serving static assets** (not Cloud
 - `wrangler.jsonc` points the Worker at `dist/` and serves `404.html` for unknown URLs. Wrangler is pinned in devDependencies so deploys are repeatable. `public/_headers` and `public/_redirects` are applied by Workers static assets.
 - No Cloudflare adapter, bindings (KV, Images, etc.) or secrets are needed. Do not run `astro add cloudflare`; without `wrangler.jsonc`, Wrangler would try to add the adapter automatically during the deploy.
 
+If a merge to `main` does not show up under Deployments (no "Workers Builds: passengers-bar" check on the merge commit in GitHub), Cloudflare did not receive the push. Check Settings → Builds → Git repository → Manage, confirm the Cloudflare GitHub app can still see this repository, then push or merge any new commit to `main`; that build deploys everything merged so far. Don't use "New deployment" for this: it uploads a version by hand instead of building from `main`.
+
 To check a deploy locally without deploying: `npm run build && npx wrangler deploy --dry-run`, or `npx wrangler dev` to serve `dist/` on 127.0.0.1:8787.
 
 See https://developers.cloudflare.com/workers/static-assets/
