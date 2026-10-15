@@ -57,6 +57,27 @@ Images are existing venue assets plus English poster adaptations, not Space360 p
 
 Prettier with the official Astro plugin is pinned in devDependencies. Run `npm run format`, or `npm run format:check` to verify. The Astro VS Code extension uses the project configuration; format-on-save is enabled for Astro files. `htmlWhitespaceSensitivity: "ignore"` lets adjacent elements be formatted on separate lines. Preserve intentional inline spacing explicitly when needed.
 
+## Walk-in hero
+
+The hero (`src/components/sections/WalkIn.astro`, `src/scripts/walkin.ts`) is a scroll-driven walkthrough: a 400vh section with a sticky full-screen stage whose video is scrubbed by the scroll position. Phones (≤760px) get the portrait mobile video. With `prefers-reduced-motion` or without JavaScript it is a normal-height hero with the poster image, and no video is downloaded.
+
+Files in `public/hero/`:
+
+- `walkthrough.mp4`: desktop, 1600×900, a keyframe on every frame (needed for smooth scrubbing), no audio
+- `walkthrough-mobile.mp4`: phones, 540×960 portrait crop of the centre
+- `walkthrough-poster.jpg`, `walkthrough-poster-mobile.jpg`: first frames, used as the poster and the static hero
+
+The current video is a placeholder made from the four venue photos (slow push-ins with crossfades: courtyard, garden terrace, ground-floor room, upstairs room), pending AI-generated walkthrough clips. To replace it, join the clips in order into `joined.mp4`, then:
+
+```sh
+ffmpeg -i joined.mp4 -vf "scale=1600:900:flags=lanczos" -g 1 -crf 22 -an -movflags +faststart -pix_fmt yuv420p public/hero/walkthrough.mp4
+ffmpeg -i joined.mp4 -vf "crop=ih*9/16:ih,scale=540:960:flags=lanczos" -g 1 -crf 24 -an -movflags +faststart -pix_fmt yuv420p public/hero/walkthrough-mobile.mp4
+ffmpeg -i public/hero/walkthrough.mp4 -frames:v 1 -q:v 3 public/hero/walkthrough-poster.jpg
+ffmpeg -i public/hero/walkthrough-mobile.mp4 -frames:v 1 -q:v 3 public/hero/walkthrough-poster-mobile.jpg
+```
+
+Keep each file under 25 MiB, the Cloudflare Workers static-asset limit per file (all-intra video is large: about 1.9 MB per second at 1600×900). The posters' alt text describes the first frame (the courtyard); update it in `WalkIn.astro` if the first frame changes.
+
 ## Menus
 
 English and Serbian menu PDFs are served locally from `public/menus/`. The menu section shows the first three pages as a fanned stack; they and the "Browse the menu" button open a full-screen viewer, and a smaller "Download PDF" link offers the file itself. All of these select the current language. The viewer shows each PDF page as an image rather than embedding the PDF, because mobile browsers can't display a PDF inside a page (iOS shows a fixed first page, Android nothing). `scripts/menu-pages.mjs` renders the pages from the PDFs automatically before every `npm run dev` and `npm run build` (gitignored output in `src/assets/menus/`). The viewer has pinch, double-tap and button zoom, so the A4 text is readable on phones. Both PDFs use the same six-page design, preserving the supplied menu’s 92 food/wine entries, RSD prices and offers. Serbian uses local number formatting. The source includes unexplained dual croissant prices, which are retained without inventing portion sizes. Verify current prices and promotions with the owner before public launch.

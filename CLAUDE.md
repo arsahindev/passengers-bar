@@ -33,6 +33,10 @@ Check config changes with `npm run build && npx wrangler deploy --dry-run`; neve
   breakpoint) and a small `@layer base` for element defaults; the only hand-written CSS
 - `src/components/Icon.astro` — inline SVG icons (arrows, plus). Use these, not Unicode arrows like
   ↗ ← →: the web fonts don't include them, so devices fall back to other fonts or emoji
+- `src/components/sections/WalkIn.astro` + `src/scripts/walkin.ts` — scroll-driven walk-in hero: 400vh
+  section, sticky stage, video scrubbed by scroll; static poster hero with reduced motion or no JS.
+  Videos/posters in `public/hero/` (placeholder from the venue photos; README "Walk-in hero").
+  Keep each video under 25 MiB (Workers static-asset limit)
 - `src/scripts/carousel.ts` — scroll-snap carousel (prev/next buttons, optional page counter) for
   the photo gallery in the "Our place" section (`Story.astro`); driven by `data-carousel*` attributes
 - `src/components/Viewer.astro` + `src/scripts/viewer.ts` — full-screen image viewer (`<dialog>`) with

@@ -1,0 +1,107 @@
+---
+import Icon from "../Icon.astro";
+import OpenStatus from "../OpenStatus.astro";
+import { useLocale } from "../../lib/i18n";
+import { settings } from "../../content/settings";
+import {
+  actions,
+  btnCream,
+  eyebrowRow,
+  eyebrowText,
+  statusPillDark,
+  underlined,
+} from "../../lib/ui";
+const { tx } = useLocale(Astro.currentLocale);
+const { phone, phoneDisplay } = settings.reservations;
+
+// Scroll-driven "walk-in" hero (src/scripts/walkin.ts). By default it is a normal-height hero with
+// the poster image; the script turns it into a 400vh section with a sticky full-screen stage and
+// scrubs the walkthrough video with the scroll position. Without JavaScript or with
+// prefers-reduced-motion it stays the static hero and never downloads the video.
+// Videos and posters live in public/hero/ (see README "Walk-in hero").
+---
+
+<section
+  class="group/walk relative bg-espresso text-white data-[active]:h-[400vh]"
+  aria-label={tx("Dobrodošli u Passengers Bar", "Welcome to Passengers Bar")}
+  data-walkin
+  data-src="/hero/walkthrough.mp4"
+  data-src-mobile="/hero/walkthrough-mobile.mp4"
+>
+  <div class="relative flex min-h-[max(73vh,580px)] flex-col overflow-hidden px-[7%] pb-[30px] pt-[max(7.3vh,58px)] md:min-h-[max(min(770px,80vh),540px)] md:px-[8%] md:pt-[max(min(115px,12vh),81px)] group-data-[active]/walk:sticky group-data-[active]/walk:top-0 group-data-[active]/walk:h-svh group-data-[active]/walk:min-h-0">
+    <picture>
+      <source media="(max-width: 760px)" srcset="/hero/walkthrough-poster-mobile.jpg" />
+      <img
+        class="absolute inset-0 size-full object-cover"
+        src="/hero/walkthrough-poster.jpg"
+        alt={tx("Dvorište Passengers Bara", "The Passengers Bar courtyard")}
+        fetchpriority="high"
+      />
+    </picture>
+    <video
+      class="absolute inset-0 hidden size-full object-cover group-data-[active]/walk:block"
+      muted
+      playsinline
+      preload="none"
+      poster="/hero/walkthrough-poster.jpg"
+      aria-hidden="true"
+      tabindex="-1"
+      data-walkin-video
+    ></video>
+    <div class="absolute inset-0 bg-[linear-gradient(90deg,#101910bb_0%,#10191055_58%,#10191022)]"></div>
+    <div class="absolute inset-0 bg-black opacity-0" data-walkin-shade></div>
+
+    <div class="relative max-w-[770px] md:max-w-[1100px]" data-walkin-start>
+      <div class={eyebrowRow}>
+        <p class={eyebrowText}>SIMINA 5 · DORĆOL · BEOGRAD</p>
+        <OpenStatus href="#visit" class={statusPillDark} />
+      </div>
+      <h1 class="text-[3.8rem] tracking-[-.045em] md:text-[clamp(4.7rem,8vw,8.5rem)]">
+        Passengers Bar
+      </h1>
+      <p class="mt-4 font-display text-[1.7rem] leading-[1.15] md:text-[clamp(1.9rem,3vw,2.7rem)]">
+        <em>{tx("Vaše mesto. U srcu Dorćola.", "Your kind of place.")}</em>
+      </p>
+      <div class={`${actions} group-data-[active]/walk:hidden`}>
+        <a class={btnCream} href="#reserve">
+          {tx("Pronađite svoje mesto", "Find your table")}
+          <Icon name="arrow-up-right" trailing />
+        </a>
+      </div>
+    </div>
+
+    <div
+      class="absolute inset-x-[7%] top-1/2 hidden -translate-y-1/2 opacity-0 md:inset-x-[8%] group-data-[active]/walk:block"
+      data-walkin-end
+      inert
+    >
+      <h2 class="text-[3.4rem] md:text-[clamp(4rem,7vw,7rem)]">
+        <em>{tx("Izvolite, uđite.", "Come on in.")}</em>
+      </h2>
+      <div class={actions}>
+        <a class={btnCream} href="#reserve">
+          {tx("Pronađite svoje mesto", "Find your table")}
+          <Icon name="arrow-up-right" trailing />
+        </a>
+        <a class={underlined} href={`tel:${phone}`}>
+          {`${tx("Ili nas pozovite", "Or call us")}: ${phoneDisplay}`}
+        </a>
+      </div>
+    </div>
+
+    <p
+      class="absolute inset-x-0 bottom-[34px] hidden flex-col items-center gap-2 text-[11px] font-bold tracking-[.22em] md:text-[12px] group-data-[active]/walk:flex"
+      data-walkin-cue
+    >
+      {tx("SKROLUJTE", "SCROLL")}
+      <Icon name="arrow-down" class="animate-bounce motion-reduce:animate-none" />
+    </p>
+    <div
+      class="absolute inset-x-0 bottom-0 hidden h-[2px] origin-left scale-x-0 bg-cream/80 group-data-[active]/walk:block"
+      data-walkin-progress
+    ></div>
+  </div>
+</section>
+<script>
+  import "../../scripts/walkin";
+</script>
